@@ -7,7 +7,8 @@
 @import '../blocks/header-margin/header-margin.css';
 @import '../blocks/header/header.css';
 @import '../blocks/page/page.css';
-@import '../blocks/header/__logo/header__logo.css';
+@import '../blocks/profile/profile.css';
+@import '../blocks/profile-info/profile-info.css';
 /* @import '../blocks/';
 @import '../blocks/';
 @import '../blocks/'; */

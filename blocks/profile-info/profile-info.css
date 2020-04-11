@@ -1,0 +1,10 @@
+@import './__edit-button/profile-info__edit-button.css';
+@import './__icon/profile-info__icon.css';
+@import './__information-person/profile-info__information-person.css';
+@import './__name/profile-info__name.css';
+@import './__container/profile-info__container.css';
+
+.profile-info{
+    display: flex;
+    flex-direction: column;
+}
