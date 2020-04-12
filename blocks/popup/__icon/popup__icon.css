@@ -1,3 +1,7 @@
+.popup__icon{
+    position: absolute;
+}
+
 .popup__icon:hover{
     opacity: .6;
     cursor: pointer;
@@ -5,15 +9,15 @@
 
 @media (min-width: 521px){
     .popup__icon{
-        position: absolute;
-        margin: -82px 0 0 333px;
+        top: calc(50% - 199px);
+        right: calc(50% - 232px);
     }
 }
 
 @media (max-width: 520px){
     .popup__icon{
-        position: absolute;
-        margin: -56px 0 0 217px;
+        top: calc(50% - 190px);
+        right: calc(50% - 154px);
         height: 30px;
     }
 }
