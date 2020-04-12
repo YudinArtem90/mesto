@@ -13,6 +13,9 @@
 @import '../blocks/elements/elements.css';
 @import '../blocks/footer/footer.css';
 @import '../blocks/margin-footer/margin-footer.css';
+@import '../blocks/popup/popup.css';
 /* @import '../blocks/';
 @import '../blocks/';
 @import '../blocks/'; */
+
+@import '../blocks/popup/_opened/popup_opened.css';

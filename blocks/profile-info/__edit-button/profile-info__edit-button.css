@@ -8,3 +8,8 @@
     justify-items: center;
     align-items: center;
 }
+
+.profile-info__edit-button:hover{
+    opacity: .6;
+    cursor: pointer;
+}

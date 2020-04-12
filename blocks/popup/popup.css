@@ -1,0 +1,18 @@
+@import './__container/popup__container.css';
+@import './__field/popup__field.css';
+@import './__save-button/popup__save-button.css';
+@import './__title/popup__title.css';
+@import './__icon/popup__icon.css';
+
+.popup{
+    /* background: #000000; */
+    /* background:rgb(12, 11, 11);
+    opacity: .5; */
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+}

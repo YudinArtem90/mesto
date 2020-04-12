@@ -10,3 +10,8 @@
     justify-content: center;
     margin: auto;
 }
+
+.profile__add-button:hover{
+    opacity: .6;
+    cursor: pointer;
+}

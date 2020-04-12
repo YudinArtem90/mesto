@@ -1,0 +1,9 @@
+.popup__icon{
+    position: absolute;
+    margin: -82px 0 0 355px;
+}
+
+.popup__icon:hover{
+    opacity: .6;
+    cursor: pointer;
+}
