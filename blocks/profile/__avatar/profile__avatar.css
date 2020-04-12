@@ -4,3 +4,15 @@
     border-radius: 100px;
     margin: 0 auto;
 }
+
+@media (min-width: 426px){
+    .profile__avatar{
+        margin-bottom: 47px;
+    }
+}
+
+@media (max-width: 425px){
+    .profile__avatar{
+        margin: 10px 0 14px;
+    }
+}

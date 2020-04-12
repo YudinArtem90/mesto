@@ -1,8 +1,21 @@
 .profile-info__information-person{
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
     color: #FFFFFF;
-    margin: 16px 0 0;
+}
+
+@media (min-width: 426px){
+    .profile-info__information-person{
+        margin: 16px 0 0;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+
+@media (max-width: 425px){
+    .profile-info__information-person{
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
 }
