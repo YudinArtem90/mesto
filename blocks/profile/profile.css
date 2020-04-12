@@ -15,7 +15,7 @@
 @media (max-width: 950px){
     .profile{
         justify-items: center;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: repeat(3, auto);
         grid-template-columns: 1fr;
     }
 }

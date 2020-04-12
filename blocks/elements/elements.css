@@ -4,4 +4,5 @@
     grid-template-rows: 1fr 1fr;
     grid-row-gap: 21px;
     grid-column-gap: 18px;
+    justify-items: center;
 }

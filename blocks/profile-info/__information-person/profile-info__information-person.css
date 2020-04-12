@@ -6,7 +6,7 @@
 
 @media (min-width: 426px){
     .profile-info__information-person{
-        margin: 16px 0 0;
+        margin: 16px 0 36px;
         font-size: 18px;
         line-height: 22px;
     }

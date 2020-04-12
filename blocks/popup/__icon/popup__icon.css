@@ -1,9 +1,19 @@
-.popup__icon{
-    position: absolute;
-    margin: -82px 0 0 355px;
-}
-
 .popup__icon:hover{
     opacity: .6;
     cursor: pointer;
+}
+
+@media (min-width: 521px){
+    .popup__icon{
+        position: absolute;
+        margin: -82px 0 0 333px;
+    }
+}
+
+@media (max-width: 520px){
+    .popup__icon{
+        position: absolute;
+        margin: -56px 0 0 217px;
+        height: 30px;
+    }
 }

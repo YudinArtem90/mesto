@@ -3,3 +3,9 @@
     flex-direction: row;
     align-items: center;
 }
+
+@media (max-width: 425px){
+    .profile-info__container{
+        margin: 0 0 14px;
+    }
+}

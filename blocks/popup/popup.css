@@ -3,11 +3,9 @@
 @import './__save-button/popup__save-button.css';
 @import './__title/popup__title.css';
 @import './__icon/popup__icon.css';
+@import './__header/popup__header.css';
 
 .popup{
-    /* background: #000000; */
-    /* background:rgb(12, 11, 11);
-    opacity: .5; */
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
