@@ -1,7 +1,6 @@
 @import '../vendor/normalize.css';
 
-/* @import '../fonts/inter.css'; */
-
+@import '../fonts/inter.css';
 
 @import '../blocks/body/body.css';
 @import '../blocks/header-margin/header-margin.css';
