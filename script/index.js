@@ -12,7 +12,8 @@ const closeModalEditProfileInfo = function(){
     popup.classList.remove('popup_opened');
 };
 
-const saveDataProfile = function(){
+const saveDataProfile = function(e){
+    e.preventDefault();
     const name = popupField[0].value;
     const informPerson = popupField[1].value;
     
@@ -24,13 +25,6 @@ const saveDataProfile = function(){
 
 buttonCloseModalEditProfileInfo.addEventListener('click', closeModalEditProfileInfo);
 buttonSaveDataProfile.addEventListener('click', saveDataProfile);
-
-popup.addEventListener('keypress', function(e){
-    if(e.key === 'Enter'){
-        saveDataProfile();
-    }
-});
-
 
 buttonOpenModalEditProfileInfo.addEventListener('click', function(){
 

@@ -20,81 +20,70 @@
                 <div class="profile-info">
                     <div class="profile-info__container">
                         <h1 class="profile-info__name">Жак-Ив Кусто</h1>
-                        <button class="profile-info__edit-button">
-                            <img src="./images/button/pen.svg" alt="Иконка редактирования" class="profile-info__icon">
-                        </button>
+                        <button class="profile-info__edit-button" type="button"></button>
                     </div>
                     <p class="profile-info__information-person">Исследователь океана</p>
                 </div>
-                <button class="profile__add-button">
-                    <img src="./images/button/plus.svg" alt="Иконка добавления" class="profile__icon">
-                </button>
+                <button class="profile__add-button" type="button"></button>
             </section>
 
 
             <section class="elements">
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Karashaevsk.jpg" alt="Карачаевск" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Карачаевск</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Elbrus.jpg" alt="Гора Эльбрус" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Гора Эльбрус</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Olkhon_Island.jpg" alt="Остров Ольхон" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Остров Ольхон</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Dombay.jpg" alt="Домбай" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Домбай</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Baikal.jpg" alt="Байкал" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Байкал</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
 
-                <div class="element">
+                <article class="element">
                     <img src="./images/element/Magadan.jpg" alt="Магадан" class="element__image">
                     <div class="element__container">
                         <p class="element__text">Магадан</p>
-                        <img src="./images/element/icon.svg" alt="Иконка лайка" class="element__icon">
                     </div>
-                </div>
+                </article>
             </section>
 
 
             <div class="popup">
-                <div class="popup__container">
+                <form class="popup__container">
                     <div class="popup__header">
                         <h2 class="popup__title">Редактировать профиль</h2>
                         <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon">
                     </div>
                     <input class="popup__field">
                     <input class="popup__field">
-                    <button class="popup__save-button">Сохранить</button>
-                </div>
+                    <button class="popup__save-button" type="submit">Сохранить</button>
+                </form>
             </div>
-            <script src="./script/index.js"></script>
         </main>
 
 
@@ -102,5 +91,6 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
     </div>
+    <script src="./script/index.js"></script>
 </body>
 </html>

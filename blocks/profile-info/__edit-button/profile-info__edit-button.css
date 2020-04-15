@@ -6,6 +6,10 @@
     display: flex;
     justify-content: center;
     margin: 20px 0 0 17px;
+    background-image: url(../../../images/button/pen.svg);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .profile-info__edit-button:hover{

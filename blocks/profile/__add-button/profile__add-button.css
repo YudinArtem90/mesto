@@ -3,6 +3,10 @@
     box-sizing: border-box;
     border-radius: 2px;
     background-color: black;
+    background-image: url(../../../images/button/plus.svg);
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .profile__add-button:hover{
