@@ -28,13 +28,13 @@ const saveDataProfile = function(e){
     closeModalEditProfileInfo();
 }
 
-buttonCloseModalEditProfileInfo.addEventListener('click', closeModalEditProfileInfo);
-buttonSaveDataProfile.addEventListener('click', saveDataProfile);
-
-buttonOpenModalEditProfileInfo.addEventListener('click', function(){
-
+const defaultFillingOutFormData = function(){
     namePerson.value = namePage.textContent;
     informPerson.value = informPage.textContent;
 
     openModalEditProfileInfo();
-});
+}
+
+buttonCloseModalEditProfileInfo.addEventListener('click', closeModalEditProfileInfo);
+buttonSaveDataProfile.addEventListener('click', saveDataProfile);
+buttonOpenModalEditProfileInfo.addEventListener('click', defaultFillingOutFormData);
