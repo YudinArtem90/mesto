@@ -4,8 +4,10 @@ const buttonSaveDataProfile = document.querySelector('.popup__save-button');
 const activPopup = document.querySelector('.popup_opened');
 const popup = document.querySelector('.popup');
 
-let namePerson = document.querySelector('.namePerson');
-let informPerson = document.querySelector('.informPerson');
+let namePerson = document.querySelector('.popup__field_name_person');
+let informPerson = document.querySelector('.popup__field_inform_person');
+
+
 let namePage = document.querySelector('.profile-info__name');
 let informPage = document.querySelector('.profile-info__information-person');
 
