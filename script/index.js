@@ -38,10 +38,16 @@ let namePage = document.querySelector('.profile-info__name');
 let informPage = document.querySelector('.profile-info__information-person');
 
 const sectionElements = document.querySelector('.elements');
-let templateCard = document.querySelector('#card').content;
+const templateCard = document.querySelector('#card').content;
+
+const deleteCard = (event) => {
+    const parentElement = event.target.parentElement;
+    parentElement.remove();
+}
 
 initialCards.forEach((card) => {
     const cloneTemplate = templateCard.cloneNode(true);
+    const buttonDeleteCard = cloneTemplate.querySelector('.element__button-delete');
     const image =  cloneTemplate.querySelector('.element__image');
     const text = cloneTemplate.querySelector('.element__text');
     const name = card.name;
@@ -49,6 +55,9 @@ initialCards.forEach((card) => {
     image.src = card.link;
     image.setAttribute('alt', name);
     text.textContent = name;
+
+    buttonDeleteCard.addEventListener('click', deleteCard);
+
     sectionElements.append(cloneTemplate);
 });
 
@@ -79,3 +88,4 @@ const defaultFillingOutFormData = function(){
 buttonCloseModalEditProfileInfo.addEventListener('click', closeModalEditProfileInfo);
 buttonSaveDataProfile.addEventListener('click', saveDataProfile);
 buttonOpenModalEditProfileInfo.addEventListener('click', defaultFillingOutFormData);
+//buttonDeleteCard.addEventListener('click', deleteCard);
