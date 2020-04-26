@@ -1,6 +1,8 @@
 @import './__container/element__container.css';
 @import './__text/element__text.css';
 @import './__image/element__image.css';
+@import './__button-delete/element__button-delete.css';
+@import './__button-like/element__button-like.css';
 
 .element{
     max-width: 282px;
@@ -10,4 +12,5 @@
     display: grid;
     grid-template-columns: 282px;
     grid-template-rows: 282px 79px;
+    position: relative;
 }

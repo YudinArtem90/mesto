@@ -6,8 +6,4 @@
     justify-content: space-between;
     flex-direction: row;
     margin: 0 22px;
-    background-image: url(../../../images/element/icon.svg);
-    background-size: auto;
-    background-repeat: no-repeat;
-    background-position: right;
 }

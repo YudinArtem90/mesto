@@ -29,17 +29,21 @@
 
 
             <section class="elements">
-                <article class="element">
+                <!-- <article class="element">
                     <img src="./images/element/Karashaevsk.jpg" alt="Карачаевск" class="element__image">
+                    <img src="./images/element/delete.svg" alt="" class="element__button-delete">
                     <div class="element__container">
                         <p class="element__text">Карачаевск</p>
+                        <img src="./images/element/icon.svg" alt="" class="element__button-like">
                     </div>
                 </article>
 
                 <article class="element">
                     <img src="./images/element/Elbrus.jpg" alt="Гора Эльбрус" class="element__image">
+                    <img src="./images/element/delete.svg" alt="" class="element__button-delete">
                     <div class="element__container">
                         <p class="element__text">Гора Эльбрус</p>
+                        <img src="./images/element/icon.svg" alt="" class="element__button-like">
                     </div>
                 </article>
 
@@ -69,7 +73,7 @@
                     <div class="element__container">
                         <p class="element__text">Магадан</p>
                     </div>
-                </article>
+                </article> -->
             </section>
 
 
@@ -91,6 +95,20 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
     </div>
+
+
+    <template id='card'>
+        <article class="element">
+            <img class="element__image">
+            <img src="./images/element/delete.svg" alt="" class="element__button-delete">
+            <div class="element__container">
+                <p class="element__text"></p>
+                <img src="./images/element/icon.svg" alt="" class="element__button-like">
+            </div>
+        </article>
+    </template>
+
+
     <script src="./script/index.js"></script>
 </body>
 </html>
