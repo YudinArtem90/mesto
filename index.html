@@ -29,55 +29,13 @@
 
 
             <section class="elements">
-                <!-- <article class="element">
-                    <img src="./images/element/Karashaevsk.jpg" alt="Карачаевск" class="element__image">
-                    <img src="./images/element/delete.svg" alt="" class="element__button-delete">
-                    <div class="element__container">
-                        <p class="element__text">Карачаевск</p>
-                        <img src="./images/element/icon.svg" alt="" class="element__button-like">
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img src="./images/element/Elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-                    <img src="./images/element/delete.svg" alt="" class="element__button-delete">
-                    <div class="element__container">
-                        <p class="element__text">Гора Эльбрус</p>
-                        <img src="./images/element/icon.svg" alt="" class="element__button-like">
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img src="./images/element/Olkhon_Island.jpg" alt="Остров Ольхон" class="element__image">
-                    <div class="element__container">
-                        <p class="element__text">Остров Ольхон</p>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img src="./images/element/Dombay.jpg" alt="Домбай" class="element__image">
-                    <div class="element__container">
-                        <p class="element__text">Домбай</p>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img src="./images/element/Baikal.jpg" alt="Байкал" class="element__image">
-                    <div class="element__container">
-                        <p class="element__text">Байкал</p>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img src="./images/element/Magadan.jpg" alt="Магадан" class="element__image">
-                    <div class="element__container">
-                        <p class="element__text">Магадан</p>
-                    </div>
-                </article> -->
+                
             </section>
 
+            <div class="popup-view-photo">
+            </div>
 
-            <div class="popup">
+            <!-- <div class="popup">
                 <form class="popup__container" method="post">
                     <div class="popup__header">
                         <h2 class="popup__title">Редактировать профиль</h2>
@@ -87,7 +45,22 @@
                     <input class="popup__field popup__field_inform_person" name="informPerson">
                     <button class="popup__save-button" type="submit">Сохранить</button>
                 </form>
-            </div>
+            </div> -->
+
+
+
+            <!-- <div class="popup add-card-popup">
+                <form class="popup__container" method="post">
+                    <div class="popup__header">
+                        <h2 class="popup__title">Редактировать профиль</h2>
+                        <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon">
+                    </div>
+                    <input class="popup__field popup__field_name_person" name="namePerson">
+                    <input class="popup__field popup__field_inform_person" name="informPerson">
+                    <button class="popup__save-button" type="submit">Сохранить</button>
+                </form>
+            </div> -->
+
         </main>
 
 
@@ -103,9 +76,21 @@
             <img src="./images/element/delete.svg" alt="" class="element__button-delete">
             <div class="element__container">
                 <p class="element__text"></p>
-                <img src="./images/element/icon.svg" alt="" class="element__button-like">
+                <button type="button" class="element__button-like"></button>
             </div>
         </article>
+    </template>
+
+
+    <template id='popupForm'>
+        <div class="popup">
+            <form class="popup__container" method="post">
+                <div class="popup__header">
+                    <h2 class="popup__title"></h2>
+                    <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon">
+                </div>
+            </form>
+        </div>
     </template>
 
 

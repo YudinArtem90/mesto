@@ -13,4 +13,9 @@
     bottom: 0;
     left: 0;
     display: none;
+    display: flex;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .5s, opacity .7s linear;
 }
