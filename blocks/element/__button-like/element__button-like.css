@@ -1,5 +1,11 @@
 .element__button-like{
     cursor: pointer;
-    max-height: 18px;
+    /* max-height: 18px; */
     margin: auto;
+
+    background-image: url('../../../images/element/dislike.svg');
+    height: 19px;
+    width: 22px;
+    border: none;
+    background-repeat: no-repeat;
 }

@@ -3,6 +3,7 @@
 @import './__image/element__image.css';
 @import './__button-delete/element__button-delete.css';
 @import './__button-like/element__button-like.css';
+@import './__button-like/_action/element__button-like_action.css';
 
 .element{
     max-width: 282px;
