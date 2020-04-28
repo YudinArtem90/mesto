@@ -1,6 +1,4 @@
 .popup__container{
-    width: 430px; 
-    /* min-width: 240px;  */
     background: #FFFFFF;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
@@ -10,9 +8,14 @@
     flex-direction: column;
 }
 
-@media (max-width: 520px){
+@media (min-width: 573px){
     .popup__container{
-        /* max-width: 189px; */
+        width: 430px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__container{
         width: 240px;
     }
 }

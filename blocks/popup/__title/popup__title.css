@@ -2,8 +2,20 @@
     margin: 0;
     font-style: normal;
     font-weight: 900;
-    font-size: 24px;
-    line-height: 29px;
     color: #000000;
     margin: 0;
+}
+
+@media (min-width: 573px){
+    .popup__title{
+        font-size: 24px;
+        line-height: 29px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__title{
+        font-size: 18px;
+        line-height: 22px;
+    }
 }

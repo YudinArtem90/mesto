@@ -6,8 +6,6 @@
     
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
     text-align: center;
 
     color: #FFFFFF;
@@ -17,4 +15,18 @@
     background: rgba(0, 0, 0, 0.8);
     border-radius: 2px;
     cursor: pointer;
+}
+
+@media (min-width: 573px){
+    .popup__title{
+        font-size: 18px;
+        line-height: 22px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__title{
+        font-size: 14px;
+        line-height: 17px;
+    }
 }
