@@ -1,0 +1,32 @@
+.popup-view-photo__container{
+    margin: auto;
+    background-repeat: round;
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+
+@media (min-width: 700px){
+    .popup-view-photo__container{
+        max-width: 816px;
+        max-height: 540px;
+        width: 75vw;
+        height: 75vh;
+    }
+}
+
+@media (min-width: 516px) and (max-width: 699px){
+    .popup-view-photo__container{
+        width: 433px;
+        height: 540px;
+    }
+}
+
+@media (max-width: 515px){
+    .popup-view-photo__container{
+        width: 242px;
+        height: 311px;
+    }
+}

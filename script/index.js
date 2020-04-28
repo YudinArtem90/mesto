@@ -27,20 +27,25 @@ const initialCards = [
 
 let namePage = document.querySelector('.profile-info__name');
 let informPage = document.querySelector('.profile-info__information-person');
-
-const sectionElements = document.querySelector('.elements');
-const templateCard = document.querySelector('#card').content;
+const popupViewPhoto = document.querySelector('.popup-view-photo');
 
 /**
  * Кнопки 
  */
 const buttonOpenPopupAddCard = document.querySelector('.profile__add-button');
 const buttonOpenPopupEditProfileInfo = document.querySelector('.profile-info__edit-button');
+const buttonClosePopupViewPhoto = document.querySelector('.popup-view-photo__close-popup');
+
+
+const popupForm = document.querySelector('#popupForm').content;
+const sectionElements = document.querySelector('.elements');
+const templateCard = document.querySelector('#card').content;
 
 /**
- * Шаблон модального окна
+ * Модальное окно просмотра фото
  */
-const popupForm = document.querySelector('#popupForm').content;
+const containerPopupViewPhoto = document.querySelector('.popup-view-photo__container');
+const infoPopupViewPhoto = document.querySelector('.popup-view-photo__info');
 
 /**
  * Для модального окна добавления карточек
@@ -73,6 +78,14 @@ const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
 }
 
+const closeViewPhoto = (event) => {
+    popupViewPhoto.classList.toggle("popup-view-photo_opened");
+}
+
+const openViewPhoto = (event) => {
+    popupViewPhoto.classList.toggle("popup-view-photo_opened");
+}
+
 const addCard = (name, link) => {
     const template = templateCard.cloneNode(true);
     const buttonDeleteCard = template.querySelector('.element__button-delete');
@@ -86,8 +99,15 @@ const addCard = (name, link) => {
 
     buttonDeleteCard.addEventListener('click', deleteCard);
     buttonCardLike.addEventListener('click', addLikeOrDislikeCard);
+    image.addEventListener('click', () => createPopupViewPhoto(link, name));
 
     return template;
+}
+
+const createPopupViewPhoto = (link, name) => {
+    containerPopupViewPhoto.style.backgroundImage = `url(${link})`;
+    infoPopupViewPhoto.textContent = name;
+    openViewPhoto();
 }
 
 initialCards.forEach((data) => {
@@ -189,5 +209,6 @@ buttonCloseModalEditProfile.addEventListener('click', closePopupEditProfile);
 popupEditProfileButtonSave.addEventListener('click', saveDataProfile);
 
 popupAddCardButtonSave.addEventListener('click', addOneCard);
+buttonClosePopupViewPhoto.addEventListener('click', closeViewPhoto);
 createPopupAddCard();
 createPopupEditProfileInfo();

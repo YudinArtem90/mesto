@@ -1,0 +1,17 @@
+@import './__container/popup-view-photo__container.css';
+@import './__close-popup/popup-view-photo__close-popup.css';
+@import './__info/popup-view-photo__info.css';
+
+.popup-view-photo{
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility .5s, opacity .7s linear;
+}

@@ -1,0 +1,25 @@
+.popup-view-photo__close-popup{
+    display: flex;
+    align-self: flex-end;
+    position: relative;
+}
+
+.popup-view-photo__close-popup:hover{
+    opacity: .6;
+    cursor: pointer;
+}
+
+@media (min-width: 516px){
+    .popup-view-photo__close-popup{
+        left: 47px;
+        bottom: 47px;
+    }
+}
+
+@media (max-width: 515px){
+    .popup-view-photo__close-popup{
+        height: 30px;
+        left: 27px;
+        bottom: 27px;
+    }
+}

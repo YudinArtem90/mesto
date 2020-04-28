@@ -1,0 +1,5 @@
+.popup-view-photo_opened{
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .7s linear;
+}
