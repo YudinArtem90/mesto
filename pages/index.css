@@ -13,8 +13,6 @@
 @import '../blocks/footer/footer.css';
 @import '../blocks/margin-footer/margin-footer.css';
 @import '../blocks/popup/popup.css';
-@import '../blocks/popup-view-photo/popup-view-photo.css';
 
 @import '../blocks/popup/_opened/popup_opened.css';
 @import '../blocks/element/__button-like/_action/element__button-like_action.css';
-@import '../blocks/popup-view-photo/_opened/popup-view-photo_opened.css';

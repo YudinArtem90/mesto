@@ -1,4 +1,4 @@
-.popup-view-photo__container{
+.popup__view-photo-container{
     margin: auto;
     background-repeat: round;
     background-size: cover;
@@ -9,7 +9,7 @@
 
 
 @media (min-width: 700px){
-    .popup-view-photo__container{
+    .popup__view-photo-container{
         max-width: 816px;
         max-height: 540px;
         width: 75vw;
@@ -18,14 +18,14 @@
 }
 
 @media (min-width: 516px) and (max-width: 699px){
-    .popup-view-photo__container{
+    .popup__view-photo-container{
         width: 433px;
         height: 540px;
     }
 }
 
 @media (max-width: 515px){
-    .popup-view-photo__container{
+    .popup__view-photo-container{
         width: 242px;
         height: 311px;
     }

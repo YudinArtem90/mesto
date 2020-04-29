@@ -1,23 +1,22 @@
-.popup-view-photo__close-popup{
+.popup__icon-close-view-photo{
     display: flex;
     align-self: flex-end;
     position: relative;
 }
-
-.popup-view-photo__close-popup:hover{
+.popup__icon-close-view-photo:hover{
     opacity: .6;
     cursor: pointer;
 }
 
 @media (min-width: 516px){
-    .popup-view-photo__close-popup{
+    .popup__icon-close-view-photo{
         left: 47px;
         bottom: 47px;
     }
 }
 
 @media (max-width: 515px){
-    .popup-view-photo__close-popup{
+    .popup__icon-close-view-photo{
         height: 30px;
         left: 27px;
         bottom: 27px;

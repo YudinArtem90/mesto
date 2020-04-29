@@ -28,14 +28,37 @@
             </section>
 
 
-            <section class="elements">
-                
-            </section>
+            <section class="elements"></section>
 
-            <div class="popup-view-photo">
-                <div class="popup-view-photo__container">
-                    <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup-view-photo__close-popup">
-                    <p class="popup-view-photo__info"></p>
+            <div class="popup">
+                <form class="popup__container popup__container_edit-profile" method="post">
+                    <div class="popup__header">
+                        <h2 class="popup__title">Редактировать профиль</h2>
+                        <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-form">
+                    </div>
+                    <input class="popup__field popup__field_name_person" name="namePerson">
+                    <input class="popup__field popup__field_inform_person" name="informPerson">
+                    <button class="popup__save-button" type="submit">Сохранить</button>
+                </form>
+            </div>
+
+            <div class="popup">
+                <form class="popup__container popup__container_add-card" method="post">
+                    <div class="popup__header">
+                        <h2 class="popup__title">Новое место</h2>
+                        <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-form">
+                    </div>
+                    <input class="popup__field popup__field_name_card" name="nameCard" placeholder='Название'>
+                    <input class="popup__field popup__field_link_card" name="linkCard" placeholder='Ссылка на картинку'>
+                    <button class="popup__save-button" type="submit">Создать</button>
+                </form>
+            </div>
+
+
+            <div class="popup">
+                <div class="popup__view-photo-container">
+                    <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-view-photo">
+                    <p class="popup__view-photo-info"></p>
                 </div>
             </div>
 
@@ -58,19 +81,6 @@
             </div>
         </article>
     </template>
-
-
-    <template id='popupForm'>
-        <div class="popup">
-            <form class="popup__container" method="post">
-                <div class="popup__header">
-                    <h2 class="popup__title"></h2>
-                    <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon">
-                </div>
-            </form>
-        </div>
-    </template>
-
 
     <script src="./script/index.js"></script>
 </body>

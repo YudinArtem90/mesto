@@ -1,3 +1,45 @@
+const sectionElements = document.querySelector('.elements');
+
+/**
+ * Формы 
+ */
+const formEditProfile = document.querySelector('.popup__container_edit-profile');
+const formCardAdd = document.querySelector('.popup__container_add-card');
+
+/**
+ * Кнопки 
+ */
+const buttonClosePopupViewPhoto = document.querySelector('.popup__icon-close-view-photo');
+const buttonClosePopupFormEditProfile = formEditProfile.querySelector('.popup__icon-close-form');
+const buttonClosePopupFormCardAdd = formCardAdd.querySelector('.popup__icon-close-form');
+const buttonOpenPopupEditProfileInfo = document.querySelector('.profile-info__edit-button');
+const buttonOpenPopupAddCard = document.querySelector('.profile__add-button');
+const buttonSavePopupEditProfile = formEditProfile.querySelector('.popup__save-button');
+const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
+
+/**
+ * Поля ввода-вывода 
+ */
+let inputNamePopupEditProfile = document.querySelector('.popup__field_name_person');
+let inputInfoPopupEditProfile = document.querySelector('.popup__field_inform_person');
+let inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
+let popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
+let popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
+
+/**
+ * Данные страницы
+ */
+let namePage = document.querySelector('.profile-info__name');
+let informPage = document.querySelector('.profile-info__information-person');
+
+/**
+ * Модальное окно просмотра фото
+ */
+const containerPopupViewPhoto = document.querySelector('.popup__view-photo-container');
+const infoPopupViewPhoto = document.querySelector('.popup__view-photo-info');
+
+const templateCard = document.querySelector('#card').content;
+
 const initialCards = [
     {
         name: 'Архыз',
@@ -25,52 +67,8 @@ const initialCards = [
     }
 ];
 
-let namePage = document.querySelector('.profile-info__name');
-let informPage = document.querySelector('.profile-info__information-person');
-const popupViewPhoto = document.querySelector('.popup-view-photo');
-
-/**
- * Кнопки 
- */
-const buttonOpenPopupAddCard = document.querySelector('.profile__add-button');
-const buttonOpenPopupEditProfileInfo = document.querySelector('.profile-info__edit-button');
-const buttonClosePopupViewPhoto = document.querySelector('.popup-view-photo__close-popup');
-
-
-const popupForm = document.querySelector('#popupForm').content;
-const sectionElements = document.querySelector('.elements');
-const templateCard = document.querySelector('#card').content;
-
-/**
- * Модальное окно просмотра фото
- */
-const containerPopupViewPhoto = document.querySelector('.popup-view-photo__container');
-const infoPopupViewPhoto = document.querySelector('.popup-view-photo__info');
-
-/**
- * Для модального окна добавления карточек
- */
-const popupAddCardInputName = document.createElement('input'); 
-const popupAddCardInputLink = document.createElement('input'); 
-const popupAddCardButtonSave = document.createElement('button');
-
-const cloneTemplateAddCard = popupForm.cloneNode(true);
-const popupAddCard = cloneTemplateAddCard.querySelector('.popup');
-const buttonClosePopupAddCard = cloneTemplateAddCard.querySelector('.popup__icon');
-
-/**
- * Для модального окна редактирования профиля
- */
-const popupEditProfileInputName = document.createElement('input'); 
-const popupEditProfileInputInformPersonal = document.createElement('input'); 
-const popupEditProfileButtonSave = document.createElement('button');
-
-const cloneTemplateEditProfile = popupForm.cloneNode(true);
-const popupEditProfile = cloneTemplateEditProfile.querySelector('.popup');
-const buttonCloseModalEditProfile = cloneTemplateEditProfile.querySelector('.popup__icon');
-
 const deleteCard = (event) => {
-    const parentElement = event.target.parentElement;
+    const parentElement = event.target.closest('.element');
     parentElement.remove();
 }
 
@@ -78,15 +76,24 @@ const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
 }
 
-const closeViewPhoto = (event) => {
-    popupViewPhoto.classList.toggle("popup-view-photo_opened");
+/**
+ * Общий метод закрытия и открытия модалки 
+ */
+const openAndClosePopup = (container) => {
+    const parentElement = container.closest('.popup');
+    parentElement.classList.toggle("popup_opened");
 }
 
-const openViewPhoto = (event) => {
-    popupViewPhoto.classList.toggle("popup-view-photo_opened");
+const createPopupViewPhoto = (link, name) => {
+    containerPopupViewPhoto.style.backgroundImage = `url(${link})`;
+    infoPopupViewPhoto.textContent = name;
+    openAndClosePopup(containerPopupViewPhoto);
 }
 
-const addCard = (name, link) => {
+/**
+ *  Создания шаблона карточек
+ */
+const createTemplateCard = (name, link) => {
     const template = templateCard.cloneNode(true);
     const buttonDeleteCard = template.querySelector('.element__button-delete');
     const buttonCardLike = template.querySelector('.element__button-like');
@@ -104,111 +111,53 @@ const addCard = (name, link) => {
     return template;
 }
 
-const createPopupViewPhoto = (link, name) => {
-    containerPopupViewPhoto.style.backgroundImage = `url(${link})`;
-    infoPopupViewPhoto.textContent = name;
-    openViewPhoto();
-}
-
+/**
+ * Динамическое добавление карточек
+ */
 initialCards.forEach((data) => {
-    const card = addCard(data.name, data.link);
+    const card = createTemplateCard(data.name, data.link);
 
     sectionElements.append(card);
 });
 
-const openPopupAddCard = () => {
-    popupAddCard.classList.add('popup_opened');
+
+/**
+ * Заполнение формы редактирования пользователя
+ */
+fillingOutEditProfileForm = () => {
+    inputNamePopupEditProfile.value = namePage.textContent;
+    inputInfoPopupEditProfile.value = informPage.textContent;
+    openAndClosePopup(inputNamePopupEditProfile);
 }
 
-const closePopupAddCard = () => {
-    popupAddCard.classList.remove('popup_opened');
+editProfile = (event) => {
+    event.preventDefault();
+    namePage.textContent = inputNamePopupEditProfile.value;
+    informPage.textContent = inputInfoPopupEditProfile.value;
+    openAndClosePopup(event.target);
 }
-
-const openPopupEditProfile = () => {
-    popupEditProfile.classList.add('popup_opened');
-}
-
-const closePopupEditProfile = () => {
-    popupEditProfile.classList.remove('popup_opened');
-}
-
-const saveDataProfile = (e) =>{
-    e.preventDefault();
-    
-    namePage.textContent = popupEditProfileInputName.value;
-    informPage.textContent = popupEditProfileInputInformPersonal.value;
-    
-    closePopupEditProfile();
-}
-
-const createPopupAddCard = function(){
-    const popupTitle = cloneTemplateAddCard.querySelector('.popup__title');
-    const popupHeader = cloneTemplateAddCard.querySelector('.popup__header');
-
-    popupHeader.after(popupAddCardInputName, popupAddCardInputLink, popupAddCardButtonSave);
-
-    popupTitle.textContent = 'Новое место';
-
-    popupAddCardButtonSave.textContent = 'Создать';
-    popupAddCardButtonSave.classList.add('popup__save-button');
-    popupAddCardButtonSave.setAttribute('type', 'submit');
-
-    popupAddCardInputName.classList.add('popup__field');
-    popupAddCardInputName.setAttribute('placeholder', 'Название');
-    popupAddCardInputName.setAttribute('name', 'name');
-
-    popupAddCardInputLink.classList.add('popup__field');
-    popupAddCardInputLink.setAttribute('placeholder', 'Ссылка на картинку')
-    popupAddCardInputLink.setAttribute('name', 'link');
-
-    sectionElements.append(cloneTemplateAddCard);
-};
-
-const createPopupEditProfileInfo = function(){
-    const popupTitle = cloneTemplateEditProfile.querySelector('.popup__title');
-    const popupHeader = cloneTemplateEditProfile.querySelector('.popup__header');
-
-    popupHeader.after(popupEditProfileInputName, popupEditProfileInputInformPersonal, popupEditProfileButtonSave);
-
-    popupTitle.textContent = 'Редактировать профиль';
-
-    popupEditProfileButtonSave.textContent = 'Сохранить';
-    popupEditProfileButtonSave.classList.add('popup__save-button');
-    popupEditProfileButtonSave.setAttribute('type', 'submit');
-
-    popupEditProfileInputName.classList.add('popup__field');
-    popupEditProfileInputName.value = namePage.textContent;
-    popupEditProfileInputName.setAttribute('name', 'name');
-
-    popupEditProfileInputInformPersonal.classList.add('popup__field');
-    popupEditProfileInputInformPersonal.value = informPage.textContent;
-    popupEditProfileInputInformPersonal.setAttribute('name', 'link');
-
-    sectionElements.append(cloneTemplateEditProfile);
-};
 
 /**
  * Добавление карточки
  */
 const addOneCard = (event) => {
     event.preventDefault()
-    const card = addCard(popupAddCardInputName.value, popupAddCardInputLink.value);
+    const card = createTemplateCard(popupAddCardInputName.value, popupAddCardInputLink.value);
     sectionElements.prepend(card);
     popupAddCardInputName.value = '';
     popupAddCardInputLink.value = '';
-    closePopupAddCard();
+    openAndClosePopup(popupAddCardInputName);
 }
 
+/**
+ * закрытия модальных окон
+ */
+buttonClosePopupViewPhoto.addEventListener('click', () => openAndClosePopup(event.target));
+buttonClosePopupFormEditProfile.addEventListener('click', () => openAndClosePopup(event.target));
+buttonClosePopupFormCardAdd.addEventListener('click', () => openAndClosePopup(event.target));
 
+buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
+buttonOpenPopupAddCard.addEventListener('click', () => openAndClosePopup(inputNamePopupAddCard));
 
-buttonClosePopupAddCard.addEventListener('click', closePopupAddCard);
-buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
-
-buttonOpenPopupEditProfileInfo.addEventListener('click', openPopupEditProfile);
-buttonCloseModalEditProfile.addEventListener('click', closePopupEditProfile);
-popupEditProfileButtonSave.addEventListener('click', saveDataProfile);
-
-popupAddCardButtonSave.addEventListener('click', addOneCard);
-buttonClosePopupViewPhoto.addEventListener('click', closeViewPhoto);
-createPopupAddCard();
-createPopupEditProfileInfo();
+buttonSavePopupEditProfile.addEventListener('click', editProfile);
+buttonSavePopupAddCard.addEventListener('click', addOneCard);

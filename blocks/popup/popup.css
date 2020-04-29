@@ -2,8 +2,11 @@
 @import './__field/popup__field.css';
 @import './__save-button/popup__save-button.css';
 @import './__title/popup__title.css';
-@import './__icon/popup__icon.css';
+@import './__icon-close-form/popup__icon-close-form.css';
 @import './__header/popup__header.css';
+@import './__view-photo-container/popup__view-photo-container.css';
+@import './__icon-close-view-photo/popup__icon-close-view-photo.css';
+@import './__view-photo-info/popup__view-photo-info.css';
 
 .popup{
     background: rgba(0, 0, 0, 0.5);
@@ -14,7 +17,7 @@
     left: 0;
     display: flex;
 
-    visibility: hidden;
-    opacity: 0;
+    visibility: hidden; 
+    opacity: 0; 
     transition: visibility .5s, opacity .7s linear;
 }

@@ -1,21 +1,21 @@
-.popup__icon{
+.popup__icon-close-form{
     position: absolute;
 }
 
-.popup__icon:hover{
+.popup__icon-close-form:hover{
     opacity: .6;
     cursor: pointer;
 }
 
 @media (min-width: 573px){
-    .popup__icon{
+    .popup__icon-close-form{
         top: calc(50% - 199px);
         right: calc(50% - 296px);
     }
 }
 
 @media (max-width: 572px){
-    .popup__icon{
+    .popup__icon-close-form{
         top: calc(50% - 172px);
         right: calc(50% - 178px);
         height: 30px;
