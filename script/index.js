@@ -20,17 +20,17 @@ const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
 /**
  * Поля ввода-вывода 
  */
-let inputNamePopupEditProfile = document.querySelector('.popup__field_name_person');
-let inputInfoPopupEditProfile = document.querySelector('.popup__field_inform_person');
-let inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
-let popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
-let popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
+const inputNamePopupEditProfile = document.querySelector('.popup__field_name_person');
+const inputInfoPopupEditProfile = document.querySelector('.popup__field_inform_person');
+const inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
+const popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
+const popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
 
 /**
  * Данные страницы
  */
-let namePage = document.querySelector('.profile-info__name');
-let informPage = document.querySelector('.profile-info__information-person');
+const namePage = document.querySelector('.profile-info__name');
+const informPage = document.querySelector('.profile-info__information-person');
 
 /**
  * Модальное окно просмотра фото
@@ -67,7 +67,9 @@ const initialCards = [
     }
 ];
 
-const deleteCard = (event) => {
+const deleteCard = (event, buttonDeleteCard) => {
+    // card.lastElementChild.remove()
+    // console.log('card', card.lastElementChild.remove());
     const parentElement = event.target.closest('.element');
     parentElement.remove();
 }
@@ -105,7 +107,7 @@ const createTemplateCard = (name, link) => {
     image.setAttribute('alt', name);
     text.textContent = name;
 
-    buttonDeleteCard.addEventListener('click', deleteCard);
+    buttonDeleteCard.addEventListener('click', (event) => deleteCard(event, buttonDeleteCard), [true]);
     buttonCardLike.addEventListener('click', addLikeOrDislikeCard);
     image.addEventListener('click', () => createPopupViewPhoto(link, name));
 
@@ -113,25 +115,15 @@ const createTemplateCard = (name, link) => {
 }
 
 /**
- * Динамическое добавление карточек
- */
-initialCards.forEach((data) => {
-    const card = createTemplateCard(data.name, data.link);
-
-    sectionElements.append(card);
-});
-
-
-/**
  * Заполнение формы редактирования пользователя
  */
-fillingOutEditProfileForm = () => {
+const fillingOutEditProfileForm = () => {
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
     openAndClosePopup(inputNamePopupEditProfile);
 }
 
-editProfile = (event) => {
+const editProfile = (event) => {
     event.preventDefault();
     namePage.textContent = inputNamePopupEditProfile.value;
     informPage.textContent = inputInfoPopupEditProfile.value;
@@ -145,17 +137,29 @@ const addOneCard = (event) => {
     event.preventDefault()
     const card = createTemplateCard(popupAddCardInputName.value, popupAddCardInputLink.value);
     sectionElements.prepend(card);
-    popupAddCardInputName.value = '';
-    popupAddCardInputLink.value = '';
+    formCardAdd.reset();
     openAndClosePopup(popupAddCardInputName);
 }
+
+const addCard = (name, link) => {
+    const card = createTemplateCard(name, link);
+
+    sectionElements.append(card);
+}
+
+/**
+ * Динамическое добавление карточек
+ */
+initialCards.forEach((data) => {
+    addCard(data.name, data.link);
+});
 
 /**
  * закрытия модальных окон
  */
-buttonClosePopupViewPhoto.addEventListener('click', () => openAndClosePopup(event.target));
-buttonClosePopupFormEditProfile.addEventListener('click', () => openAndClosePopup(event.target));
-buttonClosePopupFormCardAdd.addEventListener('click', () => openAndClosePopup(event.target));
+buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(event.target));
+buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(event.target));
+buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(event.target));
 
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 buttonOpenPopupAddCard.addEventListener('click', () => openAndClosePopup(inputNamePopupAddCard));
