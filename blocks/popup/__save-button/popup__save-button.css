@@ -1,13 +1,9 @@
 .popup__save-button{
     background: #000000;
     border-radius: 2px;
-    margin: 48px 0 0;
-    height: 50px;
-    
     font-style: normal;
     font-weight: normal;
     text-align: center;
-
     color: #FFFFFF;
 }
 
@@ -18,15 +14,19 @@
 }
 
 @media (min-width: 573px){
-    .popup__title{
+    .popup__save-button{
         font-size: 18px;
         line-height: 22px;
+        margin: 48px 0 0;
+        height: 50px;
     }
 }
 
 @media (max-width: 572px){
-    .popup__title{
+    .popup__save-button{
         font-size: 14px;
         line-height: 17px;
+        margin: 36px 0 0;
+        height: 40px;
     }
 }

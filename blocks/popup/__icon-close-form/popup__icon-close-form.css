@@ -1,5 +1,6 @@
 .popup__icon-close-form{
     position: absolute;
+    max-height: 40px;
 }
 
 .popup__icon-close-form:hover{
@@ -9,15 +10,15 @@
 
 @media (min-width: 573px){
     .popup__icon-close-form{
-        top: calc(50% - 199px);
-        right: calc(50% - 296px);
+        top: calc(50% - 198px);
+        right: calc(50% - 281px);
     }
 }
 
 @media (max-width: 572px){
     .popup__icon-close-form{
-        top: calc(50% - 172px);
-        right: calc(50% - 178px);
+        top: calc(50% - 161px);
+        right: calc(50% - 162px);
         height: 30px;
     }
 }

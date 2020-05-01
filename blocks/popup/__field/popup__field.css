@@ -1,12 +1,23 @@
 .popup__field{
     border: 0;
     border-bottom: 1px solid #000000;
-    height: 50px;
-
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-
     color: #000000;
+}
+
+@media (min-width: 573px){
+    .popup__field{
+        font-size: 14px;
+        line-height: 17px;
+        height: 57px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__field{
+        font-size: 12px;
+        line-height: 15px;
+        height: 42px;
+    }
 }

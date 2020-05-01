@@ -1,11 +1,24 @@
 .popup__icon-close-view-photo{
     align-self: flex-end;
     position: relative;
-    left: 33px;
-    top: 7px;
-    max-height: 40px;
 }
 .popup__icon-close-view-photo:hover{
     opacity: .6;
     cursor: pointer;
+}
+
+@media (min-width: 573px){
+    .popup__icon-close-view-photo{
+        left: 33px;
+        top: 7px;
+        max-height: 40px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__icon-close-view-photo{
+        left: 26px;
+        top: 5px;
+        max-height: 30px;
+    }
 }
