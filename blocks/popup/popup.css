@@ -7,6 +7,8 @@
 @import './__view-photo-container/popup__view-photo-container.css';
 @import './__icon-close-view-photo/popup__icon-close-view-photo.css';
 @import './__view-photo-info/popup__view-photo-info.css';
+@import './__main-container/popup__main-container.css';
+@import './__footer-container/popup__footer-container.css';
 
 .popup{
     background: rgba(0, 0, 0, 0.5);
@@ -16,7 +18,6 @@
     bottom: 0;
     left: 0;
     display: flex;
-
     visibility: hidden; 
     opacity: 0; 
     transition: visibility .5s, opacity .7s linear;

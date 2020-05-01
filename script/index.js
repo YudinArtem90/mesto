@@ -85,7 +85,8 @@ const openAndClosePopup = (container) => {
 }
 
 const createPopupViewPhoto = (link, name) => {
-    containerPopupViewPhoto.style.backgroundImage = `url(${link})`;
+    containerPopupViewPhoto.src = link; 
+    containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
     openAndClosePopup(containerPopupViewPhoto);
 }
