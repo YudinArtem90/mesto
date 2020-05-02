@@ -67,11 +67,10 @@ const initialCards = [
     }
 ];
 
-const deleteCard = (event, buttonDeleteCard) => {
-    // card.lastElementChild.remove()
-    // console.log('card', card.lastElementChild.remove());
-    const parentElement = event.target.closest('.element');
-    parentElement.remove();
+const deleteCard = (card, buttonCardLike, image) => {
+    buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
+    image.removeEventListener('click', createPopupViewPhoto);
+    card.remove();
 }
 
 const addLikeOrDislikeCard = (event) => {
@@ -86,8 +85,9 @@ const openAndClosePopup = (container) => {
     parentElement.classList.toggle("popup_opened");
 }
 
-const createPopupViewPhoto = (link, name) => {
-    containerPopupViewPhoto.src = link; 
+const createPopupViewPhoto = (event) => {
+    const name = event.target.alt;
+    containerPopupViewPhoto.src = event.target.currentSrc; 
     containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
     openAndClosePopup(containerPopupViewPhoto);
@@ -97,7 +97,7 @@ const createPopupViewPhoto = (link, name) => {
  *  Создания шаблона карточек
  */
 const createTemplateCard = (name, link) => {
-    const template = templateCard.cloneNode(true);
+    const template = templateCard.firstElementChild.cloneNode(true);
     const buttonDeleteCard = template.querySelector('.element__button-delete');
     const buttonCardLike = template.querySelector('.element__button-like');
     const image =  template.querySelector('.element__image');
@@ -106,10 +106,10 @@ const createTemplateCard = (name, link) => {
     image.src = link;
     image.setAttribute('alt', name);
     text.textContent = name;
-
-    buttonDeleteCard.addEventListener('click', (event) => deleteCard(event, buttonDeleteCard), [true]);
+    
     buttonCardLike.addEventListener('click', addLikeOrDislikeCard);
-    image.addEventListener('click', () => createPopupViewPhoto(link, name));
+    image.addEventListener('click', createPopupViewPhoto);
+    buttonDeleteCard.addEventListener('click', () => deleteCard(template, buttonCardLike, image), {onсe : true});
 
     return template;
 }
