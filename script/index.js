@@ -89,7 +89,6 @@ const addLikeOrDislikeCard = (event) => {
  * Общий метод закрытия и открытия модалки 
  */
 const openAndClosePopup = (popup) => {
-    //const parentElement = container.closest('.popup');
     popup.classList.toggle("popup_opened");
 }
 
@@ -140,8 +139,7 @@ const editProfile = (event) => {
 
 const addCard = (name, link) => {
     const card = createTemplateCard(name, link);
-
-    sectionElements.append(card);
+    sectionElements.prepend(card);
 }
 
 /**
