@@ -4,14 +4,14 @@
     color: #545454;
 }
 
-@media (min-width: 425px){
+@media (min-width: 901px){
     .footer__copyright{
         font-size: 18px;
         line-height: 22px;
     }
 }
 
-@media (max-width: 425px){
+@media (max-width: 900px){
     .footer__copyright{
         font-size: 14px;
         line-height: 17px;

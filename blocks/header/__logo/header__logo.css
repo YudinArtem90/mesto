@@ -2,14 +2,14 @@
     opacity: 0.7;
 }
 
-@media (min-width: 426px){
+@media (min-width: 901px){
     .header__logo{
         height: 33px;
         margin: 45px 0 40px;
     }
 }
 
-@media (max-width: 425px){
+@media (max-width: 900px){
     .header__logo{
         height: 24px;
         margin: 28px 0 31px 27px;

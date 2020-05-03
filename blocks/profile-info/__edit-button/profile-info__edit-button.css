@@ -10,11 +10,11 @@
     background-size: auto;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
 
 .profile-info__edit-button:hover{
     opacity: .6;
-    cursor: pointer;
 }
 
 @media (min-width: 426px){
