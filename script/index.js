@@ -16,13 +16,12 @@ const buttonOpenPopupEditProfileInfo = document.querySelector('.profile-info__ed
 const buttonOpenPopupAddCard = document.querySelector('.profile__add-button');
 const buttonSavePopupEditProfile = formEditProfile.querySelector('.popup__save-button');
 const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
-
+const inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
 /**
  * Поля ввода-вывода 
  */
 const inputNamePopupEditProfile = document.querySelector('.popup__field_name_person');
 const inputInfoPopupEditProfile = document.querySelector('.popup__field_inform_person');
-const inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
 const popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
 const popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
 
@@ -67,22 +66,8 @@ const initialCards = [
     }
 ];
 
-const deleteCard = (card, buttonCardLike, image) => {
-    buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
-    image.removeEventListener('click', createPopupViewPhoto);
-    card.remove();
-}
-
 const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
-}
-
-/**
- * Общий метод закрытия и открытия модалки 
- */
-const openAndClosePopup = (container) => {
-    const parentElement = container.closest('.popup');
-    parentElement.classList.toggle("popup_opened");
 }
 
 const createPopupViewPhoto = (event) => {
@@ -91,6 +76,20 @@ const createPopupViewPhoto = (event) => {
     containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
     openAndClosePopup(containerPopupViewPhoto);
+}
+
+const deleteCard = (card, buttonCardLike, image) => {
+    buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
+    image.removeEventListener('click', createPopupViewPhoto);
+    card.remove();
+}
+
+/**
+ * Общий метод закрытия и открытия модалки 
+ */
+const openAndClosePopup = (container) => {
+    const parentElement = container.closest('.popup');
+    parentElement.classList.toggle("popup_opened");
 }
 
 /**
@@ -166,3 +165,4 @@ buttonOpenPopupAddCard.addEventListener('click', () => openAndClosePopup(inputNa
 
 buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
+

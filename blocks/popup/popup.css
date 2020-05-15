@@ -9,6 +9,8 @@
 @import './__view-photo-info/popup__view-photo-info.css';
 @import './__main-container/popup__main-container.css';
 @import './__footer-container/popup__footer-container.css';
+@import './__field-error/popup__field-error.css';
+@import './__field-error/_active/popup__field-error_active.css';
 
 .popup{
     background: rgba(0, 0, 0, 0.5);
