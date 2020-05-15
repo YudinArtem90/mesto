@@ -1,0 +1,12 @@
+.popup__save-button_blocking{
+    border: 1px solid #000;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    background-color: #fff;
+    color: #000;
+}

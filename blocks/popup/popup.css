@@ -1,6 +1,5 @@
 @import './__container/popup__container.css';
 @import './__field/popup__field.css';
-@import './__save-button/popup__save-button.css';
 @import './__title/popup__title.css';
 @import './__icon-close-form/popup__icon-close-form.css';
 @import './__header/popup__header.css';
@@ -9,6 +8,10 @@
 @import './__view-photo-info/popup__view-photo-info.css';
 @import './__main-container/popup__main-container.css';
 @import './__footer-container/popup__footer-container.css';
+@import './__field-error/popup__field-error.css';
+@import './__field-error/_active/popup__field-error_active.css';
+@import './__save-button/popup__save-button.css';
+@import './__save-button/_blocking/popup__save-button_blocking.css';
 
 .popup{
     background: rgba(0, 0, 0, 0.5);

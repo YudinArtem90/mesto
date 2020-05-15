@@ -75,21 +75,8 @@ const initialCards = [
     }
 ];
 
-const deleteCard = (card, buttonCardLike, image) => {
-    buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
-    image.removeEventListener('click', createPopupViewPhoto);
-    card.remove();
-}
-
 const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
-}
-
-/**
- * Общий метод закрытия и открытия модалки 
- */
-const openAndClosePopup = (popup) => {
-    popup.classList.toggle("popup_opened");
 }
 
 const createPopupViewPhoto = (event) => {
@@ -97,7 +84,20 @@ const createPopupViewPhoto = (event) => {
     containerPopupViewPhoto.src = event.target.currentSrc; 
     containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
-    openAndClosePopup(popupViewPhoto);
+    openAndClosePopup(containerPopupViewPhoto);
+}
+
+const deleteCard = (card, buttonCardLike, image) => {
+    buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
+    image.removeEventListener('click', createPopupViewPhoto);
+    card.remove();
+}
+
+/**
+ * Общий метод закрытия и открытия модалки 
+ */
+const openAndClosePopup = (popup) => {
+    popup.classList.toggle("popup_opened");
 }
 
 /**
@@ -175,3 +175,4 @@ buttonOpenPopupAddCard.addEventListener('click', () => openAndClosePopup(popupAd
 
 buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
+
