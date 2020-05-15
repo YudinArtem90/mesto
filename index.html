@@ -36,7 +36,7 @@
                         <h2 class="popup__title">Редактировать профиль</h2>
                         <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-form">
                     </div>
-                    <input id="name_person" class="popup__field popup__field_name_person" type="text" name="namePerson" minlength="2" maxlength="40" pattern="[А-Яа-яёA-Za-z]" required>
+                    <input id="name_person" class="popup__field popup__field_name_person" type="text" name="namePerson" minlength="2" maxlength="40" pattern="^[A-Za-zА-Яа-яЁё\s\-]+$" required>
                     <span id="name_person-error" class="popup__field-error"></span>
                     <input id="inform_person" class="popup__field popup__field_inform_person" type="text" name="informPerson" minlength="2" maxlength="200" required>
                     <span id="inform_person-error" class="popup__field-error"></span>
@@ -50,9 +50,9 @@
                         <h2 class="popup__title">Новое место</h2>
                         <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-form">
                     </div>
-                    <input id="name_card" class="popup__field popup__field_name_card" name="nameCard" placeholder='Название'>
+                    <input id="name_card" class="popup__field popup__field_name_card" type="text" minlength="1" maxlength="30" name="nameCard" placeholder='Название' required>
                     <span id="name_card-error" class="popup__field-error"></span>
-                    <input id="link_card" class="popup__field popup__field_link_card" name="linkCard" placeholder='Ссылка на картинку'>
+                    <input id="link_card" class="popup__field popup__field_link_card" type="url" name="linkCard" placeholder='Ссылка на картинку' required>
                     <span id="link_card-error" class="popup__field-error"></span>
                     <button class="popup__save-button" type="submit">Создать</button>
                 </form>

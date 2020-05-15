@@ -1,32 +1,36 @@
 const objectForm = {
   form : '.popup__container',
-  inputForm: '.popup__field'
+  inputForm: '.popup__field',
+  buttonSaveForm: '.popup__save-button'
 }
 
 // Функция, которая добавляет класс с ошибкой
-const showInputError = (element, spanError) => {
+const showInputError = (element, spanError, buttonSave) => {
   element.classList.add('form__input_type_error');
   spanError.classList.add('popup__field-error_active');
+  buttonSave.classList.add('popup__save-button_blocking');
+  buttonSave.disabled = true; 
   spanError.textContent = element.validationMessage;
 };
 
 // Функция, которая удаляет класс с ошибкой
-const hideInputError = (element, spanError) => {
+const hideInputError = (element, spanError, buttonSave) => {
   element.classList.remove('form__input_type_error');
   spanError.classList.remove('popup__field-error_active');
+  buttonSave.classList.remove('popup__save-button_blocking');
+  buttonSave.disabled = false; 
   spanError.textContent = '';
 };
 
 // Функция, которая проверяет валидность поля
 const isValid = (formInput, form) => {
   const spanError = form.querySelector(`#${formInput.id}-error`);
-  console.log('formInput.validity.valid', formInput.validity.valid);
+  const buttonSave = form.querySelector(objectForm.buttonSaveForm);
+  
   if (!formInput.validity.valid) {
-    // Если поле не проходит валидацию, покажем ошибку
-    showInputError(formInput, spanError);
+    showInputError(formInput, spanError, buttonSave);
   } else {
-    // Если проходит, скроем
-    hideInputError(formInput, spanError);
+    hideInputError(formInput, spanError, buttonSave);
   }
 };
 

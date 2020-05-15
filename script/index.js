@@ -14,8 +14,8 @@ const buttonClosePopupFormEditProfile = formEditProfile.querySelector('.popup__i
 const buttonClosePopupFormCardAdd = formCardAdd.querySelector('.popup__icon-close-form');
 const buttonOpenPopupEditProfileInfo = document.querySelector('.profile-info__edit-button');
 const buttonOpenPopupAddCard = document.querySelector('.profile__add-button');
-const buttonSavePopupEditProfile = formEditProfile.querySelector('.popup__save-button');
-const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
+const buttonSavePopupEditProfile = formEditProfile.querySelector(objectForm.buttonSaveForm);
+const buttonSavePopupAddCard = formCardAdd.querySelector(objectForm.buttonSaveForm);
 const inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
 /**
  * Поля ввода-вывода 
