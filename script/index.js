@@ -4,9 +4,9 @@ const sectionElements = document.querySelector('.elements');
  * Popups 
  */
 
- const popupEditProfile = document.querySelector(objectForm.popupEditProfile);
- const popupAddCard = document.querySelector(objectForm.popupAddCard);
- const popupViewPhoto = document.querySelector(objectForm.popupViewPhoto);
+ const popupEditProfile = document.querySelector(pageElements.popupEditProfile);
+ const popupAddCard = document.querySelector(pageElements.popupAddCard);
+ const popupViewPhoto = document.querySelector(pageElements.popupViewPhoto);
 
 /**
  * Формы 
@@ -132,10 +132,12 @@ const fillingOutEditProfileForm = (event) => {
 }
 
 const editProfile = (event) => {
-    event.preventDefault();
-    namePage.textContent = inputNamePopupEditProfile.value;
-    informPage.textContent = inputInfoPopupEditProfile.value;
-    openAndClosePopup(popupEditProfile);
+    if(isButtonActive(event.target)){
+        event.preventDefault();
+        namePage.textContent = inputNamePopupEditProfile.value;
+        informPage.textContent = inputInfoPopupEditProfile.value;
+        openAndClosePopup(popupEditProfile, event);
+    }
 }
 
 const addCard = (name, link) => {
@@ -147,10 +149,12 @@ const addCard = (name, link) => {
  * Добавление карточки
  */
 const addOneCard = (event) => {
-    event.preventDefault()
-    addCard(popupAddCardInputName.value, popupAddCardInputLink.value);
-    formCardAdd.reset();
-    openAndClosePopup(popupAddCard);
+    if(isButtonActive(event.target)){
+        event.preventDefault()
+        addCard(popupAddCardInputName.value, popupAddCardInputLink.value);
+        formCardAdd.reset();
+        openAndClosePopup(popupAddCard, event);
+    }
 }
 
 const initialAddingCards = () => {
@@ -166,8 +170,8 @@ const closePopupOverlayOrEsc = (event) => {
     const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
     
     const isOpenEditProfilePopup = popupEditProfile.classList.contains ("popup_opened");
-    const isOpenFormCardAddPopup = popupAddCard.classList.contains ("popup_opened");
-    const isOpenViewPhotoPopup = popupViewPhoto.classList.contains ("popup_opened");
+    const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
+    const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
 
     const isEsc = (event.keyCode || event.which) === 27;
 
@@ -199,9 +203,8 @@ const closePopupOverlayOrEsc = (event) => {
 }
 
 const openPopupAddCard = (event) => {
-    const buttonSaveForm = popupAddCard.querySelector(objectForm.buttonSaveForm);
-    buttonSaveForm.disabled = true;
-    buttonSaveForm.classList.add('popup__save-button_blocking');
+    const buttonSaveForm = popupAddCard.querySelector(pageElements.buttonSaveForm);
+    buttonDisabled(buttonSaveForm)
     openAndClosePopup(popupAddCard,event);
 }
 
