@@ -79,25 +79,25 @@ const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
 }
 
+/**
+ * Общий метод закрытия и открытия модалки 
+ */
+const openAndClosePopup = (popup) => {
+    popup.classList.toggle("popup_opened");
+}
+
 const createPopupViewPhoto = (event) => {
     const name = event.target.alt;
     containerPopupViewPhoto.src = event.target.currentSrc; 
     containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
-    openAndClosePopup(containerPopupViewPhoto);
+    openAndClosePopup(popupViewPhoto);
 }
 
 const deleteCard = (card, buttonCardLike, image) => {
     buttonCardLike.removeEventListener('click', addLikeOrDislikeCard);
     image.removeEventListener('click', createPopupViewPhoto);
     card.remove();
-}
-
-/**
- * Общий метод закрытия и открытия модалки 
- */
-const openAndClosePopup = (popup) => {
-    popup.classList.toggle("popup_opened");
 }
 
 /**
