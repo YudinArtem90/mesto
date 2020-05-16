@@ -4,9 +4,9 @@ const sectionElements = document.querySelector('.elements');
  * Popups 
  */
 
- const popupEditProfile = document.querySelector('#popupEditProfile');
- const popupAddCard = document.querySelector('#popupAddCard');
- const popupViewPhoto = document.querySelector('#popupViewPhoto');
+ const popupEditProfile = document.querySelector(objectForm.popupEditProfile);
+ const popupAddCard = document.querySelector(objectForm.popupAddCard);
+ const popupViewPhoto = document.querySelector(objectForm.popupViewPhoto);
 
 /**
  * Формы 
@@ -82,8 +82,9 @@ const addLikeOrDislikeCard = (event) => {
 /**
  * Общий метод закрытия и открытия модалки 
  */
-const openAndClosePopup = (popup) => {
+const openAndClosePopup = (popup, event) => {
     popup.classList.toggle("popup_opened");
+    event.stopPropagation();
 }
 
 const createPopupViewPhoto = (event) => {
@@ -91,7 +92,7 @@ const createPopupViewPhoto = (event) => {
     containerPopupViewPhoto.src = event.target.currentSrc; 
     containerPopupViewPhoto.setAttribute('alt', `Фото - ${name}`);
     infoPopupViewPhoto.textContent = name;
-    openAndClosePopup(popupViewPhoto);
+    openAndClosePopup(popupViewPhoto, event);
 }
 
 const deleteCard = (card, buttonCardLike, image) => {
@@ -117,17 +118,17 @@ const createTemplateCard = (name, link) => {
     buttonCardLike.addEventListener('click', addLikeOrDislikeCard);
     image.addEventListener('click', createPopupViewPhoto);
     buttonDeleteCard.addEventListener('click', () => deleteCard(template, buttonCardLike, image), {onсe : true});
-
+    
     return template;
 }
 
 /**
  * Заполнение формы редактирования пользователя
  */
-const fillingOutEditProfileForm = () => {
+const fillingOutEditProfileForm = (event) => {
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
-    openAndClosePopup(popupEditProfile);
+    openAndClosePopup(popupEditProfile, event);
 }
 
 const editProfile = (event) => {
@@ -158,6 +159,52 @@ const initialAddingCards = () => {
     });
 }
 
+const closePopupOverlayOrEsc = (event) => {
+
+    const clickInEditProfilePopup = formEditProfile.contains(event.target);
+    const clickInFormCardAddPopup = formCardAdd.contains(event.target);
+    const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
+    
+    const isOpenEditProfilePopup = popupEditProfile.classList.contains ("popup_opened");
+    const isOpenFormCardAddPopup = popupAddCard.classList.contains ("popup_opened");
+    const isOpenViewPhotoPopup = popupViewPhoto.classList.contains ("popup_opened");
+
+    const isEsc = (event.keyCode || event.which) === 27;
+
+    if(isEsc){
+        if(isOpenEditProfilePopup){
+            openAndClosePopup(popupEditProfile, event);
+        }
+
+        if(isOpenFormCardAddPopup){
+            openAndClosePopup(popupAddCard, event);
+        }
+
+        if(isOpenViewPhotoPopup){
+            openAndClosePopup(popupViewPhoto, event);
+        }
+    }else if(event.type === 'click'){
+        if(!clickInEditProfilePopup && isOpenEditProfilePopup){
+            openAndClosePopup(popupEditProfile, event);
+        }
+
+        if(!clickInFormCardAddPopup && isOpenFormCardAddPopup){
+            openAndClosePopup(popupAddCard, event);
+        }
+
+        if(!clickInViewPhotoPopup && isOpenViewPhotoPopup){
+            openAndClosePopup(popupViewPhoto, event);
+        }
+    }
+}
+
+const openPopupAddCard = (event) => {
+    const buttonSaveForm = popupAddCard.querySelector(objectForm.buttonSaveForm);
+    buttonSaveForm.disabled = true;
+    buttonSaveForm.classList.add('popup__save-button_blocking');
+    openAndClosePopup(popupAddCard,event);
+}
+
 /**
  * Динамическое добавление карточек
  */
@@ -166,13 +213,16 @@ initialAddingCards();
 /**
  * закрытия модальных окон
  */
-buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(popupViewPhoto));
-buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(popupEditProfile));
-buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(popupAddCard));
+buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(popupViewPhoto, event));
+buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(popupEditProfile, event));
+buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(popupAddCard, event));
 
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
-buttonOpenPopupAddCard.addEventListener('click', () => openAndClosePopup(popupAddCard));
+buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 
 buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
+
+document.addEventListener('click',closePopupOverlayOrEsc);
+document.addEventListener('keyup',closePopupOverlayOrEsc);
 

@@ -43,7 +43,7 @@
             </div>
 
             <div class="popup" id="popupAddCard">
-                <form class="popup__container popup__container_add-card" method="post">
+                <form class="popup__container popup__container_add-card" method="post" novalidate>
                     <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close-form">
                     <h2 class="popup__title">Новое место</h2>
                     <input id="name_card" class="popup__field popup__field_name_card" type="text" minlength="1" maxlength="30" name="nameCard" placeholder='Название' required>
@@ -53,9 +53,6 @@
                     <button class="popup__save-button" type="submit">Создать</button>
                 </form>
             </div>
-
-
-
 
 
             <div class="popup" id="popupViewPhoto">

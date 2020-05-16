@@ -1,7 +1,10 @@
 const objectForm = {
   form : '.popup__container',
   inputForm: '.popup__field',
-  buttonSaveForm: '.popup__save-button'
+  buttonSaveForm: '.popup__save-button',
+  popupEditProfile : '#popupEditProfile',
+  popupAddCard: '#popupAddCard',
+  popupViewPhoto: '#popupViewPhoto'
 }
 
 // Функция, которая добавляет класс с ошибкой
@@ -26,13 +29,21 @@ const hideInputError = (element, spanError, buttonSave) => {
 const isValid = (formInput, form) => {
   const spanError = form.querySelector(`#${formInput.id}-error`);
   const buttonSave = form.querySelector(objectForm.buttonSaveForm);
-  
+  console.log(form);
   if (!formInput.validity.valid) {
+    console.log('showInputError');
     showInputError(formInput, spanError, buttonSave);
   } else {
+    console.log('hideInputError');
     hideInputError(formInput, spanError, buttonSave);
   }
 };
+
+const preventDefaultForm = (form) => {
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+}
 
 const enableValidation = (object) => {
   const forms = document.querySelectorAll(object.form);
@@ -40,9 +51,7 @@ const enableValidation = (object) => {
   forms.forEach((form) => {
     const formInputs = form.querySelectorAll(object.inputForm);
 
-    form.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
+    preventDefaultForm(form);
     
     formInputs.forEach((input) => {
       input.addEventListener('input', () => isValid(input, form));

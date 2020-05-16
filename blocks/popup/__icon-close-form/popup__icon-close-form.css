@@ -10,7 +10,8 @@
 @media (min-width: 573px){
     .popup__icon-close-form{
         max-height: 40px;
-        left: 260px;
+        max-width: 40px;
+        left: 457px;
         bottom: 65px;
     }
 }
@@ -18,7 +19,8 @@
 @media (max-width: 572px){
     .popup__icon-close-form{
         max-height: 30px;
-        left: 148px;
+        max-width: 30px;
+        left: 250px;
         bottom: 52px;
     }
 }
