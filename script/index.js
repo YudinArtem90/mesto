@@ -1,5 +1,5 @@
 const sectionElements = document.querySelector('.elements');
-
+const ESCAPE_KEY_CODE = 27;
 /**
  * Popups 
  */
@@ -30,7 +30,6 @@ const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
  */
 const inputNamePopupEditProfile = document.querySelector('.popup__field_name_person');
 const inputInfoPopupEditProfile = document.querySelector('.popup__field_inform_person');
-const inputNamePopupAddCard = document.querySelector('.popup__field_name_card');
 const popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
 const popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
 
@@ -79,11 +78,21 @@ const addLikeOrDislikeCard = (event) => {
     event.target.classList.toggle("element__button-like_action");
 }
 
+const addEventListenerEsc = () => {
+    document.addEventListener('keyup',closePopupOverlayOrEsc);
+}
+
+const removeEventListenerEsc = () => {
+    document.removeEventListener('keyup',closePopupOverlayOrEsc);
+}
+
 /**
  * Общий метод закрытия и открытия модалки 
  */
 const openAndClosePopup = (popup, event) => {
-    popup.classList.toggle("popup_opened");
+    const isOpenPopup = popup.classList.toggle("popup_opened");
+    isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
+
     event.stopPropagation();
 }
 
@@ -118,7 +127,6 @@ const createTemplateCard = (name, link) => {
     buttonCardLike.addEventListener('click', addLikeOrDislikeCard);
     image.addEventListener('click', createPopupViewPhoto);
     buttonDeleteCard.addEventListener('click', () => deleteCard(template, buttonCardLike, image), {onсe : true});
-    
     return template;
 }
 
@@ -173,7 +181,7 @@ const closePopupOverlayOrEsc = (event) => {
     const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
     const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
 
-    const isEsc = (event.keyCode || event.which) === 27;
+    const isEsc = (event.keyCode || event.which) === ESCAPE_KEY_CODE;
 
     if(isEsc){
         if(isOpenEditProfilePopup){
@@ -227,5 +235,4 @@ buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
 document.addEventListener('click',closePopupOverlayOrEsc);
-document.addEventListener('keyup',closePopupOverlayOrEsc);
 
