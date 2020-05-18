@@ -59,7 +59,7 @@ const validForm = (formInputs, buttonSave) => {
 }
 
 
-const validAll = (formInput, form, formInputs) => {
+const validAll = (formInput, form, formInputs, pageElements) => {
   const spanError = findSpanError(form, formInput);
   const buttonSave = form.querySelector(pageElements.buttonSaveForm);
 
@@ -73,9 +73,9 @@ const preventDefaultForm = (form) => {
   });
 }
 
-const addEventListenerInputForm = (formInputs, form) => {
+const addEventListenerInputForm = (formInputs, form, pageElements) => {
   formInputs.forEach((input) => {
-    input.addEventListener('input', () => validAll(input, form, formInputs));
+    input.addEventListener('input', () => validAll(input, form, formInputs, pageElements));
   });
 }
 
@@ -87,7 +87,7 @@ const enableValidation = (object) => {
 
     preventDefaultForm(form);
     
-    addEventListenerInputForm(formInputs, form);
+    addEventListenerInputForm(formInputs, form, object);
     
   });
 }
