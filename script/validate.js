@@ -79,15 +79,15 @@ const addEventListenerInputForm = (formInputs, form, pageElements) => {
   });
 }
 
-const enableValidation = (object) => {
-  const forms = document.querySelectorAll(object.form);
+const enableValidation = (pageElements) => {
+  const forms = document.querySelectorAll(pageElements.form);
 
   forms.forEach((form) => {
-    const formInputs = form.querySelectorAll(object.inputForm);
+    const formInputs = form.querySelectorAll(pageElements.inputForm);
 
     preventDefaultForm(form);
     
-    addEventListenerInputForm(formInputs, form, object);
+    addEventListenerInputForm(formInputs, form, pageElements);
     
   });
 }

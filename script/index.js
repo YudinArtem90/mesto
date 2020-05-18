@@ -172,12 +172,11 @@ const initialAddingCards = () => {
 }
 
 const closePopupOverlayOrEsc = (event) => {
-
     const clickInEditProfilePopup = formEditProfile.contains(event.target);
     const clickInFormCardAddPopup = formCardAdd.contains(event.target);
     const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
     
-    const isOpenEditProfilePopup = popupEditProfile.classList.contains ("popup_opened");
+    const isOpenEditProfilePopup = popupEditProfile.classList.contains("popup_opened");
     const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
     const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
 
@@ -216,6 +215,12 @@ const openPopupAddCard = (event) => {
     openAndClosePopup(popupAddCard,event);
 }
 
+const addEventListenerClickPopup = () => {
+    popupEditProfile.addEventListener('click',closePopupOverlayOrEsc);
+    popupAddCard.addEventListener('click',closePopupOverlayOrEsc);
+    popupViewPhoto.addEventListener('click',closePopupOverlayOrEsc);
+}
+
 /**
  * Динамическое добавление карточек
  */
@@ -234,5 +239,5 @@ buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
-document.addEventListener('click',closePopupOverlayOrEsc);
+addEventListenerClickPopup();
 
