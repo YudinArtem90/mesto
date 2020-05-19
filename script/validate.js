@@ -59,9 +59,9 @@ const validForm = (formInputs, buttonSave) => {
 }
 
 
-const validAll = (formInput, form, formInputs, pageElements) => {
+const validAll = (formInput, form, formInputs, objectPageElements) => {
   const spanError = findSpanError(form, formInput);
-  const buttonSave = form.querySelector(pageElements.buttonSaveForm);
+  const buttonSave = form.querySelector(objectPageElements.buttonSaveForm);
 
   validInput(formInput, spanError);
   validForm(formInputs, buttonSave);
@@ -73,21 +73,21 @@ const preventDefaultForm = (form) => {
   });
 }
 
-const addEventListenerInputForm = (formInputs, form, pageElements) => {
+const addEventListenerInputForm = (formInputs, form, objectPageElements) => {
   formInputs.forEach((input) => {
-    input.addEventListener('input', () => validAll(input, form, formInputs, pageElements));
+    input.addEventListener('input', () => validAll(input, form, formInputs, objectPageElements));
   });
 }
 
-const enableValidation = (pageElements) => {
-  const forms = document.querySelectorAll(pageElements.form);
+const enableValidation = (objectPageElements) => {
+  const forms = document.querySelectorAll(objectPageElements.form);
 
   forms.forEach((form) => {
-    const formInputs = form.querySelectorAll(pageElements.inputForm);
+    const formInputs = form.querySelectorAll(objectPageElements.inputForm);
 
     preventDefaultForm(form);
     
-    addEventListenerInputForm(formInputs, form, pageElements);
+    addEventListenerInputForm(formInputs, form, objectPageElements);
     
   });
 }
