@@ -40,31 +40,43 @@ const findSpanError = (form, formInput) => {
   return form.querySelector(`#${formInput.id}-error`);
 }
 
+const findInputsForm = (form, objectPageElements) => {
+  return form.querySelectorAll(objectPageElements.inputForm);
+}
+
 const isFormInvalid = (formInputs) => {
   return Array.from(formInputs).some((input) => {
     return !input.validity.valid;
   });
 }
 
-const validInput = (formInput, spanError) => {
+const validInput = (form, formInput) => {
+  const spanError = findSpanError(form, formInput);
+
   formInput.validity.valid ?
     hideInputError(spanError, formInput) :
     showInputError(spanError, formInput);
 }
 
-const validForm = (formInputs, buttonSave) => {
+const validForm = (form, formInputs, objectPageElements) => {
+  const buttonSave = form.querySelector(objectPageElements.buttonSaveForm);
+
   isFormInvalid(formInputs) ? 
     buttonDisabled(buttonSave) : 
     buttonActivated(buttonSave);
 }
 
 
-const validAll = (formInput, form, formInputs, objectPageElements) => {
-  const spanError = findSpanError(form, formInput);
-  const buttonSave = form.querySelector(objectPageElements.buttonSaveForm);
-
-  validInput(formInput, spanError);
-  validForm(formInputs, buttonSave);
+const validAll = (form, formInputs, objectPageElements, input = 0) => {
+    if(input){
+      validInput(form, input);
+    }else{
+      formInputs.forEach((input) => {
+        validInput(form, input);
+      });
+    }
+    
+    validForm(form, formInputs, objectPageElements);
 };
 
 const preventDefaultForm = (form) => {
@@ -75,7 +87,7 @@ const preventDefaultForm = (form) => {
 
 const addEventListenerInputForm = (formInputs, form, objectPageElements) => {
   formInputs.forEach((input) => {
-    input.addEventListener('input', () => validAll(input, form, formInputs, objectPageElements));
+    input.addEventListener('input', () => validAll(form, formInputs, objectPageElements, input));
   });
 }
 
@@ -83,7 +95,7 @@ const enableValidation = (objectPageElements) => {
   const forms = document.querySelectorAll(objectPageElements.form);
 
   forms.forEach((form) => {
-    const formInputs = form.querySelectorAll(objectPageElements.inputForm);
+    const formInputs = findInputsForm(form, objectPageElements); 
 
     preventDefaultForm(form);
     

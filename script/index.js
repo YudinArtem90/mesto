@@ -92,7 +92,7 @@ const removeEventListenerEsc = () => {
 const openAndClosePopup = (popup, event) => {
     const isOpenPopup = popup.classList.toggle("popup_opened");
     isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
-
+    
     event.stopPropagation();
 }
 
@@ -134,8 +134,11 @@ const createTemplateCard = (name, link) => {
  * Заполнение формы редактирования пользователя
  */
 const fillingOutEditProfileForm = (event) => {
+    const inputsForm = findInputsForm(formEditProfile, pageElements);
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
+    
+    validAll(formEditProfile, inputsForm, pageElements);
     openAndClosePopup(popupEditProfile, event);
 }
 
@@ -240,4 +243,3 @@ buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
 addEventListenerClickPopup();
-
