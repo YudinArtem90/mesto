@@ -1,11 +1,10 @@
-import {pageElements} from './data.js';
 import {
     containerPopupViewPhoto,
     infoPopupViewPhoto,
     popupViewPhoto,
     sectionElements,
     openAndClosePopup
-} from './index2.js';
+} from './index.js';
 
 export default class Card{
 
