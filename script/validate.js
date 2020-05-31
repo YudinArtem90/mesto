@@ -1,12 +1,13 @@
-const pageElements = {
-  form : '.popup__container',
-  inputForm: '.popup__field',
-  buttonSaveForm: '.popup__save-button',
-  popupEditProfile : '#popupEditProfile',
-  popupAddCard: '#popupAddCard',
-  popupViewPhoto: '#popupViewPhoto',
-  spanForm : '.popup__field-error'
-}
+import {pageElements} from './data.js';
+// export const pageElements = {
+//   form : '.popup__container',
+//   inputForm: '.popup__field',
+//   buttonSaveForm: '.popup__save-button',
+//   popupEditProfile : '#popupEditProfile',
+//   popupAddCard: '#popupAddCard',
+//   popupViewPhoto: '#popupViewPhoto',
+//   spanForm : '.popup__field-error'
+// }
 
 const buttonDisabled = (buttonSave) => {
   buttonSave.classList.add('popup__save-button_blocking');
