@@ -27,10 +27,11 @@ export default class Card{
         openAndClosePopup(popupViewPhoto, event);
     }
 
-    _deleteCard = (card, buttonCardLike, image) => {
+    _deleteCard = (buttonCardLike, image) => {
         buttonCardLike.removeEventListener('click', this._addLikeOrDislikeCard);
         image.removeEventListener('click', this._createPopupViewPhoto);
-        card.remove();
+        this._element.remove();
+        this._element = null;
     }
 
     _createTemplateCard = (name, link) => {
@@ -52,7 +53,7 @@ export default class Card{
     _addEventListenerCard(buttonDeleteCard, buttonCardLike, image){
         buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
         image.addEventListener('click', this._createPopupViewPhoto);
-        buttonDeleteCard.addEventListener('click', () => this._deleteCard(this._element , buttonCardLike, image), {onсe : true});
+        buttonDeleteCard.addEventListener('click', () => this._deleteCard(buttonCardLike, image), {onсe : true});
     }
 
     addCard = () => {
