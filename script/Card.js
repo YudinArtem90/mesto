@@ -12,6 +12,7 @@ export default class Card{
         this._name = data.name;
         this._link = data.link;
         this._templateCard = template;
+        this._element = null;
     }
 
     _addLikeOrDislikeCard = (event) => {
@@ -33,25 +34,25 @@ export default class Card{
     }
 
     _createTemplateCard = (name, link) => {
-        const template = this._templateCard.firstElementChild.cloneNode(true);
-        const buttonDeleteCard = template.querySelector('.element__button-delete');
-        const buttonCardLike = template.querySelector('.element__button-like');
-        const image =  template.querySelector('.element__image');
-        const text = template.querySelector('.element__text');
+        this._element = this._templateCard.firstElementChild.cloneNode(true);
+        const buttonDeleteCard = this._element.querySelector('.element__button-delete');
+        const buttonCardLike = this._element.querySelector('.element__button-like');
+        const image =  this._element.querySelector('.element__image');
+        const text = this._element.querySelector('.element__text');
     
         image.src = link;
         image.setAttribute('alt', name);
         text.textContent = name;
 
-        this._addEventListenerCard(buttonDeleteCard, buttonCardLike, image, template);
+        this._addEventListenerCard(buttonDeleteCard, buttonCardLike, image);
 
-        return template;
+        return this._element;
     }
 
-    _addEventListenerCard(buttonDeleteCard, buttonCardLike, image, template){
+    _addEventListenerCard(buttonDeleteCard, buttonCardLike, image){
         buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
         image.addEventListener('click', this._createPopupViewPhoto);
-        buttonDeleteCard.addEventListener('click', () => this._deleteCard(template, buttonCardLike, image), {onсe : true});
+        buttonDeleteCard.addEventListener('click', () => this._deleteCard(this._element , buttonCardLike, image), {onсe : true});
     }
 
     addCard = () => {

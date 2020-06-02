@@ -35,7 +35,18 @@ const pageElements = {
     popupViewPhoto: '#popupViewPhoto',
     spanForm : '.popup__field-error',
     formEditProfile: '.popup__container_edit-profile',
-    formCardAdd: '.popup__container_add-card'
+    formCardAdd: '.popup__container_add-card',
+    sectionElements: '.elements',
+    inputNamePopupEditProfile: '.popup__field_name_person',
+    inputInfoPopupEditProfile: '.popup__field_inform_person',
+    buttonOpenPopupAddCard: '.profile__add-button',
+    buttonClosePopupViewPhoto: '.popup__icon-close-view-photo',
+    buttonOpenPopupEditProfileInfo: '.profile-info__edit-button',
+    namePage: '.profile-info__name',
+    informPage: '.profile-info__information-person',
+    containerPopupViewPhoto: '.popup__view-photo-container',
+    infoPopupViewPhoto: '.popup__view-photo-info',
+    templateCard: '#card'
   }
 
   export {initialCards, pageElements};
