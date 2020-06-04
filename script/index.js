@@ -111,14 +111,19 @@ const editProfile = (event) => {
     }
 }
 
+const addCard = (data, templateCard) => {
+    const classCard = new Card(data, templateCard);
+    const card = classCard.getCard();
+    sectionElements.prepend(card);
+}
+
 const addOneCard = (event) => {
     if(isButtonActive(event.target)){
         const data = {
             name : popupAddCardInputName.value, 
             link : popupAddCardInputLink.value
         }
-        const card = new Card(data, templateCard);
-        card.addCard();
+        addCard(data, templateCard);
         event.preventDefault();
         formCardAdd.reset();
         openAndClosePopup(popupAddCard, event);
@@ -127,8 +132,7 @@ const addOneCard = (event) => {
 
 const initialAddingCards = () => {
     initialCards.forEach((data) => {
-        const card = new Card(data, templateCard);
-        card.addCard();
+        addCard(data, templateCard);
     });
 }
 
