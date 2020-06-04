@@ -60,6 +60,24 @@ const removeEventListenerEsc = () => {
     document.removeEventListener('keyup',closePopupOverlayOrEsc);
 }
 
+const findSpanError = (formInput, form) => {
+    return form.querySelector(`#${formInput.id}-error`);
+}
+
+const showInputError = (spanError, form) => {
+    form.classList.add('form__input_type_error');
+    spanError.classList.add('popup__field-error_active');
+    spanError.textContent = form.validationMessage;
+};
+  
+  
+const hideInputError = (spanError, form) => {
+    form.classList.remove('form__input_type_error');
+    spanError.classList.remove('popup__field-error_active');
+    spanError.textContent = '';
+};
+
+
 /**
  * Общий метод закрытия и открытия модалки 
  */
@@ -79,36 +97,42 @@ const buttonActivated = (buttonSave) => {
     buttonSave.classList.remove('popup__save-button_blocking');
     buttonSave.disabled = false;
 }
-  
-const isButtonActive = (buttonSave) => {
-    return !buttonSave.classList.contains('popup__save-button_blocking');
-}
 
 const findInputsForm = (form, objectPageElements) => {
     return form.querySelectorAll(objectPageElements.inputForm);
 }
 
 /**
+ * Убирает ошибки формы редактирования.
+ * Когда открыешь форму, вводишь не валидные данные и закрываешь 
+ * ее и снова открываешь.
+ */
+const deleteErrorEditProfileForm = () => {
+    const inputsForm = findInputsForm(formEditProfile, pageElements);
+    const buttonSave = formEditProfile.querySelector(pageElements.buttonSaveForm);
+    inputsForm.forEach((input) => {
+        const spanForm = findSpanError(input, popupEditProfile);
+        hideInputError(spanForm, formEditProfile);
+    });
+    buttonActivated(buttonSave);
+}
+
+/**
  * Заполнение формы редактирования пользователя
  */
 const fillingOutEditProfileForm = (event) => {
-    const inputsForm = findInputsForm(formEditProfile, pageElements);
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
-    
-    const validation = new FormValidator(pageElements, formEditProfile);
-    validation.enableValidation();
+    deleteErrorEditProfileForm();
 
     openAndClosePopup(popupEditProfile, event);
 }
 
 const editProfile = (event) => {
-    if(isButtonActive(event.target)){
-        event.preventDefault();
-        namePage.textContent = inputNamePopupEditProfile.value;
-        informPage.textContent = inputInfoPopupEditProfile.value;
-        openAndClosePopup(popupEditProfile, event);
-    }
+    event.preventDefault();
+    namePage.textContent = inputNamePopupEditProfile.value;
+    informPage.textContent = inputInfoPopupEditProfile.value;
+    openAndClosePopup(popupEditProfile, event);
 }
 
 const addCard = (data, templateCard) => {
@@ -118,16 +142,14 @@ const addCard = (data, templateCard) => {
 }
 
 const addOneCard = (event) => {
-    if(isButtonActive(event.target)){
-        const data = {
-            name : popupAddCardInputName.value, 
-            link : popupAddCardInputLink.value
-        }
-        addCard(data, templateCard);
-        event.preventDefault();
-        formCardAdd.reset();
-        openAndClosePopup(popupAddCard, event);
+    const data = {
+        name : popupAddCardInputName.value, 
+        link : popupAddCardInputLink.value
     }
+    addCard(data, templateCard);
+    event.preventDefault();
+    formCardAdd.reset();
+    openAndClosePopup(popupAddCard, event);
 }
 
 const initialAddingCards = () => {
@@ -218,5 +240,8 @@ export {
     openAndClosePopup,
     buttonDisabled, 
     buttonActivated,
-    findInputsForm
+    findInputsForm,
+    showInputError,
+    hideInputError,
+    findSpanError
 };

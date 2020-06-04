@@ -1,4 +1,11 @@
-import {buttonDisabled, buttonActivated, findInputsForm} from './index.js';
+import {
+    buttonDisabled, 
+    buttonActivated, 
+    findInputsForm, 
+    findSpanError,
+    showInputError,
+    hideInputError
+} from './index.js';
 
 export default class FormValidator{
     constructor(pageElements, validateForm = 0){
@@ -6,18 +13,7 @@ export default class FormValidator{
         this._validateForm = validateForm;
     }
 
-
     enableValidation(){
-        if(this._validateForm){
-            const inputsForm = findInputsForm(this._validateForm, this._pageElements); 
-            this._validationInputAndForm(inputsForm, this._validateForm);
-        }else{
-            this._addEventListenerForm();
-        }
-    }
-
-
-    _addEventListenerForm(){
         const forms = document.querySelectorAll(this._pageElements.form);
 
         forms.forEach((form) => {
@@ -54,30 +50,13 @@ export default class FormValidator{
         });
     }
 
-    _findSpanError = (formInput, form) => {
-        return form.querySelector(`#${formInput.id}-error`);
-    }
-
     _validInput = (formInput, form) => {
-        const spanError = this._findSpanError(formInput, form);
+        const spanError = findSpanError(formInput, form);
       
         formInput.validity.valid ?
-            this._hideInputError(spanError, formInput) :
-            this._showInputError(spanError, formInput);
+                hideInputError(spanError, formInput) :
+                showInputError(spanError, formInput);
     }
-
-    _showInputError = (spanError, element) => {
-        element.classList.add('form__input_type_error');
-        spanError.classList.add('popup__field-error_active');
-        spanError.textContent = element.validationMessage;
-    };
-      
-      
-    _hideInputError = (spanError, element) => {
-        element.classList.remove('form__input_type_error');
-        spanError.classList.remove('popup__field-error_active');
-        spanError.textContent = '';
-    };
 
     _isFormInvalid = (formInputs) => {
         return Array.from(formInputs).some((input) => {
@@ -89,7 +68,7 @@ export default class FormValidator{
         const buttonSave = form.querySelector(this._pageElements.buttonSaveForm);
       
         this._isFormInvalid(formInputs) ? 
-            buttonDisabled(buttonSave) : 
-            buttonActivated(buttonSave);
+                buttonDisabled(buttonSave) : 
+                buttonActivated(buttonSave);
     }
 }

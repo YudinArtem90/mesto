@@ -2,7 +2,6 @@ import {
     containerPopupViewPhoto,
     infoPopupViewPhoto,
     popupViewPhoto,
-    sectionElements,
     openAndClosePopup
 } from './index.js';
 
