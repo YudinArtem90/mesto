@@ -96,8 +96,9 @@ const fillingOutEditProfileForm = (event) => {
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
     
-    const validForm = new FormValidator(pageElements, formEditProfile);
-    validForm.enableValidation(inputsForm);
+    const validation = new FormValidator(pageElements, formEditProfile);
+    validation.enableValidation();
+
     openAndClosePopup(popupEditProfile, event);
 }
 
@@ -110,9 +111,6 @@ const editProfile = (event) => {
     }
 }
 
-/**
- * Добавление карточки
- */
 const addOneCard = (event) => {
     if(isButtonActive(event.target)){
         const data = {
@@ -184,33 +182,6 @@ const addEventListenerClosekPopup = () => {
     popupViewPhoto.addEventListener('click',closePopupOverlayOrEsc);
 }
 
-
-const preventDefaultForm = (form) => {
-    form.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-}
-  
-const addEventListenerInputForm = (inputsForm, form, objectPageElements) => {
-    inputsForm.forEach((input) => {
-        const formValidator = new FormValidator(objectPageElements, form);
-        input.addEventListener('input', () => formValidator.enableValidation(inputsForm, input));
-    });
-}
-  
-const addValidatorInputsForm = (objectPageElements) => {
-    const forms = document.querySelectorAll(objectPageElements.form);
-
-    forms.forEach((form) => {
-        const inputsForm = findInputsForm(form, objectPageElements); 
-
-        preventDefaultForm(form);
-        
-        addEventListenerInputForm(inputsForm, form, objectPageElements);
-        
-    });
-}
-
 /**
  * Динамическое добавление карточек
  */
@@ -230,7 +201,10 @@ buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
 addEventListenerClosekPopup();
-addValidatorInputsForm(pageElements);
+
+const validation = new FormValidator(pageElements);
+validation.enableValidation();
+
 
 export {
     containerPopupViewPhoto, 
@@ -239,5 +213,6 @@ export {
     sectionElements, 
     openAndClosePopup,
     buttonDisabled, 
-    buttonActivated
+    buttonActivated,
+    findInputsForm
 };

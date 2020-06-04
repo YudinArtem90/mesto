@@ -27,33 +27,33 @@ export default class Card{
         openAndClosePopup(popupViewPhoto, event);
     }
 
-    _deleteCard = (buttonCardLike, image) => {
-        buttonCardLike.removeEventListener('click', this._addLikeOrDislikeCard);
-        image.removeEventListener('click', this._createPopupViewPhoto);
+    _deleteCard = () => {
+        this._buttonCardLike.removeEventListener('click', this._addLikeOrDislikeCard);
+        this._image.removeEventListener('click', this._createPopupViewPhoto);
         this._element.remove();
         this._element = null;
     }
 
     _createTemplateCard = (name, link) => {
         this._element = this._templateCard.firstElementChild.cloneNode(true);
-        const buttonDeleteCard = this._element.querySelector('.element__button-delete');
-        const buttonCardLike = this._element.querySelector('.element__button-like');
-        const image =  this._element.querySelector('.element__image');
+        this._buttonDeleteCard = this._element.querySelector('.element__button-delete');
+        this._buttonCardLike = this._element.querySelector('.element__button-like');
+        this._image =  this._element.querySelector('.element__image');
         const text = this._element.querySelector('.element__text');
     
-        image.src = link;
-        image.setAttribute('alt', name);
+        this._image.src = link;
+        this._image.setAttribute('alt', name);
         text.textContent = name;
 
-        this._addEventListenerCard(buttonDeleteCard, buttonCardLike, image);
+        this._addEventListenerCard();
 
         return this._element;
     }
 
-    _addEventListenerCard(buttonDeleteCard, buttonCardLike, image){
-        buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
-        image.addEventListener('click', this._createPopupViewPhoto);
-        buttonDeleteCard.addEventListener('click', () => this._deleteCard(buttonCardLike, image), {onсe : true});
+    _addEventListenerCard(){
+        this._buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
+        this._image.addEventListener('click', this._createPopupViewPhoto);
+        this._buttonDeleteCard.addEventListener('click', () => this._deleteCard(), {onсe : true});
     }
 
     addCard = () => {
