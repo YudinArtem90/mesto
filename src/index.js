@@ -1,7 +1,7 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import {initialCards, pageElements} from './data.js';
-import '../pages/index.css';
+import Card from './components/Card.js';
+import FormValidator from './components/FormValidator.js';
+import {initialCards, pageElements} from './utils/data.js';
+import './pages/index.css';
 
 const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);

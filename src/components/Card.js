@@ -3,7 +3,7 @@ import {
     infoPopupViewPhoto,
     popupViewPhoto,
     openAndClosePopup
-} from './index.js';
+} from '../index.js';
 
 export default class Card{
 
