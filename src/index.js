@@ -2,6 +2,7 @@ import Card from './components/Card.js';
 import FormValidator from './components/FormValidator.js';
 import {initialCards, pageElements} from './utils/data.js';
 import './pages/index.css';
+import Section from './components/Section.js';
 
 const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);
@@ -137,16 +138,29 @@ const editProfile = (event) => {
 }
 
 const addCard = (data, templateCard) => {
-    const classCard = new Card(data, templateCard);
-    const card = classCard.getCard();
-    sectionElements.prepend(card);
+    // const classCard = new Card(data, templateCard);
+    // const card = classCard.getCard();
+    // console.log(data);
+    // console.log(templateCard);
+    
+    const classList = new Section({data: data, renderer: (item) => {
+        const classCard = new Card(item, templateCard);
+        const card = classCard.getCard();
+
+        classList.addItem(card);
+    }}, pageElements.sectionElements);
+
+    classList.renderItems();
+
+
+    // sectionElements.prepend(card);
 }
 
 const addOneCard = (event) => {
-    const data = {
+    const data = [{
         name : popupAddCardInputName.value, 
         link : popupAddCardInputLink.value
-    }
+    }];
     addCard(data, templateCard);
     event.preventDefault();
     formCardAdd.reset();
@@ -154,9 +168,17 @@ const addOneCard = (event) => {
 }
 
 const initialAddingCards = () => {
-    initialCards.forEach((data) => {
-        addCard(data, templateCard);
-    });
+    // initialCards.forEach((data) => {
+        addCard(initialCards, templateCard);
+    // });
+    // const classList = new Section({data: initialCards, renderer: (item) => {
+    //     const classCard = new Card(item, templateCard);
+    //     const card = classCard.getCard();
+
+    //     classList.addItem(card);
+    // }}, pageElements.sectionElements);
+
+    // classList.renderItems();
 }
 
 const closePopupOverlayOrEsc = (event) => {
