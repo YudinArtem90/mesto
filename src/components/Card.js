@@ -4,13 +4,17 @@ import {
     popupViewPhoto,
     openAndClosePopup
 } from '../index.js';
+import PopupWithImage from './PopupWithImage.js';
 
 export default class Card{
 
-    constructor(data, template){
-        this._name = data.name;
-        this._link = data.link;
+    constructor({name, link}, template){
+        // debugger;
+        this._name = name;
+        this._link = link;
         this._templateCard = template;
+
+        this._createPopupViewPhoto = this._createPopupViewPhoto.bind(this);
     }
 
     _addLikeOrDislikeCard() {
@@ -18,10 +22,25 @@ export default class Card{
     }
 
     _createPopupViewPhoto(event){
-        containerPopupViewPhoto.src = event.target.currentSrc; 
-        containerPopupViewPhoto.setAttribute('alt', `Фото - ${this._name}`);
-        infoPopupViewPhoto.textContent = this._name;
-        openAndClosePopup(popupViewPhoto);
+        // containerPopupViewPhoto.src = event.target.currentSrc; 
+        // containerPopupViewPhoto.setAttribute('alt', `Фото - ${this._name}`);
+        // infoPopupViewPhoto.textContent = this._name;
+        // document.querySelector('.popup__view-photo-info').textContent = this._name;
+        // openAndClosePopup(popupViewPhoto);
+        // console.log( 'currentSrc', event.target.currentSrc);
+
+
+        // console.log( '_name',
+        //     this._name);
+
+        //     console.log( '_templateCard', this._templateCard);
+        // debugger;
+        const createPopupViewPhoto = new PopupWithImage(
+            event.target.currentSrc,
+            this._name, 
+            popupViewPhoto
+        );
+        createPopupViewPhoto.open();
     }
 
     _deleteCard(){
@@ -30,6 +49,7 @@ export default class Card{
     }
 
     getCard (){
+        // debugger;
         this._element = this._templateCard.firstElementChild.cloneNode(true);
         this._buttonDeleteCard = this._element.querySelector('.element__button-delete');
         this._buttonCardLike = this._element.querySelector('.element__button-like');
@@ -46,6 +66,7 @@ export default class Card{
     }
 
     _addEventListenerCard(){
+        // console.log('this', this);
         this._buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
         this._image.addEventListener('click', this._createPopupViewPhoto);
         this._buttonDeleteCard.addEventListener('click', () => this._deleteCard(), {onсe : true});
