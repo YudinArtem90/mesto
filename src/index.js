@@ -4,6 +4,7 @@ import {initialCards, pageElements} from './utils/data.js';
 import './pages/index.css';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
+import PopupWithForm from './components/PopupWithForm.js';
 
 // const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);
@@ -84,16 +85,25 @@ const hideInputError = (spanError, form) => {
 /**
  * Общий метод закрытия и открытия модалки 
  */
-const openAndClosePopup = (popup) => {
+const openAndClosePopup = (popup, modelPopup) => {
 
     // const isOpenPopup = popup.classList.toggle("popup_opened");
-    const OpenAndClosePopup = new Popup(popup);
+    //const OpenAndClosePopup = new Popup(popup);
     const isOpenPopup = popup.classList.contains("popup_opened");
     // isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
-    isOpenPopup ? 
-        OpenAndClosePopup.close() : 
-        OpenAndClosePopup.open();
-    OpenAndClosePopup.setEventListeners();
+    // isOpenPopup ? 
+    //     modelPopup.close() : 
+    //     modelPopup.open();
+    // modelPopup.setEventListeners();
+
+    if(isOpenPopup){
+        modelPopup.close();
+    }else{
+        modelPopup.open();
+        modelPopup.setEventListeners();
+    }
+
+
     //event.stopPropagation();
 }
 
@@ -130,21 +140,34 @@ const deleteErrorEditProfileForm = () => {
  * Заполнение формы редактирования пользователя
  */
 const fillingOutEditProfileForm = (event) => {
+
+    const modelPopup = new PopupWithForm(popupEditProfile, {
+        handleFormSubmit: (evt) =>{
+            evt.preventDefault();
+            namePage.textContent = inputNamePopupEditProfile.value;
+            informPage.textContent = inputInfoPopupEditProfile.value;
+            openAndClosePopup(popupEditProfile, modelPopup);
+    }});
+
+    // namePage.textContent = inputNamePopupEditProfile.value;
+    // informPage.textContent = inputInfoPopupEditProfile.value;
+    // popup.setEventListeners();
+   
     inputNamePopupEditProfile.value = namePage.textContent;
     inputInfoPopupEditProfile.value = informPage.textContent;
     deleteErrorEditProfileForm();
-
-    openAndClosePopup(popupEditProfile);
+    openAndClosePopup(popupEditProfile, modelPopup);
+    // openAndClosePopup(popupEditProfile);
 }
 
-const editProfile = (event) => {
-    event.preventDefault();
-    namePage.textContent = inputNamePopupEditProfile.value;
-    informPage.textContent = inputInfoPopupEditProfile.value;
-    openAndClosePopup(popupEditProfile);
-}
+// const editProfile = (event) => {
+//     event.preventDefault();
+//     namePage.textContent = inputNamePopupEditProfile.value;
+//     informPage.textContent = inputInfoPopupEditProfile.value;
+//     openAndClosePopup(popupEditProfile);
+// }
 
-const addCard = (data, templateCard) => {
+const addCards = (data, templateCard) => {
     // const classCard = new Card(data, templateCard);
     // const card = classCard.getCard();
     // console.log(data);
@@ -168,15 +191,15 @@ const addOneCard = (event) => {
         name : popupAddCardInputName.value, 
         link : popupAddCardInputLink.value
     }];
-    addCard(data, templateCard);
-    event.preventDefault();
-    formCardAdd.reset();
-    openAndClosePopup(popupAddCard);
+    addCards(data, templateCard);
+    //event.preventDefault();
+    //formCardAdd.reset();
+    //openAndClosePopup(popupAddCard);
 }
 
-const initialAddingCards = () => {
+// const initialAddingCards = () => {
     // initialCards.forEach((data) => {
-        addCard(initialCards, templateCard);
+        // addCards(initialCards, templateCard);
     // });
     // const classList = new Section({data: initialCards, renderer: (item) => {
     //     const classCard = new Card(item, templateCard);
@@ -186,7 +209,7 @@ const initialAddingCards = () => {
     // }}, pageElements.sectionElements);
 
     // classList.renderItems();
-}
+// }
 
 // const closePopupOverlayOrEsc = (event) => {
 //     const clickInEditProfilePopup = formEditProfile.contains(event.target);
@@ -227,9 +250,17 @@ const initialAddingCards = () => {
 // }
 
 const openPopupAddCard = (event) => {
+    const modelPopup = new PopupWithForm(popupAddCard, {
+        handleFormSubmit: (evt) =>{
+            evt.preventDefault();
+            addOneCard();
+            openAndClosePopup(popupAddCard, modelPopup);
+    }});
+
+
     const buttonSaveForm = popupAddCard.querySelector(pageElements.buttonSaveForm);
     buttonDisabled(buttonSaveForm)
-    openAndClosePopup(popupAddCard);
+    openAndClosePopup(popupAddCard, modelPopup);
 }
 
 // const addEventListenerClosekPopup = () => {
@@ -241,8 +272,8 @@ const openPopupAddCard = (event) => {
 /**
  * Динамическое добавление карточек
  */
-initialAddingCards();
-
+// initialAddingCards();
+addCards(initialCards, templateCard);
 /**
  * закрытия модальных окон
  */
@@ -253,8 +284,8 @@ initialAddingCards();
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 
-buttonSavePopupEditProfile.addEventListener('click', editProfile);
-buttonSavePopupAddCard.addEventListener('click', addOneCard);
+// buttonSavePopupEditProfile.addEventListener('click', editProfile);
+// buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
 // addEventListenerClosekPopup();
 

@@ -19,7 +19,7 @@ export default class FormValidator{
         forms.forEach((form) => {
             const inputsForm = findInputsForm(form, this._pageElements); 
 
-            this._preventDefaultForm(form);
+            // this._preventDefaultForm(form);
             
             this._addEventListenerInputForm(inputsForm, form);
             
@@ -44,11 +44,11 @@ export default class FormValidator{
         this._validForm(inputsForm, form);
     }
 
-    _preventDefaultForm (form) {
-        form.addEventListener('submit', function (evt) {
-          evt.preventDefault();
-        });
-    }
+    // _preventDefaultForm (form) {
+    //     form.addEventListener('submit', function (evt) {
+    //       evt.preventDefault();
+    //     });
+    // }
 
     _validInput(formInput, form) {
         const spanError = findSpanError(formInput, form);

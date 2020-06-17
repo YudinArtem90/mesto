@@ -15,6 +15,7 @@ export default class Card{
         this._templateCard = template;
 
         this._createPopupViewPhoto = this._createPopupViewPhoto.bind(this);
+        this._addLikeOrDislikeCard = this._addLikeOrDislikeCard.bind(this);
     }
 
     _addLikeOrDislikeCard() {
