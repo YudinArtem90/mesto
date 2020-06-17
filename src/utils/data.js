@@ -41,6 +41,7 @@ const pageElements = {
     inputInfoPopupEditProfile: '.popup__field_inform_person',
     buttonOpenPopupAddCard: '.profile__add-button',
     buttonClosePopupViewPhoto: '.popup__icon-close-view-photo',
+    buttonCloseModalAddCardAndEditProfile: '.popup__icon-close-form',
     buttonOpenPopupEditProfileInfo: '.profile-info__edit-button',
     namePage: '.profile-info__name',
     informPage: '.profile-info__information-person',

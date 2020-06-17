@@ -21,7 +21,7 @@ export default class Card{
         containerPopupViewPhoto.src = event.target.currentSrc; 
         containerPopupViewPhoto.setAttribute('alt', `Фото - ${this._name}`);
         infoPopupViewPhoto.textContent = this._name;
-        openAndClosePopup(popupViewPhoto, event);
+        openAndClosePopup(popupViewPhoto);
     }
 
     _deleteCard(){

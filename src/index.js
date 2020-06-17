@@ -3,8 +3,9 @@ import FormValidator from './components/FormValidator.js';
 import {initialCards, pageElements} from './utils/data.js';
 import './pages/index.css';
 import Section from './components/Section.js';
+import Popup from './components/Popup.js';
 
-const ESCAPE_KEY_CODE = 27;
+// const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);
 
 /**
@@ -54,13 +55,13 @@ const infoPopupViewPhoto = document.querySelector(pageElements.infoPopupViewPhot
 
 const templateCard = document.querySelector(pageElements.templateCard).content;
 
-const addEventListenerEsc = () => {
-    document.addEventListener('keyup',closePopupOverlayOrEsc);
-}
+// const addEventListenerEsc = () => {
+//     document.addEventListener('keyup',closePopupOverlayOrEsc);
+// }
 
-const removeEventListenerEsc = () => {
-    document.removeEventListener('keyup',closePopupOverlayOrEsc);
-}
+// const removeEventListenerEsc = () => {
+//     document.removeEventListener('keyup',closePopupOverlayOrEsc);
+// }
 
 const findSpanError = (formInput, form) => {
     return form.querySelector(`#${formInput.id}-error`);
@@ -83,11 +84,17 @@ const hideInputError = (spanError, form) => {
 /**
  * Общий метод закрытия и открытия модалки 
  */
-const openAndClosePopup = (popup, event) => {
-    const isOpenPopup = popup.classList.toggle("popup_opened");
-    isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
-    
-    event.stopPropagation();
+const openAndClosePopup = (popup) => {
+
+    // const isOpenPopup = popup.classList.toggle("popup_opened");
+    const OpenAndClosePopup = new Popup(popup);
+    const isOpenPopup = popup.classList.contains("popup_opened");
+    // isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
+    isOpenPopup ? 
+        OpenAndClosePopup.close() : 
+        OpenAndClosePopup.open();
+    OpenAndClosePopup.setEventListeners();
+    //event.stopPropagation();
 }
 
 const buttonDisabled = (buttonSave) => {
@@ -127,14 +134,14 @@ const fillingOutEditProfileForm = (event) => {
     inputInfoPopupEditProfile.value = informPage.textContent;
     deleteErrorEditProfileForm();
 
-    openAndClosePopup(popupEditProfile, event);
+    openAndClosePopup(popupEditProfile);
 }
 
 const editProfile = (event) => {
     event.preventDefault();
     namePage.textContent = inputNamePopupEditProfile.value;
     informPage.textContent = inputInfoPopupEditProfile.value;
-    openAndClosePopup(popupEditProfile, event);
+    openAndClosePopup(popupEditProfile);
 }
 
 const addCard = (data, templateCard) => {
@@ -164,7 +171,7 @@ const addOneCard = (event) => {
     addCard(data, templateCard);
     event.preventDefault();
     formCardAdd.reset();
-    openAndClosePopup(popupAddCard, event);
+    openAndClosePopup(popupAddCard);
 }
 
 const initialAddingCards = () => {
@@ -181,55 +188,55 @@ const initialAddingCards = () => {
     // classList.renderItems();
 }
 
-const closePopupOverlayOrEsc = (event) => {
-    const clickInEditProfilePopup = formEditProfile.contains(event.target);
-    const clickInFormCardAddPopup = formCardAdd.contains(event.target);
-    const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
+// const closePopupOverlayOrEsc = (event) => {
+//     const clickInEditProfilePopup = formEditProfile.contains(event.target);
+//     const clickInFormCardAddPopup = formCardAdd.contains(event.target);
+//     const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
     
-    const isOpenEditProfilePopup = popupEditProfile.classList.contains("popup_opened");
-    const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
-    const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
+//     const isOpenEditProfilePopup = popupEditProfile.classList.contains("popup_opened");
+//     const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
+//     const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
 
-    const isEsc = (event.keyCode || event.which) === ESCAPE_KEY_CODE;
+//     const isEsc = (event.keyCode || event.which) === ESCAPE_KEY_CODE;
 
-    if(isEsc){
-        if(isOpenEditProfilePopup){
-            openAndClosePopup(popupEditProfile, event);
-        }
+//     if(isEsc){
+//         if(isOpenEditProfilePopup){
+//             openAndClosePopup(popupEditProfile, event);
+//         }
 
-        if(isOpenFormCardAddPopup){
-            openAndClosePopup(popupAddCard, event);
-        }
+//         if(isOpenFormCardAddPopup){
+//             openAndClosePopup(popupAddCard, event);
+//         }
 
-        if(isOpenViewPhotoPopup){
-            openAndClosePopup(popupViewPhoto, event);
-        }
-    }else if(event.type === 'click'){
-        if(!clickInEditProfilePopup && isOpenEditProfilePopup){
-            openAndClosePopup(popupEditProfile, event);
-        }
+//         if(isOpenViewPhotoPopup){
+//             openAndClosePopup(popupViewPhoto, event);
+//         }
+//     }else if(event.type === 'click'){
+//         if(!clickInEditProfilePopup && isOpenEditProfilePopup){
+//             openAndClosePopup(popupEditProfile, event);
+//         }
 
-        if(!clickInFormCardAddPopup && isOpenFormCardAddPopup){
-            openAndClosePopup(popupAddCard, event);
-        }
+//         if(!clickInFormCardAddPopup && isOpenFormCardAddPopup){
+//             openAndClosePopup(popupAddCard, event);
+//         }
 
-        if(!clickInViewPhotoPopup && isOpenViewPhotoPopup){
-            openAndClosePopup(popupViewPhoto, event);
-        }
-    }
-}
+//         if(!clickInViewPhotoPopup && isOpenViewPhotoPopup){
+//             openAndClosePopup(popupViewPhoto, event);
+//         }
+//     }
+// }
 
 const openPopupAddCard = (event) => {
     const buttonSaveForm = popupAddCard.querySelector(pageElements.buttonSaveForm);
     buttonDisabled(buttonSaveForm)
-    openAndClosePopup(popupAddCard, event);
+    openAndClosePopup(popupAddCard);
 }
 
-const addEventListenerClosekPopup = () => {
-    popupEditProfile.addEventListener('click',closePopupOverlayOrEsc);
-    popupAddCard.addEventListener('click',closePopupOverlayOrEsc);
-    popupViewPhoto.addEventListener('click',closePopupOverlayOrEsc);
-}
+// const addEventListenerClosekPopup = () => {
+//     popupEditProfile.addEventListener('click',closePopupOverlayOrEsc);
+//     popupAddCard.addEventListener('click',closePopupOverlayOrEsc);
+//     popupViewPhoto.addEventListener('click',closePopupOverlayOrEsc);
+// }
 
 /**
  * Динамическое добавление карточек
@@ -239,9 +246,9 @@ initialAddingCards();
 /**
  * закрытия модальных окон
  */
-buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(popupViewPhoto, event));
-buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(popupEditProfile, event));
-buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(popupAddCard, event));
+// buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(popupViewPhoto, event));
+// buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(popupEditProfile, event));
+// buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(popupAddCard, event));
 
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
@@ -249,11 +256,10 @@ buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonSavePopupEditProfile.addEventListener('click', editProfile);
 buttonSavePopupAddCard.addEventListener('click', addOneCard);
 
-addEventListenerClosekPopup();
+// addEventListenerClosekPopup();
 
 const validation = new FormValidator(pageElements);
 validation.enableValidation();
-
 
 export {
     containerPopupViewPhoto, 
