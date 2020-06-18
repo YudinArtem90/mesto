@@ -5,6 +5,7 @@ import './pages/index.css';
 import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 
 // const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);
@@ -141,20 +142,33 @@ const deleteErrorEditProfileForm = () => {
  */
 const fillingOutEditProfileForm = (event) => {
 
+    const userInfo = new UserInfo(
+        namePage.textContent,
+        informPage.textContent
+    );
+
     const modelPopup = new PopupWithForm(popupEditProfile, {
         handleFormSubmit: (evt) =>{
             evt.preventDefault();
-            namePage.textContent = inputNamePopupEditProfile.value;
-            informPage.textContent = inputInfoPopupEditProfile.value;
+            // namePage.textContent = inputNamePopupEditProfile.value;
+            // informPage.textContent = inputInfoPopupEditProfile.value;
+            userInfo.setUserInfo(
+                inputNamePopupEditProfile.value,
+                inputInfoPopupEditProfile.value
+            );
             openAndClosePopup(popupEditProfile, modelPopup);
     }});
 
     // namePage.textContent = inputNamePopupEditProfile.value;
     // informPage.textContent = inputInfoPopupEditProfile.value;
     // popup.setEventListeners();
-   
-    inputNamePopupEditProfile.value = namePage.textContent;
-    inputInfoPopupEditProfile.value = informPage.textContent;
+
+
+    const {name, info} = userInfo.getUserInfo();
+    inputNamePopupEditProfile.value = name;
+    inputInfoPopupEditProfile.value = info;
+    // inputNamePopupEditProfile.value = namePage.textContent;
+    // inputInfoPopupEditProfile.value = informPage.textContent;
     deleteErrorEditProfileForm();
     openAndClosePopup(popupEditProfile, modelPopup);
     // openAndClosePopup(popupEditProfile);
@@ -303,5 +317,9 @@ export {
     findInputsForm,
     showInputError,
     hideInputError,
-    findSpanError
+    findSpanError,
+    inputNamePopupEditProfile,
+    inputInfoPopupEditProfile,
+    namePage,
+    informPage
 };
