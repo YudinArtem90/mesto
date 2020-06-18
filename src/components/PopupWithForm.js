@@ -7,21 +7,17 @@ export default class PopupWithForm extends Popup{
         this._handleFormSubmit = handleFormSubmit;
         this._inputsForm = this._form.querySelectorAll('input');
         this._formValues = {};
-
-        this.close = this.close.bind(this);
     }
 
     setEventListeners(){
         super.setEventListeners();
-        const _this = this;
-        this._form.addEventListener('submit', function (evt) {
-            evt.preventDefault();
-            _this._handleFormSubmit(evt);
-          }, {once : true});
+        
+        this._form.addEventListener('submit', this._handleFormSubmit);
     }
 
     close(){
         super.close();
+        this._form.removeEventListener('submit', this._handleFormSubmit);
         this._form.reset();
     }
 

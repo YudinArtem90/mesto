@@ -47,7 +47,8 @@ const pageElements = {
     informPage: '.profile-info__information-person',
     containerPopupViewPhoto: '.popup__view-photo-container',
     infoPopupViewPhoto: '.popup__view-photo-info',
-    templateCard: '#card'
+    templateCard: '#card',
+    mainContainerPopupViewPhoto: '.popup__main-container'
   }
 
   export {initialCards, pageElements};
