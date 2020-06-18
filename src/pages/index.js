@@ -27,13 +27,8 @@ const formCardAdd = document.querySelector(pageElements.formCardAdd);
 /**
  * Кнопки 
  */
-const buttonClosePopupViewPhoto = document.querySelector(pageElements.buttonClosePopupViewPhoto);
-const buttonClosePopupFormEditProfile = formEditProfile.querySelector('.popup__icon-close-form');
-const buttonClosePopupFormCardAdd = formCardAdd.querySelector('.popup__icon-close-form');
 const buttonOpenPopupEditProfileInfo = document.querySelector(pageElements.buttonOpenPopupEditProfileInfo);
 const buttonOpenPopupAddCard = document.querySelector(pageElements.buttonOpenPopupAddCard);
-const buttonSavePopupEditProfile = formEditProfile.querySelector('.popup__save-button');
-const buttonSavePopupAddCard = formCardAdd.querySelector('.popup__save-button');
 
 /**
  * Поля ввода-вывода 
@@ -178,44 +173,6 @@ const addOneCard = () => {
     }];
     addCards(data, templateCard);
 }
-
-// const closePopupOverlayOrEsc = (event) => {
-//     const clickInEditProfilePopup = formEditProfile.contains(event.target);
-//     const clickInFormCardAddPopup = formCardAdd.contains(event.target);
-//     const clickInViewPhotoPopup = containerPopupViewPhoto.contains(event.target);
-    
-//     const isOpenEditProfilePopup = popupEditProfile.classList.contains("popup_opened");
-//     const isOpenFormCardAddPopup = popupAddCard.classList.contains("popup_opened");
-//     const isOpenViewPhotoPopup = popupViewPhoto.classList.contains("popup_opened");
-
-//     const isEsc = (event.keyCode || event.which) === ESCAPE_KEY_CODE;
-
-//     if(isEsc){
-//         if(isOpenEditProfilePopup){
-//             openAndClosePopup(popupEditProfile, event);
-//         }
-
-//         if(isOpenFormCardAddPopup){
-//             openAndClosePopup(popupAddCard, event);
-//         }
-
-//         if(isOpenViewPhotoPopup){
-//             openAndClosePopup(popupViewPhoto, event);
-//         }
-//     }else if(event.type === 'click'){
-//         if(!clickInEditProfilePopup && isOpenEditProfilePopup){
-//             openAndClosePopup(popupEditProfile, event);
-//         }
-
-//         if(!clickInFormCardAddPopup && isOpenFormCardAddPopup){
-//             openAndClosePopup(popupAddCard, event);
-//         }
-
-//         if(!clickInViewPhotoPopup && isOpenViewPhotoPopup){
-//             openAndClosePopup(popupViewPhoto, event);
-//         }
-//     }
-// }
 
 const openPopupAddCard = (event) => {
     const modelPopup = new PopupWithForm(popupAddCard, {
