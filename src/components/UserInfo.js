@@ -3,7 +3,7 @@ import {
     inputInfoPopupEditProfile,
     namePage,
     informPage
-} from '../index';
+} from '../pages/index';
 
 export default class UserInfo{
     constructor(name, info){

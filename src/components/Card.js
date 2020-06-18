@@ -1,10 +1,10 @@
-import {
-    containerPopupViewPhoto,
-    infoPopupViewPhoto,
-    popupViewPhoto,
-    openAndClosePopup
-} from '../index.js';
-import PopupWithImage from './PopupWithImage.js';
+// import {
+//     containerPopupViewPhoto,
+//     infoPopupViewPhoto,
+//     popupViewPhoto,
+//     openAndClosePopup
+// } from '../pages/index';
+// import PopupWithImage from './PopupWithImage.js';
 
 export default class Card{
 

@@ -1,6 +1,5 @@
 import Popup from "./Popup";
-import {pageElements} from '../utils/data';
-import {infoPopupViewPhoto, containerPopupViewPhoto} from '../index';
+import {infoPopupViewPhoto, containerPopupViewPhoto} from '../pages/index';
 
 export default class PopupWithImage extends Popup{
     constructor(src, name, selector){

@@ -5,7 +5,7 @@ import {
     findSpanError,
     showInputError,
     hideInputError
-} from '../index.js';
+} from '../pages/index';
 
 export default class FormValidator{
     constructor(pageElements, validateForm = 0){
