@@ -1,14 +1,13 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import {initialCards, pageElements} from '../utils/data.js';
-import './index.css';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
-// const ESCAPE_KEY_CODE = 27;
+import './index.css';
+
 const sectionElements = document.querySelector(pageElements.sectionElements);
 
 /**
@@ -58,14 +57,6 @@ const infoPopupViewPhoto = document.querySelector(pageElements.infoPopupViewPhot
 
 const templateCard = document.querySelector(pageElements.templateCard).content;
 
-// const addEventListenerEsc = () => {
-//     document.addEventListener('keyup',closePopupOverlayOrEsc);
-// }
-
-// const removeEventListenerEsc = () => {
-//     document.removeEventListener('keyup',closePopupOverlayOrEsc);
-// }
-
 const findSpanError = (formInput, form) => {
     return form.querySelector(`#${formInput.id}-error`);
 }
@@ -88,15 +79,7 @@ const hideInputError = (spanError, form) => {
  * Общий метод закрытия и открытия модалки 
  */
 const openAndClosePopup = (popup, modelPopup) => {
-
-    // const isOpenPopup = popup.classList.toggle("popup_opened");
-    //const OpenAndClosePopup = new Popup(popup);
     const isOpenPopup = popup.classList.contains("popup_opened");
-    // isOpenPopup ? addEventListenerEsc() : removeEventListenerEsc();
-    // isOpenPopup ? 
-    //     modelPopup.close() : 
-    //     modelPopup.open();
-    // modelPopup.setEventListeners();
 
     if(isOpenPopup){
         modelPopup.close();
@@ -104,9 +87,6 @@ const openAndClosePopup = (popup, modelPopup) => {
         modelPopup.open();
         modelPopup.setEventListeners();
     }
-
-
-    //event.stopPropagation();
 }
 
 const buttonDisabled = (buttonSave) => {
@@ -138,6 +118,15 @@ const deleteErrorEditProfileForm = () => {
     buttonActivated(buttonSave);
 }
 
+
+const editProfile = (userInfo, modelPopup) => {
+    userInfo.setUserInfo(
+        inputNamePopupEditProfile.value,
+        inputInfoPopupEditProfile.value
+    );
+    openAndClosePopup(popupEditProfile, modelPopup);
+}
+
 /**
  * Заполнение формы редактирования пользователя
  */
@@ -151,43 +140,18 @@ const fillingOutEditProfileForm = (event) => {
     const modelPopup = new PopupWithForm(popupEditProfile, {
         handleFormSubmit: (evt) =>{
             evt.preventDefault();
-            // namePage.textContent = inputNamePopupEditProfile.value;
-            // informPage.textContent = inputInfoPopupEditProfile.value;
-            userInfo.setUserInfo(
-                inputNamePopupEditProfile.value,
-                inputInfoPopupEditProfile.value
-            );
-            openAndClosePopup(popupEditProfile, modelPopup);
+            editProfile(userInfo, modelPopup);
     }});
-
-    // namePage.textContent = inputNamePopupEditProfile.value;
-    // informPage.textContent = inputInfoPopupEditProfile.value;
-    // popup.setEventListeners();
-
 
     const {name, info} = userInfo.getUserInfo();
     inputNamePopupEditProfile.value = name;
     inputInfoPopupEditProfile.value = info;
-    // inputNamePopupEditProfile.value = namePage.textContent;
-    // inputInfoPopupEditProfile.value = informPage.textContent;
     deleteErrorEditProfileForm();
     openAndClosePopup(popupEditProfile, modelPopup);
-    // openAndClosePopup(popupEditProfile);
 }
 
-// const editProfile = (event) => {
-//     event.preventDefault();
-//     namePage.textContent = inputNamePopupEditProfile.value;
-//     informPage.textContent = inputInfoPopupEditProfile.value;
-//     openAndClosePopup(popupEditProfile);
-// }
-
 const addCards = (data, templateCard) => {
-    // const classCard = new Card(data, templateCard);
-    // const card = classCard.getCard();
-    // console.log(data);
-    // console.log(templateCard);
-    
+
     const classList = new Section({data: data, renderer: (item) => {
         const classCard = new Card(item, templateCard, {
             handleCardClick: (event, _this) => {
@@ -205,35 +169,15 @@ const addCards = (data, templateCard) => {
     }}, pageElements.sectionElements);
 
     classList.renderItems();
-
-
-    // sectionElements.prepend(card);
 }
 
-const addOneCard = (event) => {
+const addOneCard = () => {
     const data = [{
         name : popupAddCardInputName.value, 
         link : popupAddCardInputLink.value
     }];
     addCards(data, templateCard);
-    //event.preventDefault();
-    //formCardAdd.reset();
-    //openAndClosePopup(popupAddCard);
 }
-
-// const initialAddingCards = () => {
-    // initialCards.forEach((data) => {
-        // addCards(initialCards, templateCard);
-    // });
-    // const classList = new Section({data: initialCards, renderer: (item) => {
-    //     const classCard = new Card(item, templateCard);
-    //     const card = classCard.getCard();
-
-    //     classList.addItem(card);
-    // }}, pageElements.sectionElements);
-
-    // classList.renderItems();
-// }
 
 // const closePopupOverlayOrEsc = (event) => {
 //     const clickInEditProfilePopup = formEditProfile.contains(event.target);
@@ -287,31 +231,13 @@ const openPopupAddCard = (event) => {
     openAndClosePopup(popupAddCard, modelPopup);
 }
 
-// const addEventListenerClosekPopup = () => {
-//     popupEditProfile.addEventListener('click',closePopupOverlayOrEsc);
-//     popupAddCard.addEventListener('click',closePopupOverlayOrEsc);
-//     popupViewPhoto.addEventListener('click',closePopupOverlayOrEsc);
-// }
-
 /**
  * Динамическое добавление карточек
  */
-// initialAddingCards();
 addCards(initialCards, templateCard);
-/**
- * закрытия модальных окон
- */
-// buttonClosePopupViewPhoto.addEventListener('click', (event) => openAndClosePopup(popupViewPhoto, event));
-// buttonClosePopupFormEditProfile.addEventListener('click', (event) => openAndClosePopup(popupEditProfile, event));
-// buttonClosePopupFormCardAdd.addEventListener('click', (event) => openAndClosePopup(popupAddCard, event));
 
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
-
-// buttonSavePopupEditProfile.addEventListener('click', editProfile);
-// buttonSavePopupAddCard.addEventListener('click', addOneCard);
-
-// addEventListenerClosekPopup();
 
 const validation = new FormValidator(pageElements);
 validation.enableValidation();

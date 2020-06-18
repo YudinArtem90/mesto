@@ -1,6 +1,4 @@
 import {
-    inputNamePopupEditProfile,
-    inputInfoPopupEditProfile,
     namePage,
     informPage
 } from '../pages/index';
@@ -12,8 +10,6 @@ export default class UserInfo{
     }
 
     getUserInfo(NameNew, InfoNew){
-        // namePage.textContent = NameNew;
-        // informPage.textContent = InfoNew;
         return {
             name : this._name,
             info : this._info
