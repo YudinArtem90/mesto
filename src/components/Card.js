@@ -8,11 +8,12 @@ import PopupWithImage from './PopupWithImage.js';
 
 export default class Card{
 
-    constructor({name, link}, template){
+    constructor({name, link}, template, {handleCardClick}){
         // debugger;
         this._name = name;
         this._link = link;
         this._templateCard = template;
+        this._handleCardClick = handleCardClick;
 
         this._createPopupViewPhoto = this._createPopupViewPhoto.bind(this);
         this._addLikeOrDislikeCard = this._addLikeOrDislikeCard.bind(this);
@@ -36,12 +37,12 @@ export default class Card{
 
         //     console.log( '_templateCard', this._templateCard);
         // debugger;
-        const createPopupViewPhoto = new PopupWithImage(
-            event.target.currentSrc,
-            this._name, 
-            popupViewPhoto
-        );
-        createPopupViewPhoto.open();
+        // const createPopupViewPhoto = new PopupWithImage(
+        //     event.target.currentSrc,
+        //     this._name, 
+        //     popupViewPhoto
+        // );
+        // createPopupViewPhoto.open();
     }
 
     _deleteCard(){
@@ -69,7 +70,7 @@ export default class Card{
     _addEventListenerCard(){
         // console.log('this', this);
         this._buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
-        this._image.addEventListener('click', this._createPopupViewPhoto);
+        this._image.addEventListener('click', (event) => this._handleCardClick(event, this));
         this._buttonDeleteCard.addEventListener('click', () => this._deleteCard(), {onсe : true});
     }
 }

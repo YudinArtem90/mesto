@@ -6,6 +6,7 @@ import Section from './components/Section.js';
 import Popup from './components/Popup.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
+import PopupWithImage from './components/PopupWithImage.js';
 
 // const ESCAPE_KEY_CODE = 27;
 const sectionElements = document.querySelector(pageElements.sectionElements);
@@ -188,7 +189,19 @@ const addCards = (data, templateCard) => {
     // console.log(templateCard);
     
     const classList = new Section({data: data, renderer: (item) => {
-        const classCard = new Card(item, templateCard);
+        const classCard = new Card(item, templateCard, {
+            handleCardClick: (event, _this) => {
+                console.log('this', _this);
+                console.log('event', event);
+                console.log('popupViewPhoto', popupViewPhoto);
+                const createPopupViewPhoto = new PopupWithImage(
+                    event.target.currentSrc,
+                    _this._name, 
+                    popupViewPhoto
+                );
+                createPopupViewPhoto.open();
+            } 
+        });
         const card = classCard.getCard();
 
         classList.addItem(card);
