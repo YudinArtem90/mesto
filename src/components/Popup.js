@@ -2,8 +2,9 @@ const ESCAPE_KEY_CODE = 27;
 
 export default class Popup{
     
-    constructor(selector){
+    constructor(selector, buttonClose){
         this._selector = selector;
+        this._buttonClose = buttonClose;
         this._popup = document.querySelector(this._selector);
 
         this.close = this.close.bind(this);
@@ -22,14 +23,8 @@ export default class Popup{
     }
 
     setEventListeners(){
-        const {buttonCloseModalAddCardAndEditProfile, buttonClosePopupViewPhoto} = pageElements;
-        let buttonClose = this._popup.querySelector(buttonCloseModalAddCardAndEditProfile);
-
-        if(!buttonClose){
-            buttonClose = this._popup.querySelector(buttonClosePopupViewPhoto);
-        }
-        
-        buttonClose.addEventListener('click', this.close, {once : true});
+        const button = this._popup.querySelector(this._buttonClose);
+        button.addEventListener('click', this.close);
     }
 
     _handleEscClose(event){
