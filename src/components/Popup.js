@@ -1,38 +1,32 @@
-import {pageElements} from '../utils/data.js';
-
 const ESCAPE_KEY_CODE = 27;
 
 export default class Popup{
     
     constructor(selector){
         this._selector = selector;
-        const {mainContainerPopupViewPhoto} = pageElements;
-
-        this._popup = this._selector.querySelector('form') ? 
-            this._selector.querySelector('form') : 
-            this._selector.querySelector(mainContainerPopupViewPhoto);
+        this._popup = document.querySelector(this._selector);
 
         this.close = this.close.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);
     }
 
     open(){
-        this._selector.addEventListener('click', this._handleOverlayClose);
+        this._popup.addEventListener('click', this._handleOverlayClose);
         document.addEventListener('keyup', (event) => this._handleEscClose(event), {once : true});
-        this._selector.classList.add("popup_opened");
+        this._popup.classList.add("popup_opened");
     }
 
     close(){
-        this._selector.classList.remove("popup_opened");
-        this._selector.removeEventListener('click', this._handleOverlayClose);
+        this._popup.classList.remove("popup_opened");
+        this._popup.removeEventListener('click', this._handleOverlayClose);
     }
 
     setEventListeners(){
         const {buttonCloseModalAddCardAndEditProfile, buttonClosePopupViewPhoto} = pageElements;
-        let buttonClose = this._selector.querySelector(buttonCloseModalAddCardAndEditProfile);
+        let buttonClose = this._popup.querySelector(buttonCloseModalAddCardAndEditProfile);
 
         if(!buttonClose){
-            buttonClose = this._selector.querySelector(buttonClosePopupViewPhoto);
+            buttonClose = this._popup.querySelector(buttonClosePopupViewPhoto);
         }
         
         buttonClose.addEventListener('click', this.close, {once : true});
@@ -45,10 +39,7 @@ export default class Popup{
     }
 
     _handleOverlayClose(event){
-        const clickInPopup = this._popup.contains(event.target);
-        const isOpenPopup = this._selector.classList.contains("popup_opened");
-
-        if(!clickInPopup && isOpenPopup){
+        if(event.target === this._popup){
             this.close();
         }
     }
