@@ -1,0 +1,8 @@
+.popup__icon-close{
+    position: relative;
+}
+
+.popup__icon-close:hover{
+    opacity: .6;
+    cursor: pointer;
+}
