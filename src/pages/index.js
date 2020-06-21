@@ -3,7 +3,7 @@ import Card from '../components/Card.js';
 import {initialCards, pageElements} from '../utils/data.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-// import UserInfo from '../components/UserInfo.js';
+import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 
 import './index.css';
@@ -13,7 +13,6 @@ const sectionElements = document.querySelector(pageElements.sectionElements);
 /**
  * Popups 
  */
-
 const popupEditProfile = document.querySelector(pageElements.popupEditProfile);
 const popupAddCard = document.querySelector(pageElements.popupAddCard);
 const popupViewPhoto = document.querySelector(pageElements.popupViewPhoto);
@@ -38,25 +37,38 @@ const inputInfoPopupEditProfile = document.querySelector(pageElements.inputInfoP
 const popupAddCardInputName = formCardAdd.querySelector('.popup__field_name_card');
 const popupAddCardInputLink = formCardAdd.querySelector('.popup__field_link_card');
 
-/**
- * Данные страницы
- */
-const namePage = document.querySelector(pageElements.namePage);
-const informPage = document.querySelector(pageElements.informPage);
-
 const templateCard = document.querySelector(pageElements.templateCard).content;
 
+// работа с модальным окном редактирования пользователя
+const userInfo = new UserInfo(pageElements);
+
+const classPopupEditProfileForm = new PopupWithForm(
+    pageElements.popupEditProfile, 
+    pageElements.buttonClosePopup, {
+    handleFormSubmit: (data) =>{
+        const {informPerson, namePerson} = data;
+        userInfo.setUserInfo(namePerson, informPerson);
+        classPopupEditProfileForm.close();
+}});
+
+/**
+ * Заполнение формы редактирования пользователя
+ */
+const fillingOutEditProfileForm = () => {
+    const {name, info} = userInfo.getUserInfo();
+
+    inputNamePopupEditProfile.value = name;
+    inputInfoPopupEditProfile.value = info;
+
+    classPopupEditProfileForm.open();
+}
+
+classPopupEditProfileForm.setEventListeners();
 
 
-
-
-
-
-
+// работа с карточками
 const addCards = (data, templateCard) => {
-
     const classList = new Section({data: data, renderer: (item) => {
-        console.log('data');
         const classCard = new Card(item, templateCard, {
             handleCardClick: (_this) => {
                 const createPopupViewPhoto = new PopupWithImage(
@@ -99,6 +111,7 @@ classPopupAddCard.setEventListeners();
 addCards(initialCards, templateCard);
 
 buttonOpenPopupAddCard.addEventListener('click', () => classPopupAddCard.open());
+buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 
 export {
     popupViewPhoto , 
@@ -106,6 +119,4 @@ export {
     // findSpanError,
     inputNamePopupEditProfile,
     inputInfoPopupEditProfile,
-    namePage,
-    informPage
 };

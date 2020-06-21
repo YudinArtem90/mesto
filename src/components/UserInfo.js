@@ -1,12 +1,12 @@
-import {
-    namePage,
-    informPage
-} from '../pages/index2';
-
 export default class UserInfo{
-    constructor(name, info){
-        this._name = name;
-        this._info = info;
+    constructor(pageElements){
+        const {namePage, informPage} = pageElements;
+
+        this._inputName = document.querySelector(namePage);
+        this._inputInfo = document.querySelector(informPage);
+
+        this._name = this._inputName.textContent;
+        this._info = this._inputInfo.textContent;
     }
 
     getUserInfo(){
@@ -17,7 +17,7 @@ export default class UserInfo{
     }
 
     setUserInfo(NameNew, InfoNew){
-        namePage.textContent = NameNew;
-        informPage.textContent = InfoNew;
+        this._inputName.textContent = this._name = NameNew;
+        this._inputInfo.textContent = this._info = InfoNew;
     }
 }
