@@ -1,7 +1,7 @@
 import {
     namePage,
     informPage
-} from '../pages/index';
+} from '../pages/index2';
 
 export default class UserInfo{
     constructor(name, info){
@@ -9,7 +9,7 @@ export default class UserInfo{
         this._info = info;
     }
 
-    getUserInfo(NameNew, InfoNew){
+    getUserInfo(){
         return {
             name : this._name,
             info : this._info
