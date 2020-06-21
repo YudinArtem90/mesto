@@ -83,22 +83,22 @@ const addOneCard = () => {
     addCards(data, templateCard);
 }
 
-const openPopupAddCard = new PopupWithForm(
+const classPopupAddCard = new PopupWithForm(
     pageElements.popupAddCard, 
     pageElements.buttonClosePopup, {
     handleFormSubmit: (evt) =>{
         addOneCard();
-        modelPopup.close();
+        classPopupAddCard.close();
 }});
 
-openPopupAddCard.setEventListeners();
+classPopupAddCard.setEventListeners();
 
 /**
  * Динамическое добавление карточек
  */
 addCards(initialCards, templateCard);
 
-buttonOpenPopupAddCard.addEventListener('click', () => openPopupAddCard.open());
+buttonOpenPopupAddCard.addEventListener('click', () => classPopupAddCard.open());
 
 export {
     popupViewPhoto , 
