@@ -63,7 +63,7 @@ const fillingOutEditProfileForm = () => {
 
 classPopupEditProfileForm.setEventListeners();
 
-// работа с карточками
+
 const addCards = (data, templateCard) => {
     const classList = new Section({data: data, renderer: (item) => {
         const classCard = new Card(item, templateCard, {
@@ -82,12 +82,29 @@ const addCards = (data, templateCard) => {
     classList.renderItems();
 }
 
+
+const classList = new Section({renderer: (item) => {
+    const classCard = new Card(item, templateCard, {
+        handleCardClick: (_this) => {
+            createPopupViewPhoto.open(
+                _this._image.src,
+                _this._name
+            );
+        } 
+    });
+    const card = classCard.getCard();
+
+    classList.addItem(card);
+}}, pageElements.sectionElements);
+
+classList.renderItems(initialCards);
+
 const addOneCard = () => {
     const data = [{
         name : popupAddCardInputName.value, 
         link : popupAddCardInputLink.value
     }];
-    addCards(data, templateCard);
+    classList.renderItems(data);
 }
 
 const classPopupAddCard = new PopupWithForm(
@@ -104,11 +121,6 @@ const openPopupAddCard = () => {
     validateFormAddCard.deleteError();
     classPopupAddCard.open();
 }
-
-/**
- * Динамическое добавление карточек
- */
-addCards(initialCards, templateCard);
 
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);

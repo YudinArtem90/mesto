@@ -7,6 +7,7 @@ export default class PopupWithImage extends Popup{
 
         this._popupViewPhoto = document.querySelector(containerPopupViewPhoto);
         this._infoPopup = document.querySelector(infoPopupViewPhoto);
+        super.setEventListeners();
     }
 
     open(src, name) {
@@ -14,7 +15,6 @@ export default class PopupWithImage extends Popup{
         this._popupViewPhoto.src = src; 
         this._popupViewPhoto.setAttribute('alt', `Фото - ${name}`);
         this._infoPopup.textContent = name;
-        super.setEventListeners();
         super.open();
     }
 }
