@@ -7,6 +7,7 @@ export default class Card{
         this._handleCardClick = handleCardClick;
         
         this._addLikeOrDislikeCard = this._addLikeOrDislikeCard.bind(this);
+        this._openImage = this._openImage.bind(this);
     }
 
     _addLikeOrDislikeCard() {
@@ -16,6 +17,10 @@ export default class Card{
     _deleteCard(){
         this._element.remove();
         this._element = null;
+    }
+
+    _openImage(){
+        this._handleCardClick(this);
     }
 
     getCard (){
@@ -36,7 +41,7 @@ export default class Card{
 
     _addEventListenerCard(){
         this._buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
-        this._image.addEventListener('click', () => this._handleCardClick(this));
+        this._image.addEventListener('click', this._openImage);
         this._buttonDeleteCard.addEventListener('click', () => this._deleteCard(), {onсe : true});
     }
 }

@@ -63,26 +63,6 @@ const fillingOutEditProfileForm = () => {
 
 classPopupEditProfileForm.setEventListeners();
 
-
-const addCards = (data, templateCard) => {
-    const classList = new Section({data: data, renderer: (item) => {
-        const classCard = new Card(item, templateCard, {
-            handleCardClick: (_this) => {
-                createPopupViewPhoto.open(
-                    _this._image.src,
-                    _this._name
-                );
-            } 
-        });
-        const card = classCard.getCard();
-
-        classList.addItem(card);
-    }}, pageElements.sectionElements);
-
-    classList.renderItems();
-}
-
-
 const classList = new Section({renderer: (item) => {
     const classCard = new Card(item, templateCard, {
         handleCardClick: (_this) => {
