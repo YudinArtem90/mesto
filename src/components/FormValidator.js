@@ -1,64 +1,87 @@
-import {
-    buttonDisabled, 
-    buttonActivated, 
-    findInputsForm, 
-    findSpanError,
-    showInputError,
-    hideInputError
-} from '../pages/index';
 
 export default class FormValidator{
-    constructor(pageElements, validateForm = 0){
+    constructor(pageElements, form){
         this._pageElements = pageElements;
-        this._validateForm = validateForm;
+        this._form = form;
+
+        this._inputsForm = this._findInputsForm();
+        this._buttonSave = form.querySelector(pageElements.buttonSaveForm);
+        this._addEventListenerInputForm();
     }
 
     enableValidation(){
-        const forms = document.querySelectorAll(this._pageElements.form);
-
-        forms.forEach((form) => {
-            const inputsForm = findInputsForm(form, this._pageElements); 
-            this._addEventListenerInputForm(inputsForm, form);
+        this._inputsForm.forEach((input) => {
+             this._validationInputAndForm(input);
         });
     }
 
-    _addEventListenerInputForm (inputsForm, form) {
-        inputsForm.forEach((input) => {
-            input.addEventListener('input', () => this._validationInputAndForm(inputsForm, form, input));
+    deleteError(){
+        this._inputsForm.forEach((input) => {
+            const spanForm = this._findSpanError(input);
+            this._hideInputError(spanForm, input);
+        });
+        this._buttonDisabled();
+    }
+
+    _addEventListenerInputForm () {
+        this._inputsForm.forEach((input) => {
+            input.addEventListener('input', () => this._validationInputAndForm(input));
         });
     }
 
-    _validationInputAndForm(inputsForm, form, input = 0){
-        if(input){
-            this._validInput(input, form);
-        }else{
-            inputsForm.forEach((inputForm) => {
-                this._validInput(inputForm, this._validateForm);
-            });
-        }
-        
-        this._validForm(inputsForm, form);
+    _validationInputAndForm(input){
+        this._validateInput(input);
+        this._validateForm();
     }
 
-    _validInput(formInput, form) {
-        const spanError = findSpanError(formInput, form);
+    _validateForm(){
+        this._isFormInvalid() ? 
+                this._buttonDisabled() : 
+                this._buttonActivated();
+    }
+
+    _validateInput(input){
+        const spanError = this._findSpanError(input);
+
+        input.validity.valid ?
+                this._hideInputError(spanError, input) :
+                this._showInputError(spanError, input);
+    }
+
+    _showInputError(spanError, input){
+        input.classList.add('form__input_type_error');
+        spanError.classList.add('popup__field-error_active');
+        spanError.textContent = input.validationMessage;
+    };
       
-        formInput.validity.valid ?
-                hideInputError(spanError, formInput) :
-                showInputError(spanError, formInput);
+      
+    _hideInputError(spanError, input){
+        input.classList.remove('form__input_type_error');
+        spanError.classList.remove('popup__field-error_active');
+        spanError.textContent = '';
+    };
+
+    _buttonDisabled(){
+        this._buttonSave.classList.add('popup__save-button_blocking');
+        this._buttonSave.disabled = true;
+    }
+      
+    _buttonActivated(){
+        this._buttonSave.classList.remove('popup__save-button_blocking');
+        this._buttonSave.disabled = false;
     }
 
-    _isFormInvalid(formInputs) {
-        return Array.from(formInputs).some((input) => {
+    _isFormInvalid() {
+        return Array.from(this._inputsForm).some((input) => {
           return !input.validity.valid;
         });
     }
 
-    _validForm(formInputs, form){
-        const buttonSave = form.querySelector(this._pageElements.buttonSaveForm);
-      
-        this._isFormInvalid(formInputs) ? 
-                buttonDisabled(buttonSave) : 
-                buttonActivated(buttonSave);
+    _findSpanError(formInput) {
+        return this._form.querySelector(`#${formInput.id}-error`);
+    }
+
+    _findInputsForm(){
+        return this._form.querySelectorAll(this._pageElements.inputForm);
     }
 }
