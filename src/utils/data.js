@@ -47,7 +47,10 @@ const pageElements = {
     containerPopupViewPhoto: '.popup__view-photo-container',
     infoPopupViewPhoto: '.popup__view-photo-info',
     templateCard: '#card',
-    mainContainerPopupViewPhoto: '.popup__main-container'
+    mainContainerPopupViewPhoto: '.popup__main-container',
+    modifyClassFormInputTypeError : 'form__input_type_error',
+    modifyClassPopupFieldError: 'popup__field-error_active',
+    modifyClassButtonSaveBlocking : 'popup__save-button_blocking'
   }
 
   export {initialCards, pageElements};

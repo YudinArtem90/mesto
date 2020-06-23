@@ -10,20 +10,21 @@ export default class Popup{
 
         this.close = this.close.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);
-
-        this._popup.addEventListener('click', this._handleOverlayClose);
-        document.addEventListener('keyup', (event) => this._handleEscClose(event));
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     open(){
         this._popup.classList.add("popup_opened");
+        document.addEventListener('keyup', this._handleEscClose);
     }
 
     close(){
         this._popup.classList.remove("popup_opened");
+        document.removeEventListener('keyup', this._handleEscClose);
     }
 
     setEventListeners(){
+        this._popup.addEventListener('mousedown', this._handleOverlayClose);
         this._buttonClose.addEventListener('click', this.close);
     }
 

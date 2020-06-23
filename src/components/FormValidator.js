@@ -49,25 +49,29 @@ export default class FormValidator{
     }
 
     _showInputError(spanError, input){
-        input.classList.add('form__input_type_error');
-        spanError.classList.add('popup__field-error_active');
+        const {modifyClassFormInputTypeError, modifyClassPopupFieldError} = this._pageElements;
+
+        input.classList.add(modifyClassFormInputTypeError);
+        spanError.classList.add(modifyClassPopupFieldError);
         spanError.textContent = input.validationMessage;
     };
       
       
     _hideInputError(spanError, input){
-        input.classList.remove('form__input_type_error');
-        spanError.classList.remove('popup__field-error_active');
+        const {modifyClassFormInputTypeError, modifyClassPopupFieldError} = this._pageElements;
+
+        input.classList.remove(modifyClassFormInputTypeError);
+        spanError.classList.remove(modifyClassPopupFieldError);
         spanError.textContent = '';
     };
 
     _buttonDisabled(){
-        this._buttonSave.classList.add('popup__save-button_blocking');
+        this._buttonSave.classList.add(this._pageElements.modifyClassButtonSaveBlocking);
         this._buttonSave.disabled = true;
     }
       
     _buttonActivated(){
-        this._buttonSave.classList.remove('popup__save-button_blocking');
+        this._buttonSave.classList.remove(this._pageElements.modifyClassButtonSaveBlocking);
         this._buttonSave.disabled = false;
     }
 

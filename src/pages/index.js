@@ -66,7 +66,7 @@ popupEditProfileForm.setEventListeners();
 const list = new Section({renderer: (item) => {
     const card = new Card(item, templateCard, {
         handleCardClick: (src, name) => {
-            createPopupViewPhoto.open(src,name);
+            createPopupViewPhoto.open(src, name);
         } 
     });
     const cardElement = card.getCard();
