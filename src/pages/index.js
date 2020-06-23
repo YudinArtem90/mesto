@@ -39,13 +39,13 @@ const userInfo = new UserInfo(pageElements);
 
 const createPopupViewPhoto = new PopupWithImage(pageElements);
 
-const classPopupEditProfileForm = new PopupWithForm(
+const popupEditProfileForm = new PopupWithForm(
     pageElements.popupEditProfile, 
     pageElements.buttonClosePopup, {
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
         userInfo.setUserInfo(namePerson, informPerson);
-        classPopupEditProfileForm.close();
+        popupEditProfileForm.close();
 }});
 
 /**
@@ -57,49 +57,46 @@ const fillingOutEditProfileForm = () => {
     inputNamePopupEditProfile.value = name;
     inputInfoPopupEditProfile.value = info;
 
-    validateFormEditProfile.enableValidation();
-    classPopupEditProfileForm.open();
+    validateFormEditProfile.validateForm();
+    popupEditProfileForm.open();
 }
 
-classPopupEditProfileForm.setEventListeners();
+popupEditProfileForm.setEventListeners();
 
-const classList = new Section({renderer: (item) => {
-    const classCard = new Card(item, templateCard, {
-        handleCardClick: (_this) => {
-            createPopupViewPhoto.open(
-                _this._image.src,
-                _this._name
-            );
+const list = new Section({renderer: (item) => {
+    const card = new Card(item, templateCard, {
+        handleCardClick: (src, name) => {
+            createPopupViewPhoto.open(src,name);
         } 
     });
-    const card = classCard.getCard();
+    const cardElement = card.getCard();
 
-    classList.addItem(card);
+    list.addItem(cardElement);
 }}, pageElements.sectionElements);
 
-classList.renderItems(initialCards);
+list.renderItems(initialCards);
 
 const addOneCard = () => {
     const data = [{
         name : popupAddCardInputName.value, 
         link : popupAddCardInputLink.value
     }];
-    classList.renderItems(data);
+    list.renderItems(data);
 }
 
-const classPopupAddCard = new PopupWithForm(
+const popupAddCard = new PopupWithForm(
     pageElements.popupAddCard, 
     pageElements.buttonClosePopup, {
     handleFormSubmit: (evt) =>{
         addOneCard();
-        classPopupAddCard.close();
+        popupAddCard.close();
 }});
 
-classPopupAddCard.setEventListeners();
+popupAddCard.setEventListeners();
 
 const openPopupAddCard = () => {
     validateFormAddCard.deleteError();
-    classPopupAddCard.open();
+    popupAddCard.open();
 }
 
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);

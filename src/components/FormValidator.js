@@ -9,7 +9,7 @@ export default class FormValidator{
         this._addEventListenerInputForm();
     }
 
-    enableValidation(){
+    validateForm(){
         this._inputsForm.forEach((input) => {
              this._validationInputAndForm(input);
         });

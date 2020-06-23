@@ -20,7 +20,9 @@ export default class Card{
     }
 
     _openImage(){
-        this._handleCardClick(this);
+        this._handleCardClick(
+            this._image.src, this._name
+        );
     }
 
     getCard (){
