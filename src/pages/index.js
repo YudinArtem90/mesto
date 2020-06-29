@@ -76,7 +76,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, {
+    const card = new Card(item, templateCard, pageElements, {ajax}, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         } 

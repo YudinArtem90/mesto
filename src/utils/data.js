@@ -51,7 +51,7 @@ const pageElements = {
     modifyClassFormInputTypeError : 'form__input_type_error',
     modifyClassPopupFieldError: 'popup__field-error_active',
     modifyClassButtonSaveBlocking : 'popup__save-button_blocking',
-    countLike : 'element__count-like'
+    countLike : '.element__count-like'
   }
 
   export default pageElements;
