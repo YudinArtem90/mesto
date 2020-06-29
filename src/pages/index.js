@@ -44,7 +44,18 @@ const popupEditProfileForm = new PopupWithForm(
     pageElements.buttonClosePopup, {
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
-        userInfo.setUserInfo(namePerson, informPerson);
+        ajax(
+            'https://mesto.nomoreparties.co/v1/cohort-12/users/me', 
+            'PATCH',
+            {
+                name: namePerson,
+                about: informPerson
+            })
+            .then((res) => {
+                console.log('getUserInfo');
+                
+                userInfo.setUserInfo(res.name, res.about);
+            });
         popupEditProfileForm.close();
 }});
 
@@ -74,8 +85,6 @@ const list = new Section({renderer: (item) => {
     list.addItem(cardElement);
 }}, pageElements.sectionElements);
 
-list.renderItems(initialCards);
-
 const addOneCard = () => {
     const data = [{
         name : popupAddCardInputName.value, 
@@ -98,6 +107,57 @@ const openPopupAddCard = () => {
     validateFormAddCard.deleteError();
     popupAddCard.open();
 }
+
+const ajax = (url, method = "GET", body) => {
+
+    const data = {
+        method: method,
+        headers: {
+            authorization: 'f77ffc2a-fabb-4e1a-b96f-391d240718e4',
+            'Content-Type': 'application/json'
+        }
+    };
+
+    if(body){
+        data.body = JSON.stringify(body);
+    }
+
+    return new Promise(function(resolve) {
+        fetch(url, data)
+        .then(res => {
+            if(res.ok){
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+            })
+        .then((result) => {
+            let j = result;
+            if(url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
+             j = result.slice(1, 3);
+            }
+            // let j = result.slice(1, 3);
+            // console.log(j);
+            resolve(j);
+        })
+        .catch((error) => console.log(error))
+        .finally((result) => console.log(result))
+    })
+}
+
+const getCards = () => {
+    ajax('https://mesto.nomoreparties.co/v1/cohort-12/cards')
+        .then((res) => list.renderItems(res));
+}
+
+const getUserInfo = () => {
+    ajax('https://mesto.nomoreparties.co/v1/cohort-12/users/me')
+            .then((res) => {
+                userInfo.setUserInfo(res.name, res.about);
+            });
+}
+
+getCards();
+getUserInfo();
 
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);

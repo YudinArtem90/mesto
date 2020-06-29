@@ -4,9 +4,6 @@ export default class UserInfo{
 
         this._inputName = document.querySelector(namePage);
         this._inputInfo = document.querySelector(informPage);
-
-        this._name = this._inputName.textContent;
-        this._info = this._inputInfo.textContent;
     }
 
     getUserInfo(){
