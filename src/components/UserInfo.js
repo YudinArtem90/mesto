@@ -1,9 +1,10 @@
 export default class UserInfo{
     constructor(pageElements){
-        const {namePage, informPage} = pageElements;
+        const {namePage, informPage, avatar} = pageElements;
 
         this._inputName = document.querySelector(namePage);
         this._inputInfo = document.querySelector(informPage);
+        this._avatar = document.querySelector(avatar);
     }
 
     getUserInfo(){
@@ -18,5 +19,9 @@ export default class UserInfo{
         this._info = infoNew;
         this._inputName.textContent = nameNew;
         this._inputInfo.textContent = infoNew;
+    }
+
+    setUserAvatar(link){
+        this._avatar.src = link;
     }
 }

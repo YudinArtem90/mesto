@@ -30,16 +30,20 @@ const pageElements = {
     form : '.popup__container',
     inputForm: '.popup__field',
     buttonSaveForm: '.popup__save_button',
+    buttonEditAvatar: '#button-edit-avatar',
     popupEditProfile : '#popupEditProfile',
     popupAddCard: '#popupAddCard',
     popupViewPhoto: '#popupViewPhoto',
+    popupEditAvatar: '#popupEditAvatar',
     spanForm : '.popup__field-error',
     formEditProfile: '.popup__container_edit-profile',
     formCardAdd: '.popup__container_add-card',
+    formEditAvatar: '.popup__container_edit-avatar-form',
     sectionElements: '.elements',
     inputNamePopupEditProfile: '.popup__field_name_person',
     inputInfoPopupEditProfile: '.popup__field_inform_person',
     buttonOpenPopupAddCard: '.profile__add-button',
+    buttonOpenPopupEditAvatar: '.profile__avatar-opacity',
     buttonClosePopup: '.popup__icon-close',
     buttonOpenPopupEditProfileInfo: '.profile-info__edit-button',
     namePage: '.profile-info__name',
@@ -51,7 +55,8 @@ const pageElements = {
     modifyClassFormInputTypeError : 'form__input_type_error',
     modifyClassPopupFieldError: 'popup__field-error_active',
     modifyClassButtonSaveBlocking : 'popup__save_button_blocking',
-    countLike : '.element__count-like'
+    countLike : '.element__count-like',
+    avatar: '.profile__avatar'
   }
 
   export default pageElements;

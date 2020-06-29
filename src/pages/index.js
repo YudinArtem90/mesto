@@ -7,19 +7,21 @@ import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import ajax from '../utils/ajax';
 import './index.css';
+import PopupEditAvatar from '../components/PopupEditAvatar.js';
 
 /**
  * Формы 
  */
 const formEditProfile = document.querySelector(pageElements.formEditProfile);
 const formCardAdd = document.querySelector(pageElements.formCardAdd);
+const formEditAvatar = document.querySelector(pageElements.formEditAvatar);
 
 /**
  * Кнопки 
  */
 const buttonOpenPopupEditProfileInfo = document.querySelector(pageElements.buttonOpenPopupEditProfileInfo);
 const buttonOpenPopupAddCard = document.querySelector(pageElements.buttonOpenPopupAddCard);
-
+const buttonOpenPopupEditAvatar = document.querySelector(pageElements.buttonOpenPopupEditAvatar);
 /**
  * Поля ввода-вывода 
  */
@@ -33,11 +35,28 @@ const templateCard = document.querySelector(pageElements.templateCard).content;
 // валидация форм
 const validateFormEditProfile = new FormValidator(pageElements, formEditProfile);
 const validateFormAddCard = new FormValidator(pageElements, formCardAdd);
+const validateFormEditAvatar = new FormValidator(pageElements, formEditAvatar);
 
 // работа с модальным окном редактирования пользователя
 const userInfo = new UserInfo(pageElements);
 
 const createPopupViewPhoto = new PopupWithImage(pageElements);
+
+const createPopupEditAvatar = new PopupEditAvatar(pageElements, {
+    handleFormSubmit: (linkAvatar) =>{
+        ajax(
+            'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar', 
+            'PATCH',
+            {
+                avatar: linkAvatar
+            },
+            'application/json')
+            .then((res) => {
+                userInfo.setUserAvatar(res.avatar);
+            });
+            createPopupEditAvatar.close();
+    }
+});
 
 const popupEditProfileForm = new PopupWithForm(
     pageElements.popupEditProfile, 
@@ -115,6 +134,11 @@ const openPopupAddCard = () => {
     popupAddCard.open();
 }
 
+const openPopupEditAvatar = () => {
+    validateFormEditAvatar.deleteError();
+    createPopupEditAvatar.open();
+}
+
 const getCards = () => {
     ajax('https://mesto.nomoreparties.co/v1/cohort-12/cards')
         .then((res) => list.renderItems(res));
@@ -132,3 +156,4 @@ getUserInfo();
 
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
+buttonOpenPopupEditAvatar.addEventListener('click', openPopupEditAvatar);
