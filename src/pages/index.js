@@ -1,6 +1,6 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {initialCards, pageElements} from '../utils/data.js';
+import pageElements from '../utils/data.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -76,7 +76,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, {
+    const card = new Card(item, templateCard, pageElements, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         } 
@@ -87,11 +87,6 @@ const list = new Section({renderer: (item) => {
 }}, pageElements.sectionElements);
 
 const addOneCard = () => {
-    // const data = [{
-    //     name : popupAddCardInputName.value, 
-    //     link : popupAddCardInputLink.value
-    // }];
-
     ajax(
         'https://mesto.nomoreparties.co/v1/cohort-12/cards', 
         'POST', {
@@ -103,7 +98,6 @@ const addOneCard = () => {
             console.log('sdfsdfs');
             list.renderItems(res);
         });
-    // list.renderItems(data);
 }
 
 const popupAddCard = new PopupWithForm(

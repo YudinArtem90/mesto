@@ -3,6 +3,9 @@
 @import './__image/element__image.css';
 @import './__button-delete/element__button-delete.css';
 @import './__button-like/element__button-like.css';
+@import './__container_likes/element__container_likes.css';
+@import './__count-like/element__count-like.css';
+
 
 .element{
     max-width: 282px;
