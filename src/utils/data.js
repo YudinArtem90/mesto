@@ -29,7 +29,7 @@
 const pageElements = {
     form : '.popup__container',
     inputForm: '.popup__field',
-    buttonSaveForm: '.popup__save-button',
+    buttonSaveForm: '.popup__save_button',
     popupEditProfile : '#popupEditProfile',
     popupAddCard: '#popupAddCard',
     popupViewPhoto: '#popupViewPhoto',
@@ -50,7 +50,7 @@ const pageElements = {
     mainContainerPopupViewPhoto: '.popup__main-container',
     modifyClassFormInputTypeError : 'form__input_type_error',
     modifyClassPopupFieldError: 'popup__field-error_active',
-    modifyClassButtonSaveBlocking : 'popup__save-button_blocking',
+    modifyClassButtonSaveBlocking : 'popup__save_button_blocking',
     countLike : '.element__count-like'
   }
 

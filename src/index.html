@@ -40,7 +40,7 @@
                     <span id="name_person-error" class="popup__field-error"></span>
                     <input id="inform_person" class="popup__field popup__field_inform_person" type="text" name="informPerson" minlength="2" maxlength="200" required>
                     <span id="inform_person-error" class="popup__field-error"></span>
-                    <button class="popup__save-button" type="submit">Сохранить</button>
+                    <button class="popup__button popup__save_button" type="submit">Сохранить</button>
                 </form>
             </div>
 
@@ -52,7 +52,7 @@
                     <span id="name_card-error" class="popup__field-error"></span>
                     <input id="link_card" class="popup__field popup__field_link_card" type="url" name="linkCard" placeholder='Ссылка на картинку' required>
                     <span id="link_card-error" class="popup__field-error"></span>
-                    <button class="popup__save-button" type="submit">Создать</button>
+                    <button class="popup__button popup__save_button" type="submit">Создать</button>
                 </form>
             </div>
 
@@ -65,6 +65,16 @@
                     </div>
                     
                     <p class="popup__view-photo-info"></p>
+                </div>
+            </div>
+
+            <div class="popup">
+                <div class="popup__main-container">
+                    <img src="./images/pop-up/close_icon.svg" alt="Кнопка закрытия модального окна" class="popup__icon-close icon-close-form_view-photo">
+                    <div class="popup__footer-container popup__footer-container_card-deletion-confirmation">
+                        <h2 class="popup__title">Вы уверены?</h2>
+                        <button class="popup__button popup__button_delete-card" type="submit">Да</button>
+                    </div>
                 </div>
             </div>
 
