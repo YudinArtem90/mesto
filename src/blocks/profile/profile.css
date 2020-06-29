@@ -1,5 +1,7 @@
 @import './__avatar/profile__avatar.css';
 @import './__add-button/profile__add-button.css';
+@import "./__container-avatar/profile__container-avatar.css";
+@import "./__avatar-opacity/profile__avatar-opacity.css";
 
 .profile{
     display: grid;

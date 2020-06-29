@@ -1,0 +1,14 @@
+.profile__avatar-opacity{
+    opacity: 0;
+    background: url('/src/images/profile/pen.svg') no-repeat center center;
+    background-size: 26px 26px;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+}
+
+.profile__avatar-opacity:hover{
+    opacity: 1;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+}
