@@ -16,7 +16,7 @@
 @import './__icon-close/_form/popup__icon-close_form.css';
 @import './__icon-close/_view-photo/icon-close-form_view-photo.css';
 @import './__footer-container/_card-deletion-confirmation/popup__footer-container_card-deletion-confirmation.css';
-
+@import './__icon-close/_delete-card/popup__icon-close_delete-card.css';
 
 .popup{
     background: rgba(0, 0, 0, 0.5);

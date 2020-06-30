@@ -106,8 +106,8 @@ const list = new Section({renderer: (item) => {
             popupDeleteCard.setEventListeners(deleteCard, popupDeleteCard);
         }}
      );
-    const cardElement = card.getCard();
 
+    const cardElement = card.getCard();
     list.addItem(cardElement);
 }}, pageElements.sectionElements);
 

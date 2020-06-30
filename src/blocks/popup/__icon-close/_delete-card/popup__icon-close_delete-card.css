@@ -1,0 +1,19 @@
+.popup__icon-close_delete-card{
+    align-self: flex-end;
+}
+
+@media (min-width: 573px){
+    .popup__icon-close_delete-card{
+        left: 33px;
+        top: 7px;
+        max-height: 40px;
+    }
+}
+
+@media (max-width: 572px){
+    .popup__icon-close_delete-card{
+        left: 26px;
+        top: 5px;
+        max-height: 30px;
+    }
+}

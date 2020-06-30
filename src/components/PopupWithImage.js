@@ -15,6 +15,8 @@ export default class PopupWithImage extends Popup{
         this._popupViewPhoto.src = src; 
         this._popupViewPhoto.setAttribute('alt', `Фото - ${name}`);
         this._infoPopup.textContent = name;
-        super.open();
+        this._popupViewPhoto.onload = () => {
+            super.open();
+          };
     }
 }

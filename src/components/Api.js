@@ -28,14 +28,7 @@ export default class Api{
                 return Promise.reject(`Ошибка: ${res.status}`);
                 })
             .then((result) => {
-                // console.log('result', result);
-                let j = result;
-                if(thisClass._url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
-                 j = result.slice(1, 3);
-                }
-                // let j = result.slice(1, 3);
-                // console.log(j);
-                resolve(j);
+                resolve(result);
             })
             .catch((error) => console.log('error', error))
             .finally((result) => console.log('result', result))

@@ -83,14 +83,12 @@ export default class Card{
     }
 
     getCard (){
-
         this._image.src = this._link;
         this._image.setAttribute('alt', this._name);
         this._text.textContent = this._name;
         this._countLike.textContent = this._likes.length;
-
         this._addEventListenerCard();
-
+        
         return this._element;
     }
 
