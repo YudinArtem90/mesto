@@ -12,10 +12,10 @@ export default class PopupDeleteCard extends Popup{
         this._buttonDeleteCardInPopup.addEventListener('click', () => {
             this.addLoader();
             deleteCard()
-            .then(res => {
-                this.removeLoader('Да');
-                popup.close();
-            });
+                .then(res => {
+                    this.removeLoader('Да');
+                    popup.close();
+                });
     })
     }
 }

@@ -5,10 +5,10 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import ajax from '../utils/ajax';
 import './index.css';
 import PopupEditAvatar from '../components/PopupEditAvatar.js';
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
+import Api from '../components/Api.js';
 
 /**
  * Формы 
@@ -46,18 +46,28 @@ const popupDeleteCard = new PopupDeleteCard(pageElements);
 
 const createPopupEditAvatar = new PopupEditAvatar(pageElements, {
     handleFormSubmit: (linkAvatar) =>{
-        ajax(
-            'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar', 
-            'PATCH',
-            {
-                avatar: linkAvatar
-            },
-            'application/json')
-            .then((res) => {
-                userInfo.setUserAvatar(res.avatar);
-                createPopupEditAvatar.close();
-                createPopupEditAvatar.removeLoader('Сохранить');
-            });
+
+        const editAvatar = new Api({
+            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar',
+            method: 'PATCH',
+            body: { avatar: linkAvatar},
+            contentType: 'application/json'
+          });
+
+          editAvatar.editAvatar(userInfo, createPopupEditAvatar);
+
+        // ajax(
+        //     'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar', 
+        //     'PATCH',
+        //     {
+        //         avatar: linkAvatar
+        //     },
+        //     'application/json')
+        //     .then((res) => {
+        //         userInfo.setUserAvatar(res.avatar);
+        //         createPopupEditAvatar.close();
+        //         createPopupEditAvatar.removeLoader('Сохранить');
+        //     });
     }
 });
 
@@ -69,21 +79,34 @@ const popupEditProfileForm = new PopupWithForm(
     pageElements.buttonSavePopupEditProfile, {
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
-        ajax(
-            'https://mesto.nomoreparties.co/v1/cohort-12/users/me', 
-            'PATCH',
-            {
+
+        const editProfile = new Api({
+            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me',
+            method: 'PATCH',
+            body: {
                 name: namePerson,
                 about: informPerson
             },
-            'application/json')
-            .then((res) => {
-                const {name, about} = res;
-                userInfo.setUserInfo(name, about);
-                // userInfo.setUserAvatar(avatar);
-                popupEditProfileForm.close();
-                popupEditProfileForm.removeLoader('Сохранить');
-            });
+            contentType: 'application/json'
+          });
+
+          editProfile.editProfile(userInfo, popupEditProfileForm);  
+
+        // ajax(
+        //     'https://mesto.nomoreparties.co/v1/cohort-12/users/me', 
+        //     'PATCH',
+        //     {
+        //         name: namePerson,
+        //         about: informPerson
+        //     },
+        //     'application/json')
+        //     .then((res) => {
+        //         const {name, about} = res;
+        //         userInfo.setUserInfo(name, about);
+        //         // userInfo.setUserAvatar(avatar);
+        //         popupEditProfileForm.close();
+        //         popupEditProfileForm.removeLoader('Сохранить');
+        //     });
 }});
 
 /**
@@ -102,7 +125,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, {ajax}, {
+    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, Api, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         }},
@@ -122,18 +145,30 @@ const popupAddCard = new PopupWithForm(
     pageElements.buttonClosePopup,
     pageElements.buttonSavePopupAddCard, {
     handleFormSubmit: (evt) =>{
-        ajax(
-        'https://mesto.nomoreparties.co/v1/cohort-12/cards', 
-        'POST', {
-            name: popupAddCardInputName.value,
-            link: popupAddCardInputLink.value
-        },
-        'application/json')
-        .then((res) => {
-            list.renderItems([res]);
-            popupAddCard.close();
-            popupAddCard.removeLoader('Создать');
-        });
+        const addCard = new Api({
+            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/cards',
+            method: 'POST',
+            body: {
+                name: popupAddCardInputName.value,
+                link: popupAddCardInputLink.value
+            },
+            contentType: 'application/json'
+          });
+
+          addCard.addCard(list, popupAddCard);  
+
+        // ajax(
+        // 'https://mesto.nomoreparties.co/v1/cohort-12/cards', 
+        // 'POST', {
+        //     name: popupAddCardInputName.value,
+        //     link: popupAddCardInputLink.value
+        // },
+        // 'application/json')
+        // .then((res) => {
+        //     list.renderItems([res]);
+        //     popupAddCard.close();
+        //     popupAddCard.removeLoader('Создать');
+        // });
 }});
 
 popupAddCard.setEventListeners();
@@ -148,22 +183,32 @@ const openPopupEditAvatar = () => {
     createPopupEditAvatar.open();
 }
 
-const getCards = () => {
-    ajax('https://mesto.nomoreparties.co/v1/cohort-12/cards')
-        .then((res) => list.renderItems(res));
-}
+// const getCards = () => {
+//     ajax('https://mesto.nomoreparties.co/v1/cohort-12/cards')
+//         .then((res) => list.renderItems(res));
+// }
 
-const getUserInfo = () => {
-    ajax('https://mesto.nomoreparties.co/v1/cohort-12/users/me')
-            .then((res) => {
-                const {avatar, name, about} = res;
-                userInfo.setUserInfo(name, about);
-                userInfo.setUserAvatar(avatar);
-            });
-}
+// const getUserInfo = () => {
+//     ajax('https://mesto.nomoreparties.co/v1/cohort-12/users/me')
+//             .then((res) => {
+//                 const {avatar, name, about} = res;
+//                 userInfo.setUserInfo(name, about);
+//                 userInfo.setUserAvatar(avatar);
+//             });
+// }
 
-getCards();
-getUserInfo();
+// getCards();
+// getUserInfo();
+
+const getCards = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/cards'
+  });
+getCards.getCards(list);  
+
+const getUserInfo = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me'
+  });
+getUserInfo.getUserInfo(userInfo);
 
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
