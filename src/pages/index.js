@@ -1,6 +1,6 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import pageElements from '../utils/data.js';
+import {pageElements, IDENTIFIER_USER} from '../utils/data.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -79,7 +79,9 @@ const popupEditProfileForm = new PopupWithForm(
             },
             'application/json')
             .then((res) => {
-                userInfo.setUserInfo(res.name, res.about);
+                const {name, about} = res;
+                userInfo.setUserInfo(name, about);
+                // userInfo.setUserAvatar(avatar);
                 popupEditProfileForm.close();
                 popupEditProfileForm.removeLoader('Сохранить');
             });
@@ -101,7 +103,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, {ajax}, {
+    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, {ajax}, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         } 
@@ -138,7 +140,7 @@ const popupAddCard = new PopupWithForm(
         },
         'application/json')
         .then((res) => {
-            list.renderItems(res);
+            list.renderItems([res]);
             popupAddCard.close();
             popupAddCard.removeLoader('Создать');
         });
@@ -164,7 +166,9 @@ const getCards = () => {
 const getUserInfo = () => {
     ajax('https://mesto.nomoreparties.co/v1/cohort-12/users/me')
             .then((res) => {
-                userInfo.setUserInfo(res.name, res.about);
+                const {avatar, name, about} = res;
+                userInfo.setUserInfo(name, about);
+                userInfo.setUserAvatar(avatar);
             });
 }
 

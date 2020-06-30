@@ -28,9 +28,9 @@ const ajax = (url, method = "GET", body, contentType) => {
         .then((result) => {
             console.log('result', result);
             let j = result;
-            if(url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
-             j = result.slice(1, 3);
-            }
+            // if(url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
+            //  j = result.slice(1, 3);
+            // }
             // let j = result.slice(1, 3);
             // console.log(j);
             resolve(j);

@@ -24,7 +24,7 @@
 //         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
 //     }
 // ];
-
+const IDENTIFIER_USER = '192a5b3feb03da51d09ded8e';
 
 const pageElements = {
     form : '.popup__container',
@@ -57,8 +57,9 @@ const pageElements = {
     modifyClassFormInputTypeError : 'form__input_type_error',
     modifyClassPopupFieldError: 'popup__field-error_active',
     modifyClassButtonSaveBlocking : 'popup__save_button_blocking',
+    modifyClassButtonDeleteCardDeactivation: 'element__button-delete_deactivation',
     countLike : '.element__count-like',
     avatar: '.profile__avatar'
   }
 
-  export default pageElements;
+  export  { pageElements, IDENTIFIER_USER};
