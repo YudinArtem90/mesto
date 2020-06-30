@@ -2,12 +2,12 @@ import Popup from "./Popup";
 
 export default class PopupEditAvatar extends Popup{
     constructor(pageElements, {handleFormSubmit}){
-        const {popupEditAvatar, buttonEditAvatar, buttonClosePopup, inputForm} =  pageElements;
-        super(popupEditAvatar, buttonClosePopup);
+        const {popupEditAvatar, buttonClosePopup, inputForm, buttonSavePopupEditAvatar} =  pageElements;
+        super(popupEditAvatar, buttonClosePopup, buttonSavePopupEditAvatar);
         this._form = this._popup.querySelector('form');
         this._linkAvatar = this._form.querySelector(inputForm);
         this._handleFormSubmit = handleFormSubmit;
-        this.setEventListeners();
+        //this.setEventListeners();
     }
 
     setEventListeners(){
@@ -15,6 +15,7 @@ export default class PopupEditAvatar extends Popup{
         
         this._form.addEventListener('submit', (evt) => {
                 evt.preventDefault();
+                this.addLoader();
                 this._handleFormSubmit(this._linkAvatar.value);
             });
     }

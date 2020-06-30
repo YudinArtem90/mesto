@@ -2,12 +2,14 @@ const ESCAPE_KEY_CODE = 27;
 
 export default class Popup{
     
-    constructor(selector, selectorButtonClose){
+    constructor(selector, selectorButtonClose, buttonSave = null){
+        console.log(selector,buttonSave );
         this._selector = selector;
         this._selectorButtonClose = selectorButtonClose;
         this._popup = document.querySelector(this._selector);
         this._buttonClose = this._popup.querySelector(selectorButtonClose);
-        
+        this._buttonSave = buttonSave !== null ? this._popup.querySelector(buttonSave) : null;
+        console.log('this._buttonSave', this._buttonSave);
         this.close = this.close.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);
         this._handleEscClose = this._handleEscClose.bind(this);
@@ -26,6 +28,14 @@ export default class Popup{
     setEventListeners(){
         this._popup.addEventListener('mousedown', this._handleOverlayClose);
         this._buttonClose.addEventListener('click', this.close);
+    }
+
+    addLoader(){
+        this._buttonSave.textContent = 'Сохранение...';
+    }
+
+    removeLoader(text){
+        this._buttonSave.textContent = text;
     }
 
     _handleEscClose(event){

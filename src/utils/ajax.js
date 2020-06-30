@@ -1,5 +1,7 @@
 const ajax = (url, method = "GET", body, contentType) => {
 
+    console.log('ajax');
+
     const data = {
         method: method,
         headers: {
