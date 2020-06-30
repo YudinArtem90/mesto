@@ -1,12 +1,5 @@
 export default class Api{
-    constructor({baseUrl, method = "GET", body, contentType}){
-
-        console.log('Api');
-        console.log('url', baseUrl);
-        console.log('method', method);
-        console.log('body', body);
-        console.log('contentType', contentType);
-        
+    constructor({baseUrl, method = "GET", body, contentType = ''}){
         this._url = baseUrl;
         this._data = {
             method: method,
@@ -37,15 +30,15 @@ export default class Api{
             .then((result) => {
                 // console.log('result', result);
                 let j = result;
-                // if(thisClass._url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
-                //  j = result.slice(1, 3);
-                // }
+                if(thisClass._url === 'https://mesto.nomoreparties.co/v1/cohort-12/cards'){
+                 j = result.slice(1, 3);
+                }
                 // let j = result.slice(1, 3);
                 // console.log(j);
                 resolve(j);
             })
-            .catch((error) => console.log(error))
-            .finally((result) => console.log(result))
+            .catch((error) => console.log('error', error))
+            .finally((result) => console.log('result', result))
         })
     }
 

@@ -68,23 +68,6 @@ export default class Card{
                 }      
             });
            });
-
-        // return new Promise(function(resolve, reject) {
-        //     _this._ajax(
-        //         `https://mesto.nomoreparties.co/v1/cohort-12/cards/${_this._cardId}`,
-        //         'DELETE'
-        //         ).then((res) => {
-        //             _this._element.remove();
-        //             _this._element = null;
-        //             console.log('res', res);
-        //             if(res.message){
-        //                 resolve(true);
-        //             }else{
-        //                 console.log('Ошибка при удалении карточки');
-        //             }
-                    
-        //     }); 
-        // })
     }
 
     _openImage(){
