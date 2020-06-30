@@ -7,7 +7,6 @@ export default class PopupEditAvatar extends Popup{
         this._form = this._popup.querySelector('form');
         this._linkAvatar = this._form.querySelector(inputForm);
         this._handleFormSubmit = handleFormSubmit;
-        //this.setEventListeners();
     }
 
     setEventListeners(){

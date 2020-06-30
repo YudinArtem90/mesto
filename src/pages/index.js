@@ -8,6 +8,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import ajax from '../utils/ajax';
 import './index.css';
 import PopupEditAvatar from '../components/PopupEditAvatar.js';
+import PopupDeleteCard from '../components/PopupDeleteCard.js';
 
 /**
  * Формы 
@@ -41,10 +42,10 @@ const validateFormEditAvatar = new FormValidator(pageElements, formEditAvatar);
 const userInfo = new UserInfo(pageElements);
 
 const createPopupViewPhoto = new PopupWithImage(pageElements);
+const popupDeleteCard = new PopupDeleteCard(pageElements);
 
 const createPopupEditAvatar = new PopupEditAvatar(pageElements, {
     handleFormSubmit: (linkAvatar) =>{
-        console.log('handleFormSubmit');
         ajax(
             'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar', 
             'PATCH',
@@ -57,8 +58,6 @@ const createPopupEditAvatar = new PopupEditAvatar(pageElements, {
                 createPopupEditAvatar.close();
                 createPopupEditAvatar.removeLoader('Сохранить');
             });
-            // createPopupEditAvatar.close();
-            // createPopupEditAvatar.removeLoader('Сохранить');
     }
 });
 
@@ -106,26 +105,17 @@ const list = new Section({renderer: (item) => {
     const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, {ajax}, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
-        } 
-    });
+        }},
+        {
+        handleDeleteCardClick: (deleteCard) => {
+            popupDeleteCard.open();
+            popupDeleteCard.setEventListeners(deleteCard, popupDeleteCard);
+        }}
+     );
     const cardElement = card.getCard();
 
     list.addItem(cardElement);
 }}, pageElements.sectionElements);
-
-// const addOneCard = () => {
-//     ajax(
-//         'https://mesto.nomoreparties.co/v1/cohort-12/cards', 
-//         'POST', {
-//             name: popupAddCardInputName.value,
-//             link: popupAddCardInputLink.value
-//         },
-//         'application/json')
-//         .then((res) => {
-//             console.log('sdfsdfs');
-//             list.renderItems(res);
-//         });
-// }
 
 const popupAddCard = new PopupWithForm(
     pageElements.popupAddCard, 

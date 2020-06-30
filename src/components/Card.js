@@ -1,11 +1,12 @@
 export default class Card{
 
-    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, {ajax} ,{handleCardClick}){
+    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, {ajax} ,{handleCardClick}, {handleDeleteCardClick}){
         this._name = name;
         this._link = link;
         this._likes = likes;
         this._templateCard = template;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteCardClick = handleDeleteCardClick;
         this._pageElements = pageElements;
         this._cardId = _id;
         this._ajax = ajax;
@@ -27,6 +28,7 @@ export default class Card{
 
         this._addLikeOrDislikeCard = this._addLikeOrDislikeCard.bind(this);
         this._openImage = this._openImage.bind(this);
+        this._deleteCard = this._deleteCard.bind(this);
     }
 
     _addLikeOrDislikeCard() {
@@ -59,18 +61,34 @@ export default class Card{
     }
 
     _deleteCard(){
-        this._ajax(
-            `https://mesto.nomoreparties.co/v1/cohort-12/cards/${this._cardId}`,
-            'DELETE'
-            ).then((res) => {
-                this._element.remove();
-                this._element = null;
+        const _this = this;
+        return new Promise(function(resolve, reject) {
+            _this._ajax(
+                `https://mesto.nomoreparties.co/v1/cohort-12/cards/${_this._cardId}`,
+                'DELETE'
+                ).then((res) => {
+                    _this._element.remove();
+                    _this._element = null;
+                    console.log('res', res);
+                    if(res.message){
+                        resolve(true);
+                    }else{
+                        console.log('Ошибка при удалении карточки');
+                    }
+                    
             }); 
+        })
     }
 
     _openImage(){
         this._handleCardClick(
             this._image.src, this._name
+        );
+    }
+
+    _openPopupDeleteCard(){
+        this._handleDeleteCardClick(
+            this._deleteCard
         );
     }
 
@@ -89,6 +107,6 @@ export default class Card{
     _addEventListenerCard(){
         this._buttonCardLike.addEventListener('click', this._addLikeOrDislikeCard);
         this._image.addEventListener('click', this._openImage);
-        this._buttonDeleteCard.addEventListener('click', () => this._deleteCard(), {onсe : true});
+        this._buttonDeleteCard.addEventListener('click', () => this._openPopupDeleteCard(), {onсe : true});
     }
 }

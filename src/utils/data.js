@@ -1,29 +1,3 @@
-// const initialCards = [
-//     {
-//         name: 'Архыз',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-//     },
-//     {
-//         name: 'Румыния',
-//         link: 'https://images.unsplash.com/photo-1587974038774-40e60a5f9669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'
-//     },
-//     {
-//         name: 'Иваново',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-//     },
-//     {
-//         name: 'Камчатка',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-//     },
-//     {
-//         name: 'Исландия',
-//         link: 'https://images.unsplash.com/photo-1553693417-c8cfd96d0307?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjE3MzYxfQ&auto=format&fit=crop&w=1350&q=80'
-//     },
-//     {
-//         name: 'Байкал',
-//         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-//     }
-// ];
 const IDENTIFIER_USER = '192a5b3feb03da51d09ded8e';
 
 const pageElements = {
@@ -34,6 +8,7 @@ const pageElements = {
     popupAddCard: '#popupAddCard',
     popupViewPhoto: '#popupViewPhoto',
     popupEditAvatar: '#popupEditAvatar',
+    popupDeleteCard: '#popupDeleteCard',
     spanForm : '.popup__field-error',
     formEditProfile: '.popup__container_edit-profile',
     formCardAdd: '.popup__container_add-card',
@@ -48,6 +23,7 @@ const pageElements = {
     buttonSavePopupEditProfile : '#buttonSavePopupEditProfile',
     buttonSavePopupAddCard : '#buttonSavePopupAddCard',
     buttonSavePopupEditAvatar : '#buttonSavePopupEditAvatar',
+    buttonDeleteCardInPopup: '.popup__button_delete-card',
     namePage: '.profile-info__name',
     informPage: '.profile-info__information-person',
     containerPopupViewPhoto: '.popup__view-photo-container',
