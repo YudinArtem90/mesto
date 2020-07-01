@@ -6,7 +6,6 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import './index.css';
-import PopupEditAvatar from '../components/PopupEditAvatar.js';
 import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import Api from '../components/Api.js';
 
@@ -44,17 +43,30 @@ const userInfo = new UserInfo(pageElements);
 const createPopupViewPhoto = new PopupWithImage(pageElements);
 const popupDeleteCard = new PopupDeleteCard(pageElements);
 
-const createPopupEditAvatar = new PopupEditAvatar(pageElements, {
-    handleFormSubmit: (linkAvatar) =>{
+const api = new Api({
+    baseUrl: 'https://mesto.nomoreparties.co/v1',
+    groupId: 'cohort-12',
+    authorization: 'f77ffc2a-fabb-4e1a-b96f-391d240718e4'
+  });
 
-        const editAvatar = new Api({
-            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me/avatar',
+const createPopupEditAvatar = new PopupWithForm(
+    pageElements.popupEditAvatar, 
+    pageElements.buttonClosePopup, 
+    pageElements.buttonSavePopupEditAvatar, {
+    handleFormSubmit: ({linkCard}) =>{
+        api.setUrlEditAvatar()
+        api.getData({
             method: 'PATCH',
-            body: { avatar: linkAvatar},
+            body: { avatar: linkCard},
             contentType: 'application/json'
-          });
-
-          editAvatar.editAvatar(userInfo, createPopupEditAvatar);
+        })
+        api.getPromise()
+            .then((res) => {
+            userInfo.setUserAvatar(res.avatar);
+            createPopupEditAvatar.close();
+            createPopupEditAvatar.removeLoader('Сохранить');
+            })
+            .catch((error) => console.log('Ошибка при редактировании аватара', error));
     }
 });
 
@@ -67,17 +79,23 @@ const popupEditProfileForm = new PopupWithForm(
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
 
-        const editProfile = new Api({
-            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me',
+        api.setUrlEditProfile()
+        api.getData({
             method: 'PATCH',
-            body: {
+            body: { 
                 name: namePerson,
                 about: informPerson
             },
             contentType: 'application/json'
-          });
-
-          editProfile.editProfile(userInfo, popupEditProfileForm);  
+        })
+        api.getPromise()
+            .then((res) => {
+                const {name, about} = res;
+                userInfo.setUserInfo(name, about);
+                popupEditProfileForm.close();
+                popupEditProfileForm.removeLoader('Сохранить');
+            })
+            .catch((error) => console.log('Ошибка при редактировании профиля', error));
 }});
 
 /**
@@ -96,7 +114,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, Api, {
+    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, api, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         }},
@@ -116,17 +134,22 @@ const popupAddCard = new PopupWithForm(
     pageElements.buttonClosePopup,
     pageElements.buttonSavePopupAddCard, {
     handleFormSubmit: (evt) =>{
-        const addCard = new Api({
-            baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/cards',
+        api.setUrlGetCards()
+        api.getData({
             method: 'POST',
-            body: {
-                name: popupAddCardInputName.value,
-                link: popupAddCardInputLink.value
+            body: { 
+            name: popupAddCardInputName.value,
+            link: popupAddCardInputLink.value
             },
             contentType: 'application/json'
-          });
-
-          addCard.addCard(list, popupAddCard);  
+        })
+        api.getPromise()
+            .then((res) => {
+            list.renderItems([res]);
+            popupAddCard.close();
+            popupAddCard.removeLoader('Создать');
+            })
+            .catch((error) => console.log('Ошибка при добавлении карточки', error));
 }});
 
 popupAddCard.setEventListeners();
@@ -141,16 +164,31 @@ const openPopupEditAvatar = () => {
     createPopupEditAvatar.open();
 }
 
-const getCards = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/cards'
-  });
-getCards.getCards(list);  
 
-const getUserInfo = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12/users/me'
-  });
-getUserInfo.getUserInfo(userInfo);
+const getCards = () => {
+        api.setUrlGetCards()
+        api.getData({})
+        api.getPromise()
+            .then((res) => {
+                list.renderItems(res);
+            })
+            .catch((error) => console.log('Ошибка при первичной загрузке карточек', error));
+}
 
+const getUserInfo = () => {
+    api.setUrlEditProfile()
+    api.getData({})
+    api.getPromise()
+        .then((res) => {
+            const {avatar, name, about} = res;
+            userInfo.setUserInfo(name, about);
+            userInfo.setUserAvatar(avatar);
+        })
+        .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
+}
+
+getCards();
+getUserInfo();
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);
 buttonOpenPopupEditAvatar.addEventListener('click', openPopupEditAvatar);

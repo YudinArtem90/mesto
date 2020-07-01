@@ -1,6 +1,6 @@
 export default class Card{
 
-    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, Api ,{handleCardClick}, {handleDeleteCardClick}){
+    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, api ,{handleCardClick}, {handleDeleteCardClick}){
         this._name = name;
         this._link = link;
         this._likes = likes;
@@ -9,7 +9,7 @@ export default class Card{
         this._handleDeleteCardClick = handleDeleteCardClick;
         this._pageElements = pageElements;
         this._cardId = _id;
-        this._api = Api;
+        this._api = api;
         this._isLike = true;
         this._ownerId = owner._id;
 
@@ -32,19 +32,17 @@ export default class Card{
     }
 
     _addLikeOrDislikeCard() {
+        this._api.setUrlAddLikeOrDislikeCard(this._cardId)
+        this._api.getData({
+            method: this._isLike ? 'PUT' : 'DELETE'
+        })
+        this._api.getPromise()
+            .then((res) => {
+                this._countLike.textContent = res.likes.length;
+                this._buttonCardLike.classList.toggle("element__button-like_action");
+            })
+            .catch((error) => console.log('Ошибка при проставлении или удалении лайка', error));
 
-        let data = {
-            baseUrl: `https://mesto.nomoreparties.co/v1/cohort-12/cards/likes/${this._cardId}`
-        };
-
-        this._isLike ? data.method = 'PUT' : data.method = 'DELETE';
-
-        const likeCard = new this._api(data);
-
-        likeCard.likeCard().then((res) => {
-            this._countLike.textContent = res.likes.length;
-            this._buttonCardLike.classList.toggle("element__button-like_action");
-        });
 
         this._isLike = !this._isLike;
     }
@@ -52,22 +50,20 @@ export default class Card{
     _deleteCard(){
         const thisClass = this;
        
-        const deleteCard = new thisClass._api({
-            baseUrl: `https://mesto.nomoreparties.co/v1/cohort-12/cards/${thisClass._cardId}`,
+        this._api.setUrlAddLikeOrDislikeCard(this._cardId)
+        this._api.getData({
             method: 'DELETE'
-          });
+        })
 
-          return new Promise(function(resolve, reject) {  
-            deleteCard.deleteCard().then((res) => {
-                thisClass._element.remove();
-                thisClass._element = null;
-                if(res.message){
+        return new Promise(function(resolve, reject) {
+            thisClass._api.getPromise()
+                .then((res) => {
+                    thisClass._element.remove();
+                    thisClass._element = null;
                     resolve(true);
-                }else{
-                    console.log('Ошибка при удалении карточки');
-                }      
-            });
-           });
+                })
+                .catch((error) => console.log('Ошибка при удалении карточки', error));   
+        });
     }
 
     _openImage(){
