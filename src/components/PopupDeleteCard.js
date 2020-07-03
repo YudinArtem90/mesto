@@ -2,8 +2,8 @@ import Popup from "./Popup"
 
 export default class PopupDeleteCard extends Popup{
     constructor(pageElements){
-        const {popupDeleteCard, buttonClosePopup, buttonDeleteCardInPopup} =  pageElements;
-        super(popupDeleteCard, buttonClosePopup, buttonDeleteCardInPopup);
+        const {popupDeleteCard, buttonDeleteCardInPopup} =  pageElements;
+        super(popupDeleteCard, pageElements);
         this._buttonDeleteCardInPopup = document.querySelector(buttonDeleteCardInPopup);
         this.setEventListeners = this.setEventListeners.bind(this);
     }
@@ -11,7 +11,7 @@ export default class PopupDeleteCard extends Popup{
     setEventListeners(deleteCard){
         super.setEventListeners();
         this._buttonDeleteCardInPopup.addEventListener('click', () => {
-            deleteCard();
+            deleteCard(this);
         });
     }
 }

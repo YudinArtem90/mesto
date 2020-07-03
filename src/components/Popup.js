@@ -2,12 +2,14 @@ const ESCAPE_KEY_CODE = 27;
 
 export default class Popup{
     
-    constructor(selector, selectorButtonClose, buttonSave = null){
+    constructor(selector, pageElements){
         
+        const {buttonSaveForm, buttonClosePopup} = pageElements;
+
         this._selector = selector;
         this._popup = document.querySelector(this._selector);
-        this._buttonClose = this._popup.querySelector(selectorButtonClose);
-        this._buttonSave = buttonSave !== null ? this._popup.querySelector(buttonSave) : null;
+        this._buttonClose = this._popup.querySelector(buttonClosePopup);
+        this._buttonSave = this._popup.querySelector(buttonSaveForm);
        
         this.close = this.close.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);

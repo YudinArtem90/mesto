@@ -54,8 +54,7 @@ const api = new Api({
 
 const createPopupEditAvatar = new PopupWithForm(
     pageElements.popupEditAvatar, 
-    pageElements.buttonClosePopup, 
-    pageElements.buttonSavePopupEditAvatar, {
+    pageElements, {
     handleFormSubmit: ({linkCard}) =>{
         api.getData({
             method: 'PATCH',
@@ -75,8 +74,7 @@ createPopupEditAvatar.setEventListeners();
 
 const popupEditProfileForm = new PopupWithForm(
     pageElements.popupEditProfile, 
-    pageElements.buttonClosePopup,
-    pageElements.buttonSavePopupEditProfile, {
+    pageElements, {
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
         api.getData({
@@ -132,15 +130,14 @@ const list = new Section({renderer: (item) => {
         {
             openPopupDeleteCard: (thisCard) => {
                 popupDeleteCard.open();
-                popupDeleteCard.setEventListeners(() => {
+                popupDeleteCard.setEventListeners((thisDeleteCard) => {
                         api.getData({
                                 method: 'DELETE'
                             }, `cards/likes/${thisCard._cardId}`)
                         .then((res) => {
                             thisCard._element.remove();
                             thisCard._element = null;
-                            popupDeleteCard.removeLoader('Да');
-                            popupDeleteCard.close();
+                            thisDeleteCard.close();
                         })
                         .catch((error) => console.log('Ошибка при удалении карточки', error));
             });
@@ -153,8 +150,7 @@ const list = new Section({renderer: (item) => {
 
 const popupAddCard = new PopupWithForm(
     pageElements.popupAddCard, 
-    pageElements.buttonClosePopup,
-    pageElements.buttonSavePopupAddCard, {
+    pageElements, {
     handleFormSubmit: (evt) =>{
         api.getData({
             method: 'POST',
