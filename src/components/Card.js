@@ -1,6 +1,6 @@
 export default class Card{
 
-    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, api ,{handleCardClick}, {addLikeOrDislikeCard}, {openPopupDeleteCard}){
+    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, {handleCardClick}, {addLikeOrDislikeCard}, {openPopupDeleteCard}){
         this._name = name;
         this._link = link;
         this._likes = likes;
@@ -9,18 +9,24 @@ export default class Card{
         this._openPopupDeleteCard = openPopupDeleteCard;
         this._pageElements = pageElements;
         this._cardId = _id;
-        this._api = api;
         this._isLike = true;
         this._ownerId = owner._id;
 
-        const {countLike, modifyClassButtonDeleteCardDeactivation} = this._pageElements;
+        const {
+            countLike, 
+            modifyClassButtonDeleteCardDeactivation,
+            buttonDeleteCard,
+            buttonCardLike,
+            imageCard,
+            textCard
+        } = this._pageElements;
 
         this._element = this._templateCard.firstElementChild.cloneNode(true);
         this._countLike = this._element.querySelector(countLike);
-        this._buttonDeleteCard = this._element.querySelector('.element__button-delete');
-        this._buttonCardLike = this._element.querySelector('.element__button-like');
-        this._image =  this._element.querySelector('.element__image');
-        this._text = this._element.querySelector('.element__text');
+        this._buttonDeleteCard = this._element.querySelector(buttonDeleteCard);
+        this._buttonCardLike = this._element.querySelector(buttonCardLike);
+        this._image =  this._element.querySelector(imageCard);
+        this._text = this._element.querySelector(textCard);
         this._addLikeOrDislikeCard = addLikeOrDislikeCard;
 
         if(this._ownerId !== IDENTIFIER_USER){

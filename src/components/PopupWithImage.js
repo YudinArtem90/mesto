@@ -2,7 +2,7 @@ import Popup from "./Popup";
 
 export default class PopupWithImage extends Popup{
     constructor(pageElements){
-        const {popupViewPhoto, buttonClosePopup, containerPopupViewPhoto, infoPopupViewPhoto} = pageElements;
+        const {popupViewPhoto, containerPopupViewPhoto, infoPopupViewPhoto} = pageElements;
         super(popupViewPhoto, pageElements);
 
         this._popupViewPhoto = document.querySelector(containerPopupViewPhoto);

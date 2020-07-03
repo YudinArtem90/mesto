@@ -62,9 +62,9 @@ const createPopupEditAvatar = new PopupWithForm(
             contentType: 'application/json'
         }, 'users/me/avatar')
             .then((res) => {
-            userInfo.setUserAvatar(res.avatar);
-            createPopupEditAvatar.close();
-            createPopupEditAvatar.removeLoader('Сохранить');
+                userInfo.setUserAvatar(res.avatar);
+                createPopupEditAvatar.close();
+                createPopupEditAvatar.removeLoader('Сохранить');
             })
             .catch((error) => console.log('Ошибка при редактировании аватара', error));
     }
@@ -110,7 +110,7 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, identifierUser, api, {
+    const card = new Card(item, templateCard, pageElements, identifierUser, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         }},
@@ -131,15 +131,15 @@ const list = new Section({renderer: (item) => {
             openPopupDeleteCard: (thisCard) => {
                 popupDeleteCard.open();
                 popupDeleteCard.setEventListeners((thisDeleteCard) => {
-                        api.getData({
-                                method: 'DELETE'
-                            }, `cards/likes/${thisCard._cardId}`)
-                        .then((res) => {
-                            thisCard._element.remove();
-                            thisCard._element = null;
-                            thisDeleteCard.close();
-                        })
-                        .catch((error) => console.log('Ошибка при удалении карточки', error));
+                    api.getData({
+                            method: 'DELETE'
+                        }, `cards/likes/${thisCard._cardId}`)
+                    .then((res) => {
+                        thisCard._element.remove();
+                        thisCard._element = null;
+                        thisDeleteCard.close();
+                    })
+                    .catch((error) => console.log('Ошибка при удалении карточки', error));
             });
         }}
      );
@@ -155,15 +155,15 @@ const popupAddCard = new PopupWithForm(
         api.getData({
             method: 'POST',
             body: { 
-            name: popupAddCardInputName.value,
-            link: popupAddCardInputLink.value
+                name: popupAddCardInputName.value,
+                link: popupAddCardInputLink.value
             },
             contentType: 'application/json'
         }, 'cards')
             .then((res) => {
-            list.renderItems([res]);
-            popupAddCard.close();
-            popupAddCard.removeLoader('Создать');
+                list.renderItems([res]);
+                popupAddCard.close();
+                popupAddCard.removeLoader('Создать');
             })
             .catch((error) => console.log('Ошибка при добавлении карточки', error));
 }});

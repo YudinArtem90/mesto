@@ -4,12 +4,11 @@ export default class Popup{
     
     constructor(selector, pageElements){
         
-        const {buttonSaveForm, buttonClosePopup} = pageElements;
+        const {buttonClosePopup} = pageElements;
 
         this._selector = selector;
         this._popup = document.querySelector(this._selector);
         this._buttonClose = this._popup.querySelector(buttonClosePopup);
-        this._buttonSave = this._popup.querySelector(buttonSaveForm);
        
         this.close = this.close.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);
@@ -30,14 +29,6 @@ export default class Popup{
     setEventListeners(){
         this._popup.addEventListener('mousedown', this._handleOverlayClose);
         this._buttonClose.addEventListener('click', this.close);
-    }
-
-    addLoader(){
-        this._buttonSave.textContent = 'Сохранение...';
-    }
-
-    removeLoader(text){
-        this._buttonSave.textContent = text;
     }
 
     _handleEscClose(event){
