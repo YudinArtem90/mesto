@@ -1,6 +1,6 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {pageElements, IDENTIFIER_USER} from '../utils/data.js';
+import {pageElements} from '../utils/data.js';
 import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -43,6 +43,9 @@ const userInfo = new UserInfo(pageElements);
 const createPopupViewPhoto = new PopupWithImage(pageElements);
 const popupDeleteCard = new PopupDeleteCard(pageElements);
 
+// Идентификатор пользователя
+let identifierUser = '';
+
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1',
     groupId: 'cohort-12',
@@ -54,13 +57,11 @@ const createPopupEditAvatar = new PopupWithForm(
     pageElements.buttonClosePopup, 
     pageElements.buttonSavePopupEditAvatar, {
     handleFormSubmit: ({linkCard}) =>{
-        api.setUrlEditAvatar()
         api.getData({
             method: 'PATCH',
             body: { avatar: linkCard},
             contentType: 'application/json'
-        })
-        api.getPromise()
+        }, 'users/me/avatar')
             .then((res) => {
             userInfo.setUserAvatar(res.avatar);
             createPopupEditAvatar.close();
@@ -78,8 +79,6 @@ const popupEditProfileForm = new PopupWithForm(
     pageElements.buttonSavePopupEditProfile, {
     handleFormSubmit: (data) =>{
         const {informPerson, namePerson} = data;
-
-        api.setUrlEditProfile()
         api.getData({
             method: 'PATCH',
             body: { 
@@ -87,8 +86,7 @@ const popupEditProfileForm = new PopupWithForm(
                 about: informPerson
             },
             contentType: 'application/json'
-        })
-        api.getPromise()
+        }, 'users/me')
             .then((res) => {
                 const {name, about} = res;
                 userInfo.setUserInfo(name, about);
@@ -114,14 +112,38 @@ const fillingOutEditProfileForm = () => {
 popupEditProfileForm.setEventListeners();
 
 const list = new Section({renderer: (item) => {
-    const card = new Card(item, templateCard, pageElements, IDENTIFIER_USER, api, {
+    const card = new Card(item, templateCard, pageElements, identifierUser, api, {
         handleCardClick: (src, name) => {
             createPopupViewPhoto.open(src, name);
         }},
         {
-        handleDeleteCardClick: (deleteCard) => {
-            popupDeleteCard.open();
-            popupDeleteCard.setEventListeners(deleteCard, popupDeleteCard);
+            addLikeOrDislikeCard: (thisCard) => {
+                api.getData({
+                    method: thisCard._isLike ? 'PUT' : 'DELETE'
+                }, `cards/likes/${thisCard._cardId}`)
+                    .then((res) => {
+                        thisCard._countLike.textContent = res.likes.length;
+                        thisCard._buttonCardLike.classList.toggle("element__button-like_action");
+                    })
+                    .catch((error) => console.log('Ошибка при проставлении или удалении лайка', error));
+        
+                thisCard._isLike = !thisCard._isLike;
+        }},
+        {
+            openPopupDeleteCard: (thisCard) => {
+                popupDeleteCard.open();
+                popupDeleteCard.setEventListeners(() => {
+                        api.getData({
+                                method: 'DELETE'
+                            }, `cards/likes/${thisCard._cardId}`)
+                        .then((res) => {
+                            thisCard._element.remove();
+                            thisCard._element = null;
+                            popupDeleteCard.removeLoader('Да');
+                            popupDeleteCard.close();
+                        })
+                        .catch((error) => console.log('Ошибка при удалении карточки', error));
+            });
         }}
      );
 
@@ -134,7 +156,6 @@ const popupAddCard = new PopupWithForm(
     pageElements.buttonClosePopup,
     pageElements.buttonSavePopupAddCard, {
     handleFormSubmit: (evt) =>{
-        api.setUrlGetCards()
         api.getData({
             method: 'POST',
             body: { 
@@ -142,8 +163,7 @@ const popupAddCard = new PopupWithForm(
             link: popupAddCardInputLink.value
             },
             contentType: 'application/json'
-        })
-        api.getPromise()
+        }, 'cards')
             .then((res) => {
             list.renderItems([res]);
             popupAddCard.close();
@@ -166,28 +186,25 @@ const openPopupEditAvatar = () => {
 
 
 const getCards = () => {
-        api.setUrlGetCards()
-        api.getData({})
-        api.getPromise()
-            .then((res) => {
-                list.renderItems(res);
-            })
-            .catch((error) => console.log('Ошибка при первичной загрузке карточек', error));
+    api.getData({}, 'cards')
+        .then((res) => {
+            list.renderItems(res);
+        })
+        .catch((error) => console.log('Ошибка при первичной загрузке карточек', error));
 }
 
 const getUserInfo = () => {
-    api.setUrlEditProfile()
-    api.getData({})
-    api.getPromise()
+    api.getData({}, 'users/me')
         .then((res) => {
-            const {avatar, name, about} = res;
+            const {avatar, name, about, _id} = res;
             userInfo.setUserInfo(name, about);
             userInfo.setUserAvatar(avatar);
+            identifierUser = _id;
+            getCards();
         })
         .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
 }
 
-getCards();
 getUserInfo();
 buttonOpenPopupAddCard.addEventListener('click', openPopupAddCard);
 buttonOpenPopupEditProfileInfo.addEventListener('click', fillingOutEditProfileForm);

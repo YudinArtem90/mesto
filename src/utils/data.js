@@ -1,5 +1,3 @@
-const IDENTIFIER_USER = '192a5b3feb03da51d09ded8e';
-
 const pageElements = {
     form : '.popup__container',
     inputForm: '.popup__field',
@@ -38,4 +36,4 @@ const pageElements = {
     avatar: '.profile__avatar'
   }
 
-  export  { pageElements, IDENTIFIER_USER};
+  export  { pageElements };
