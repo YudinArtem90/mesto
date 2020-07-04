@@ -11,7 +11,7 @@ export default class PopupDeleteCard extends Popup{
     setEventListeners(deleteCard){
         super.setEventListeners();
         this._buttonDeleteCardInPopup.addEventListener('click', () => {
-            deleteCard(this);
-        });
+            deleteCard();
+        }, {once : true});
     }
 }

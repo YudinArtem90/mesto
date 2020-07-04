@@ -1,6 +1,15 @@
 export default class Card{
 
-    constructor({name, link, likes, _id, owner}, template, pageElements, IDENTIFIER_USER, {handleCardClick}, {addLikeOrDislikeCard}, {openPopupDeleteCard}){
+    constructor(
+            {name, link, likes, _id, owner}, 
+            template, 
+            pageElements, 
+            IDENTIFIER_USER, 
+            {handleCardClick}, 
+            {addLikeOrDislikeCard}, 
+            {openPopupDeleteCard}
+            )
+    {
         this._name = name;
         this._link = link;
         this._likes = likes;
@@ -8,8 +17,8 @@ export default class Card{
         this._handleCardClick = handleCardClick;
         this._openPopupDeleteCard = openPopupDeleteCard;
         this._pageElements = pageElements;
-        this._cardId = _id;
-        this._isLike = true;
+        this.cardId = _id;
+        this.isLike = true;
         this._ownerId = owner._id;
 
         const {
@@ -40,6 +49,17 @@ export default class Card{
         this._handleCardClick(
             this._image.src, this._name
         );
+    }
+
+    setLikesInfo(countLike){
+        this._countLike.textContent = countLike;
+        this._buttonCardLike.classList.toggle("element__button-like_action");
+        this.isLike = !this.isLike;
+    }
+
+    removeCard(){
+        this._element.remove();
+        this._element = null;
     }
 
     getCard (){

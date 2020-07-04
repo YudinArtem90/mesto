@@ -56,11 +56,7 @@ const createPopupEditAvatar = new PopupWithForm(
     pageElements.popupEditAvatar, 
     pageElements, {
     handleFormSubmit: ({linkCard}) =>{
-        api.getData({
-            method: 'PATCH',
-            body: { avatar: linkCard},
-            contentType: 'application/json'
-        }, 'users/me/avatar')
+        api.editAvatar(linkCard)
             .then((res) => {
                 userInfo.setUserAvatar(res.avatar);
                 createPopupEditAvatar.close();
@@ -76,15 +72,7 @@ const popupEditProfileForm = new PopupWithForm(
     pageElements.popupEditProfile, 
     pageElements, {
     handleFormSubmit: (data) =>{
-        const {informPerson, namePerson} = data;
-        api.getData({
-            method: 'PATCH',
-            body: { 
-                name: namePerson,
-                about: informPerson
-            },
-            contentType: 'application/json'
-        }, 'users/me')
+        api.editProfileForm(data)
             .then((res) => {
                 const {name, about} = res;
                 userInfo.setUserInfo(name, about);
@@ -115,32 +103,24 @@ const list = new Section({renderer: (item) => {
             createPopupViewPhoto.open(src, name);
         }},
         {
-            addLikeOrDislikeCard: (thisCard) => {
-                api.getData({
-                    method: thisCard._isLike ? 'PUT' : 'DELETE'
-                }, `cards/likes/${thisCard._cardId}`)
-                    .then((res) => {
-                        thisCard._countLike.textContent = res.likes.length;
-                        thisCard._buttonCardLike.classList.toggle("element__button-like_action");
-                    })
-                    .catch((error) => console.log('Ошибка при проставлении или удалении лайка', error));
-        
-                thisCard._isLike = !thisCard._isLike;
+        addLikeOrDislikeCard: (thisCard) => {
+            api.addLikeOrDislikeCard(thisCard.cardId, thisCard.isLike)
+                .then((res) => {
+                    thisCard.setLikesInfo(res.likes.length);
+                })
+                .catch((error) => console.log('Ошибка при проставлении или удалении лайка', error));
         }},
         {
-            openPopupDeleteCard: (thisCard) => {
-                popupDeleteCard.open();
-                popupDeleteCard.setEventListeners((thisDeleteCard) => {
-                    api.getData({
-                            method: 'DELETE'
-                        }, `cards/likes/${thisCard._cardId}`)
+        openPopupDeleteCard: (thisCard) => {
+            popupDeleteCard.open();
+            popupDeleteCard.setEventListeners(() => {
+                api.deleteCard(thisCard.cardId)
                     .then((res) => {
-                        thisCard._element.remove();
-                        thisCard._element = null;
-                        thisDeleteCard.close();
+                        thisCard.removeCard();
+                        popupDeleteCard.close();
                     })
                     .catch((error) => console.log('Ошибка при удалении карточки', error));
-            });
+        });
         }}
      );
 
@@ -152,14 +132,9 @@ const popupAddCard = new PopupWithForm(
     pageElements.popupAddCard, 
     pageElements, {
     handleFormSubmit: (evt) =>{
-        api.getData({
-            method: 'POST',
-            body: { 
-                name: popupAddCardInputName.value,
-                link: popupAddCardInputLink.value
-            },
-            contentType: 'application/json'
-        }, 'cards')
+        api.addCard(
+            popupAddCardInputName.value,
+            popupAddCardInputLink.value)
             .then((res) => {
                 list.renderItems([res]);
                 popupAddCard.close();
@@ -182,7 +157,7 @@ const openPopupEditAvatar = () => {
 
 
 const getCards = () => {
-    api.getData({}, 'cards')
+    api.getCards()
         .then((res) => {
             list.renderItems(res);
         })
@@ -190,15 +165,15 @@ const getCards = () => {
 }
 
 const getUserInfo = () => {
-    api.getData({}, 'users/me')
-        .then((res) => {
-            const {avatar, name, about, _id} = res;
-            userInfo.setUserInfo(name, about);
-            userInfo.setUserAvatar(avatar);
-            identifierUser = _id;
-            getCards();
-        })
-        .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
+        api.getUserInfo()
+            .then((res) => {
+                const {avatar, name, about, _id} = res;
+                userInfo.setUserInfo(name, about);
+                userInfo.setUserAvatar(avatar);
+                identifierUser = _id;
+                getCards();
+            })
+            .catch((error) => console.log('Ошибка при первичной загрузке данных пользователя', error));
 }
 
 getUserInfo();
